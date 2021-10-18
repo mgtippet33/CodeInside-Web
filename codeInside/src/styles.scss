@@ -1,0 +1,22 @@
+@import '~bootstrap/scss/bootstrap';
+.light-green {
+    background-color: #CFF3E4;
+}
+.btn-primary{
+    color: black;
+    background-color: #50E08A;
+    border-color: #50E08A;
+}
+.btn-primary:hover{
+    color: black;
+    background-color: #50e08acb;
+}
+.btn-secondary{
+    color: black;
+    background-color: #FFDC97;
+    border-color: #FFDC97;
+}
+.btn-secondary:hover{
+    color: black;
+    background-color: #ffdc97bd;
+}
