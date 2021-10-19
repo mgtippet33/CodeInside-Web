@@ -11,6 +11,11 @@
     color: black;
     background-color: #50e08acb;
 }
+
+input[type=submit] {
+    color: black;
+    background-color: #ff9100cb;
+}
 .btn-secondary{
     color: black;
     background-color: #FFDC97;
@@ -20,3 +25,6 @@
     color: black;
     background-color: #ffdc97bd;
 }
+* {
+    font-family: Cairo, sans-serif !important; 
+  }

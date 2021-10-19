@@ -6,13 +6,15 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { WelcomePageComponent } from './pages/welcomePage/welcomePage.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MainPageComponent } from './pages/mainPage/mainPage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,

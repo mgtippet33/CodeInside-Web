@@ -6,10 +6,9 @@ import { RegisterComponent } from './pages/register/register.component';
 import { WelcomePageComponent } from './pages/welcomePage/welcomePage.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent, data: {title: 'Main Page', url: '/'}},
+  {path: '', component: WelcomePageComponent, data: {title: 'Welcome Page', url: '/'}},
   {path: 'login', component: LoginComponent, data: {title: 'Login'}},
   {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
-  {path: 'welcome', component: WelcomePageComponent, data: {title: 'Welcome Page'}},
   {path: '**', redirectTo: '/'},
 ];
 
