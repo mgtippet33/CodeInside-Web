@@ -4,23 +4,23 @@
 <div class="customBackground">
     <div class="row">
         <div class="card shadow rounded light-green p-2 me-5 m-5 col">
-            <form  class="mx-auto">
+            <form  [formGroup]="registrationForm" class="mx-auto">
                 <h2 class="maintFont">Create new account</h2>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="inputEmail"  placeholder="Email">
+                  <input type="email" class="form-control" id="inputEmail"  placeholder="Email" name="email" formControlName="email">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="inputUsername"  placeholder="Username">
+                    <input type="text" class="form-control" id="inputUsername"  placeholder="Username" name="username" formControlName="username">
                 </div>
                 <div class="form-group">
-                    <input type="date" class="form-control" id="inputBirthDay"  placeholder="Date of birth">
+                    <input type="date" class="form-control" id="inputBirthDay"  placeholder="Date of birth" name="birthday" formControlName="birthday">
                 </div>
                 <div class="form-group inner-addon right-addon">
                     <div class="input-group mx-auto">
                       <input name="password"
                           [type]="showPassword ? 'text' : 'password'"
                           class="form-control pwd-control"
-                          id="password-field" placeholder="Password">
+                          id="password-field" placeholder="Password" name="password" formControlName="password">
                       <div>
                         <i alt="show" class="far fa-eye eye-show" 
                         (click)="showPassword = !showPassword"

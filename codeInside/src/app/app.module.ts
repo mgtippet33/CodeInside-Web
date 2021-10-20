@@ -7,6 +7,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { WelcomePageComponent } from './pages/welcomePage/welcomePage.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MainPageComponent } from './pages/mainPage/mainPage.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,10 @@ import { MainPageComponent } from './pages/mainPage/mainPage.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
