@@ -19,4 +19,13 @@ export class HttpService {
         };
         return this.http.post(ApiConstants.register_url, body, { 'headers': headers, observe: 'response' });
     }
+
+    loginUser(email: string, password: string) {
+        const headers = { 'content-type': 'application/json' }
+        const body = {
+            email: email,
+            password: password
+        };
+        return this.http.post(ApiConstants.login_url, body, { 'headers': headers, observe: 'response' });
+    }
 }
