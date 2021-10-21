@@ -4,6 +4,7 @@ import { User } from 'src/app/Models/user';
 import { HttpService } from 'src/app/api/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { CommonValidators } from 'src/app/validators/common-validators';
 
 @Component({
     selector: 'register',
@@ -13,11 +14,15 @@ import { formatDate } from '@angular/common';
 })
 
 export class RegisterComponent {
-    public user: User;
-    public registrationForm!: FormGroup;
-    public showPassword: boolean;
-    public showConfirmPassword: boolean;
-    public userClick: boolean = false;
+    user: User;
+    form: FormGroup;
+    email: FormControl;
+    username: FormControl;
+    birthday: FormControl;
+    password: FormControl;
+    confirmPassword: FormControl;
+    showPassword: boolean;
+    showConfirmPassword: boolean;
 
     constructor(private httpService: HttpService, private router: Router) {
         this.showPassword = false;
@@ -25,59 +30,97 @@ export class RegisterComponent {
     }
 
     ngOnInit(): void {
-        this.registrationForm = new FormGroup({
-            email: new FormControl('',
-                [
-                    Validators.required,
-                    Validators.email
-                ]),
-            username: new FormControl('', [
-                Validators.required,
-                Validators.minLength(3)
-            ]),
-            birthday: new FormControl('',
-                // [
-                //   Validators.required,
-                //   Validators.pattern('d{1,2}/\d{1,2}/\d{4}')
-                // ]
-            ),
-            password: new FormControl('',
-                // [
-                //   Validators.required,
-                //   Validators.pattern('^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$')
-                // ]
-            ),
-            confirmPassword: new FormControl(''),
+        this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]);
+        this.username = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, Validators.minLength(3)]);
+        this.birthday = new FormControl('', [ Validators.required, CommonValidators.datePattern]);
+        this.password = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.passwordPattern]);
+        this.confirmPassword = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace]);
+
+        this.form = new FormGroup({
+            Email: this.email,
+            Username: this.username,
+            Birthday: this.birthday,
+            Password: this.password,
+            ConfirmPassword: this.confirmPassword,
         });
     }
 
-    async onRegisterClick(): Promise<void> {
-        this.userClick = true;
-        if (this.registrationForm.valid) {
-            this.user = {
-                email: this.registrationForm.value['email'],
-                username: this.registrationForm.value['username'],
-                birthday: formatDate(this.registrationForm.value['birthday'], 'dd/MM/yyyy', 'en-US'),
-                password: this.registrationForm.value['password'],
-                premium: false,
-                active: true,
-                admin: false,
-                moderator: false,
-                achievement: []
-            };
-            const response = await this.httpService.registerUser(this.user)
-                .toPromise();
-                if (response.status == 201) {
-                    console.log("User successfuly register")
-                    this.router.navigateByUrl('/login');
-                }
-                else {
-                    // TODO - modal view about current email exists in the system   
-                }
-        }
+    onRegisterClick(): void {
+        this.validateForm();
+        if (!this.form?.valid) { return; }
+        // this.user = {
+        //     email: this.form.value['email'],
+        //     username: this.form.value['username'],
+        //     birthday: formatDate(this.form.value['birthday'], 'dd/MM/yyyy', 'en-US'),
+        //     password: this.form.value['password'],
+        //     premium: false,
+        //     active: true,
+        //     admin: false,
+        //     moderator: false,
+        //     achievement: []
+        // };
+        // this.httpService.registerUser(this.user)
+        //     .subscribe(response => {
+        //         if (response.status == 201) {
+        //             console.log("User successfuly register")
+        //             this.router.navigateByUrl('/login');
+        //         }
+        //         else {
+        //             // TODO - modal view about current email exists in the system   
+        //         }
+        //     });
+        console.log(1);
     }
 
     onBackToLoginClick(): void {
         this.router.navigateByUrl('/login');
+    }
+
+    private validateForm(): void {
+        const email = this.form.get('Email');
+        const username = this.form.get('Username');
+        const birthday = this.form.get('Birthday');
+        const password = this.form.get('Password');
+        const confirmPassword = this.form.get('ConfirmPassword');
+
+        if (email.errors?.required || email.errors?.whitespace) {
+            email.setErrors({ ...email.errors, emailRequired: true });
+        }
+
+        if (email.errors?.emailPattern){
+            email.setErrors({ ...email.errors, emailInvalid: true });
+        }
+
+        if (username.errors?.required || username.errors?.whitespace) {
+            username.setErrors({ ...username.errors, usernameRequired: true });
+        }
+
+        if (username.errors?.minlength){
+            username.setErrors({ ...username.errors, usernameInvalid: true });
+        }
+
+        if (birthday.errors?.required) {
+            birthday.setErrors({ ...birthday.errors, birthdayRequired: true });
+        }
+
+        if (birthday.errors?.datePattern){
+            birthday.setErrors({ ...birthday.errors, birthdayInvalid: true });
+        }
+
+        if (password.errors?.required || password.errors?.whitespace) {
+            password.setErrors({ ...password.errors, passwordRequired: true });
+        }
+
+        if (password.errors?.passwordPattern) {
+            password.setErrors({ ...password.errors, passwordInvalid: true });
+        }
+        
+        if (confirmPassword.errors?.required || confirmPassword.errors?.whitespace) {
+            confirmPassword.setErrors({ ...confirmPassword.errors, confirmPasswordRequired: true });
+        }
+     
+        if (confirmPassword.value !== password.value) {
+            confirmPassword.setErrors({ ...confirmPassword.errors, confirmPasswordInvalid: true });
+        }
     }
 }

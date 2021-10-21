@@ -20,6 +20,14 @@ export class CommonValidators {
         return passwordReg.test(control.value) ? null : { passwordPattern: true };
     }
 
+    // Date validation
+    public static datePattern(control: FormControl): ValidationErrors {
+        if (control.value?.trim().length === 0) { return null; }
+        const dateReg = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+        console.log(dateReg.test(control.value));
+        return dateReg.test(control.value) ? null : { datePattern: true };
+    }
+
     public static matchingFieldsValidator(controlName: string, matchingControlName: string): ValidationErrors {
         return (formGroup: FormGroup) => {
             const control = formGroup.controls[controlName];
