@@ -1,50 +1,65 @@
-<link 
-  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
-  rel="stylesheet"  type='text/css'>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
+    type='text/css'>
 <div class="customBackground">
     <div class="row">
         <div class="card shadow rounded light-green p-2 me-5 m-5 col">
-            <form  [formGroup]="registrationForm" class="mx-auto">
+            <form [formGroup]="registrationForm" class="mx-auto">
                 <h2 class="maintFont">Create new account</h2>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="inputEmail"  placeholder="Email" name="email" formControlName="email">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
+                        formControlName="email">
+                    <div class="alert alert-danger" *ngIf="registrationForm.controls['email'].invalid && userClick">
+                        Invalid email address
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="inputUsername"  placeholder="Username" name="username" formControlName="username">
+                    <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username"
+                        formControlName="username">
+                    <div class="alert alert-danger" *ngIf="registrationForm.controls['username'].invalid && userClick">
+                        Invalid username
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="date" class="form-control" id="inputBirthDay"  placeholder="Date of birth" name="birthday" formControlName="birthday">
+                    <input type="date" class="form-control" id="inputBirthDay" placeholder="Date of birth"
+                        name="birthday" formControlName="birthday">
+                    <!-- <div class="alert alert-danger"
+            *ngIf="registrationForm.controls['birthday'].invalid && userClick">
+            Invalid birthday
+          </div> -->
                 </div>
                 <div class="form-group inner-addon right-addon">
                     <div class="input-group mx-auto">
-                      <input name="password"
-                          [type]="showPassword ? 'text' : 'password'"
-                          class="form-control pwd-control"
-                          id="password-field" placeholder="Password" name="password" formControlName="password">
-                      <div>
-                        <i alt="show" class="far fa-eye eye-show" 
-                        (click)="showPassword = !showPassword"
-                        [class.hide]="showPassword"></i>
-                        <i alt="hide" class="far fa-eye-slash eye-hide" 
-                        (click)="showPassword = !showPassword"
-                        [class.hide]="!showPassword"></i>
-                      </div>
+                        <input type="text" [type]="showPassword ? 'text' : 'password'" class="form-control pwd-control"
+                            id="password-field" placeholder="Password" name="password" formControlName="password">
+                        <div>
+                            <i alt="show" class="far fa-eye eye-show" (click)="showPassword = !showPassword"
+                                [class.hide]="showPassword"></i>
+                            <i alt="hide" class="far fa-eye-slash eye-hide" (click)="showPassword = !showPassword"
+                                [class.hide]="!showPassword"></i>
+                        </div>
+                        <!-- <div class="alert alert-danger"
+            *ngIf="registrationForm.controls['password'].invalid && userClick">
+            Must be 8 characters or more, needs at least one number and one letter
+          </div> -->
                     </div>
                 </div>
                 <div class="form-group inner-addon right-addon">
                     <div class="input-group mx-auto">
-                      <input name="confirmPassword"
-                          [type]="showConfirmPassword ? 'text' : 'password'"
-                          class="form-control pwd-control"
-                          id="confirmPassword-field" placeholder="Repeat password">
-                      <div>
-                        <i alt="show" class="far fa-eye eye-show" 
-                        (click)="showConfirmPassword = !showConfirmPassword"
-                        [class.hide-confirm-password]="showConfirmPassword"></i>
-                        <i alt="hide" class="far fa-eye-slash eye-hide" 
-                        (click)="showConfirmPassword = !showConfirmPassword"
-                        [class.hide-confirm-password]="!showConfirmPassword"></i>
-                      </div>
+                        <input name="confirmPassword" [type]="showConfirmPassword ? 'text' : 'password'"
+                            class="form-control pwd-control" id="confirmPassword-field" placeholder="Repeat password"
+                            formControlName="confirmPassword">
+                        <div>
+                            <i alt="show" class="far fa-eye eye-show"
+                                (click)="showConfirmPassword = !showConfirmPassword"
+                                [class.hide-confirm-password]="showConfirmPassword"></i>
+                            <i alt="hide" class="far fa-eye-slash eye-hide"
+                                (click)="showConfirmPassword = !showConfirmPassword"
+                                [class.hide-confirm-password]="!showConfirmPassword"></i>
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="registrationForm.value['password'] != this.registrationForm.value['confirmPassword'] && userClick">
+                            The passwords you entered do not match
+                        </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-5">
@@ -53,11 +68,11 @@
                 <div class="d-flex justify-content-center mt-3 margin-bottom-10">
                     <button class="btn btn-secondary w-75" (click)="onBackToLoginClick()">Back to login</button>
                 </div>
-              </form>
+            </form>
         </div>
         <div class="d-flex justify-content-center mt-3 col">
             <h1 style="margin-top: 5rem;">WELCOME TO<br>CODE INSIDE!</h1>
         </div>
     </div>
-    
+
 </div>
