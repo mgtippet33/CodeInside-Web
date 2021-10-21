@@ -11,12 +11,4 @@ export class MainPageComponent {
     constructor(private router: Router) {
 
     }
-
-    onLoginClick(): void {
-
-    }
-
-    onRegisterClick(): void {
-        this.router.navigateByUrl('/register');
-    }
 }
