@@ -20,7 +20,6 @@ export class CommonValidators {
         return passwordReg.test(control.value) ? null : { passwordPattern: true };
     }
 
-
     public static matchingFieldsValidator(controlName: string, matchingControlName: string): ValidationErrors {
         return (formGroup: FormGroup) => {
             const control = formGroup.controls[controlName];
