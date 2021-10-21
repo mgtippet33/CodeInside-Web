@@ -13,17 +13,13 @@ export class CommonValidators {
         return emailReg.test(control.value) ? null : { emailPattern: true };
     }
 
-    // Phone validation: Must have 10 digits, other characters ignored. Example: 1.23456@7890! is valid
-    public static phonePattern(control: FormControl): ValidationErrors {
-        const totalLength = control.value?.trim().length;
-
-        // Pass as successfull if no value - pattern should not validate if there is no text
-        if (!totalLength || totalLength === 0) { return null; }
-
-        // Require 10 digits - disregard all other values
-        const length = control.value.replace(/[^0-9]/g, '').length;
-        return length === 10 ? null : { phonePattern: true };
+    // Password validation: Minimum eight characters, at least one letter and one number
+    public static passwordPattern(control: FormControl): ValidationErrors {
+        if (control.value?.trim().length === 0) { return null; }
+        const passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        return passwordReg.test(control.value) ? null : { passwordPattern: true };
     }
+
 
     public static matchingFieldsValidator(controlName: string, matchingControlName: string): ValidationErrors {
         return (formGroup: FormGroup) => {

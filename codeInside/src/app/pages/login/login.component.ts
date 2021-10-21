@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
 
     }
     ngOnInit(): void {
-        this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace]);
-        this.password = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace]);
+        this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]);
+        this.password = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.passwordPattern]);
         this.form = new FormGroup({
             Email: this.email,
             Password: this.password,
@@ -40,12 +40,20 @@ export class LoginComponent implements OnInit {
         const password = this.form.get('Password');
 
         if (email.errors?.required || email.errors?.whitespace) {
-            console.log(1);
             email.setErrors({ ...email.errors, emailRequired: true });
+        }
+
+        if (email.errors?.emailPattern){
+            email.setErrors({ ...email.errors, emailValid: true });
         }
 
         if (password.errors?.required || password.errors?.whitespace) {
             password.setErrors({ ...password.errors, passwordRequired: true });
         }
+
+        if (password.errors?.passwordPattern) {
+            password.setErrors({ ...password.errors, passwordValid: true });
+        }
+
     }
 }
