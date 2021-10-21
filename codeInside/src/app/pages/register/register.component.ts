@@ -63,6 +63,9 @@ export class RegisterComponent {
           console.log("User successfuly register")
           this.router.navigateByUrl('/login');
         }
+        else{
+          // TODO - modal view about current email exists in the system   
+        }
       });
     }
   }
