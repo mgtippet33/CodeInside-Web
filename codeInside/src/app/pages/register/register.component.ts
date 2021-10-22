@@ -48,27 +48,27 @@ export class RegisterComponent {
     onRegisterClick(): void {
         this.validateForm();
         if (!this.form?.valid) { return; }
-        // this.user = {
-        //     email: this.form.value['email'],
-        //     username: this.form.value['username'],
-        //     birthday: formatDate(this.form.value['birthday'], 'dd/MM/yyyy', 'en-US'),
-        //     password: this.form.value['password'],
-        //     premium: false,
-        //     active: true,
-        //     admin: false,
-        //     moderator: false,
-        //     achievement: []
-        // };
-        // this.httpService.registerUser(this.user)
-        //     .subscribe(response => {
-        //         if (response.status == 201) {
-        //             console.log("User successfuly register")
-        //             this.router.navigateByUrl('/login');
-        //         }
-        //         else {
-        //             // TODO - modal view about current email exists in the system   
-        //         }
-        //     });
+        this.user = {
+            email: this.form.value['Email'],
+            username: this.form.value['Username'],
+            birthday: formatDate(this.form.value['Birthday'], 'MM/dd/yyyy', 'en-US'),
+            password: this.form.value['Password'],
+            premium: false,
+            active: true,
+            admin: false,
+            moderator: false,
+            achievement: []
+        };
+        this.httpService.registerUser(this.user)
+            .subscribe(response => {
+                if (response.status == 201) {
+                    console.log("User successfuly register")
+                    this.router.navigateByUrl('/login');
+                }
+            },
+            error => {
+                console.log("Current email exists in the system")
+            });
         console.log(1);
     }
 
