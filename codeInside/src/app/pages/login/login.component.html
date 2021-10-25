@@ -5,17 +5,23 @@
                 <h2 class="maintFont">Sign in into your account</h2>
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input class="form-control" id="email" placeholder="Username" [formControl]="email">
-                    <div *ngIf="email.errors?.emailRequired">
-                        <small class="text-danger text-left text-nowrap mt-2">Email is required</small>
+                    <input class="form-control" id="email" placeholder="Email" [formControl]="email">
+                    <div class="mt-0 p-0" *ngIf="email.errors">
+                        <small class="text-danger text-left text-nowrap mt-2"
+                            *ngIf="email.errors?.emailRequired">Email is required</small>
+                        <small class="text-danger text-left text-nowrap mt-2"
+                            *ngIf="email.errors?.emailValid">Email is invalid</small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Password"
                         [formControl]="password">
-                    <div *ngIf="password.errors?.passwordRequired">
-                        <small class="text-danger text-left text-nowrap mt-2">Password is required</small>
+                    <div class="mt-0 p-0" *ngIf="password.errors">
+                        <small class="text-danger text-left text-nowrap mt-2"
+                            *ngIf="password.errors?.passwordRequired">Password is required</small>
+                        <small class="text-danger text-left text-nowrap mt-2"
+                            *ngIf="password.errors?.passwordValid">Password is invalid</small>
                     </div>
                 </div>
                 <div>
