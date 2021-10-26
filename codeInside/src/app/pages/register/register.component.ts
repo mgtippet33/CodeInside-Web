@@ -69,7 +69,6 @@ export class RegisterComponent {
                     // TODO - modal view about current email exists in the system   
                 }
             });
-        console.log(1);
     }
 
     onBackToLoginClick(): void {
