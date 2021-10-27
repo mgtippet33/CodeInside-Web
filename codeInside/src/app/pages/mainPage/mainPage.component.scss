@@ -1,0 +1,22 @@
+.custom-block{
+    border-radius:16px;
+    background:#ffffff;
+    box-shadow:inset -5px -5px 5px 0 rgba(0,0,0,.5), 
+               inset 5px 5px 5px 0 rgba(255,255,255,0.5);
+    text-align:center;
+    color:#333;
+    margin: 20px;
+}
+.solved-block{
+    width: 120px;
+    border-radius:16px;
+    font-size:16px;
+    background-color: #CFF3E4;
+}
+
+.unsolved-block{
+    width: 120px;
+    border-radius:16px;
+    font-size:16px;
+    background-color: #EBF2C2;
+}

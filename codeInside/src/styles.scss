@@ -1,4 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
+$fa-font-path: "../../../node_modules/font-awesome/fonts";
+@import "../node_modules/font-awesome/scss/font-awesome.scss";
+
 .light-green {
     background-color: #CFF3E4;
 }
@@ -6,6 +9,7 @@
     color: black;
     background-color: #50E08A;
     border-color: #50E08A;
+    border-radius: 10px;
 }
 .btn-primary:hover{
     color: black;
@@ -20,6 +24,7 @@ input[type=submit] {
     color: black;
     background-color: #FFDC97;
     border-color: #FFDC97;
+    border-radius: 10px;
 }
 .btn-secondary:hover{
     color: black;
