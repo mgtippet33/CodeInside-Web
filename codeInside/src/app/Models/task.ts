@@ -3,7 +3,7 @@ export class Task{
     public name: string;
     public description: string;
     public complexity: number;
-    public topic_id: number;
+    public topic_name: string;
     public input: string;
     public output: string;
     public solution: string;
