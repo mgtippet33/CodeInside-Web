@@ -49,6 +49,7 @@ export class RegisterComponent {
         this.validateForm();
         if (!this.form?.valid) { return; }
         this.user = {
+            token: null,
             email: this.form.value['email'],
             username: this.form.value['username'],
             birthday: formatDate(this.form.value['birthday'], 'dd/MM/yyyy', 'en-US'),
@@ -57,7 +58,8 @@ export class RegisterComponent {
             active: true,
             admin: false,
             moderator: false,
-            achievement: []
+            achievement: [],
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone.toString()
         };
         this.httpService.registerUser(this.user)
             .subscribe(response => {
