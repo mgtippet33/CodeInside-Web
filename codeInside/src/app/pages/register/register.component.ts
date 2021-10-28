@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/Models/user';
+import { User } from 'src/app/models/user';
 import { HttpService } from 'src/app/api/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -49,15 +49,17 @@ export class RegisterComponent {
         this.validateForm();
         if (!this.form?.valid) { return; }
         this.user = {
-            email: this.form.value['Email'],
-            username: this.form.value['Username'],
-            birthday: formatDate(this.form.value['Birthday'], 'MM/dd/yyyy', 'en-US'),
-            password: this.form.value['Password'],
+            token: null,
+            email: this.form.value['email'],
+            username: this.form.value['username'],
+            birthday: formatDate(this.form.value['birthday'], 'dd/MM/yyyy', 'en-US'),
+            password: this.form.value['password'],
             premium: false,
             active: true,
             admin: false,
             moderator: false,
-            achievement: []
+            achievement: [],
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone.toString()
         };
         this.httpService.registerUser(this.user)
             .subscribe(response => {
