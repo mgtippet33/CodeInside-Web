@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { User } from '../Models/user';
+import { User } from '../models/user';
 import { ApiConstants } from './ApiConstants';
-import { Task } from '../Models/task';
-import { Observable } from 'rxjs/internal/Observable';
-import { Topic } from '../Models/topic';
+import { Task } from '../models/task';
+import { Topic } from '../models/topic';
 
 
 @Injectable()

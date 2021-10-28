@@ -6,10 +6,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { WelcomePageComponent } from './pages/welcomePage/welcomePage.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MainPageComponent } from './pages/mainPage/mainPage.component';
+import { TaskPageComponent } from './pages/taskPage/taskPage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/app-header.component';
+import { RangeSliderControlComponent } from './components/slider/range-slider.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -17,8 +20,9 @@ import { HeaderComponent } from './components/header/app-header.component';
     LoginComponent,
     RegisterComponent,
     WelcomePageComponent,
-    MainPageComponent,
-    HeaderComponent
+    TaskPageComponent,
+    HeaderComponent,
+    RangeSliderControlComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,9 @@ import { HeaderComponent } from './components/header/app-header.component';
     NgbModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSliderModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

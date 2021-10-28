@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import { ControlValueAccessor } from '@angular/forms';
     styleUrls: ['./app-header.component.scss']
 })
 export class HeaderComponent implements ControlValueAccessor {
+    @Input()
+    headerName: string ='';
     writeValue(obj: any): void {
         throw new Error('Method not implemented.');
     }
