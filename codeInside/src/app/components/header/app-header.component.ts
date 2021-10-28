@@ -42,7 +42,7 @@ export class HeaderComponent implements ControlValueAccessor {
     }
 
     onTheoryClick(){
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/theory');
     }
 
     onProfileClick(){

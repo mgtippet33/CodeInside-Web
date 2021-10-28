@@ -49,7 +49,6 @@ export class RegisterComponent {
         this.validateForm();
         if (!this.form?.valid) { return; }
         this.user = {
-            token: null,
             email: this.form.value['email'],
             username: this.form.value['username'],
             birthday: formatDate(this.form.value['birthday'], 'dd/MM/yyyy', 'en-US'),
@@ -66,6 +65,9 @@ export class RegisterComponent {
                 if (response.status == 201) {
                     console.log("User successfuly register")
                     this.router.navigateByUrl('/login');
+                }
+                else {
+                    // TODO - modal view about current email exists in the system   
                 }
             },
             error => {

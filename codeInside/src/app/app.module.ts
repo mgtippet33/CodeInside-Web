@@ -15,6 +15,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { TaskViewPageComponent } from './pages/taskViewPage/taskViewPage.component';
 import {TaskPageComponent} from "./pages/taskPage/taskPage.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     TaskViewPageComponent,
     HeaderComponent,
     RangeSliderControlComponent,
-    TaskPageComponent
+    TaskPageComponent,
+    TheoryViewPageComponent
   ],
   imports: [
     BrowserModule,
