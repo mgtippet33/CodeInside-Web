@@ -3,3 +3,19 @@
     background-repeat: no-repeat;
     background-size: 100% auto;
 }
+
+button{
+    background-color: #592bbd;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+  }
+
+fa-icon{
+    color: white;
+}

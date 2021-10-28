@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
 import { Task } from 'src/app/models/task';
@@ -12,15 +13,18 @@ import { Task } from 'src/app/models/task';
     providers: [HttpService]
 })
 export class TaskViewPageComponent {
+    faLightbulb = faLightbulb;
     title='Task List';
     form: FormGroup;
     sliderValueControl: FormControl;
+    searchValueControl: FormControl;
     sliderOptions: RangeSliderOptions = {
         floor: 1,
         ceil: 5,
         showTicksValues: false,
         ticksArray: [1,2,3,4,5]
     };
+    searchValue = '';
     difficulty = {
         value: 1,
         highValue: 5
@@ -49,9 +53,11 @@ export class TaskViewPageComponent {
     }
 
     ngOnInit(): void {
+        this.searchValueControl = new FormControl(this.searchValue);
         this.sliderValueControl = new FormControl(this.difficulty);
         this.form = new FormGroup({
-            SliderValue: this.sliderValueControl
+            SliderValue: this.sliderValueControl,
+            SearchValueControl: this.searchValueControl
         });
         this.httpService.getTasks().subscribe({
             next: (data: any) => {
@@ -83,6 +89,16 @@ export class TaskViewPageComponent {
 
     onRangeSliderChange(value: any): void {
         this.difficulty = value;
+        this.sortTasks();
+    }
+
+    onSearchFieldChange(value: any){
+        this.searchValue = value;
+        this.sortTasks();
+    }
+
+    private sortTasks(){
         this.sortedTasks = this.tasks.filter(x=>x.complexity>=this.difficulty.value && x.complexity<=this.difficulty.highValue);
+        this.sortedTasks = this.sortedTasks.filter(x=>x.name.indexOf(this.searchValue)!=-1);
     }
 }

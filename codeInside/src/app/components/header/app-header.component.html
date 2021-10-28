@@ -10,22 +10,18 @@
                 <h2>{{headerName}}</h2>
             </div>
             <div class="col d-flex justify-content-end">
-                <svg viewBox="0 0 80 80" width="50" height="50">
-                    <circle class="circle" cx="40" cy="40" r="30"  fill="#6D54A4"/>
-                    <text x="50%" y="50%" text-anchor="middle" dy=".3em">sdd</text>
-                </svg>
-                <svg viewBox="0 0 80 80" width="50" height="50">
-                    <circle class="circle" cx="40" cy="40" r="30"  fill="#6D54A4"/>
-                    <text x="50%" y="50%" text-anchor="middle" dy=".3em">sdd</text>
-                </svg>
-                <svg viewBox="0 0 80 80" width="50" height="50">
-                    <circle class="circle" cx="40" cy="40" r="30"  fill="#6D54A4"/>
-                    <text x="50%" y="50%" text-anchor="middle" dy=".3em">sdd</text>
-                </svg>
-                <svg viewBox="0 0 80 80" width="50" height="50">
-                    <circle class="circle" cx="40" cy="40" r="30"  fill="#6D54A4"/>
-                    <text x="50%" y="50%" text-anchor="middle" dy=".3em">sdd</text>
-                </svg>
+                <button (click)="onAwardClick()">
+                    <fa-icon [icon]="faAward"></fa-icon>
+                </button>
+                <button (click)="onTaskClick()">
+                    <fa-icon [icon]="faTasks"></fa-icon>
+                </button>
+                <button (click)="onTheoryClick()">
+                    <fa-icon [icon]="faBook"></fa-icon>
+                </button>
+                <button (click)="onProfileClick()">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                </button>
             </div>
        </div>
     </header>

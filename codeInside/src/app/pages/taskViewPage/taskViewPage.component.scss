@@ -1,6 +1,6 @@
 .custom-block{
     border-radius:16px;
-    background:#ffffff;
+    background:#f3f7ef;
     box-shadow:inset -5px -5px 5px 0 rgba(0,0,0,.5), 
                inset 5px 5px 5px 0 rgba(255,255,255,0.5);
     text-align:center;
@@ -62,3 +62,8 @@
     background-color: white;
   }
   
+  fa-icon{
+    color: #FFDC97;
+    padding: 2px;
+    size: 8px;
+  }

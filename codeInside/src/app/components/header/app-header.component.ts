@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { faAward, faBook, faTasks, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-header',
@@ -7,8 +10,16 @@ import { ControlValueAccessor } from '@angular/forms';
     styleUrls: ['./app-header.component.scss']
 })
 export class HeaderComponent implements ControlValueAccessor {
+    faAward = faAward;
+    faTasks = faTasks;
+    faBook = faBook;
+    faUser = faUser;
     @Input()
     headerName: string ='';
+
+    constructor(private router: Router){
+
+    }
     writeValue(obj: any): void {
         throw new Error('Method not implemented.');
     }
@@ -22,4 +33,19 @@ export class HeaderComponent implements ControlValueAccessor {
         throw new Error('Method not implemented.');
     }
 
+    onAwardClick(){
+        this.router.navigateByUrl('/');
+    }
+
+    onTaskClick(){
+        this.router.navigateByUrl('/task');
+    }
+
+    onTheoryClick(){
+        this.router.navigateByUrl('/');
+    }
+
+    onProfileClick(){
+        this.router.navigateByUrl('/');
+    }
 }
