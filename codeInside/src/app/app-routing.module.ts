@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: '', component: WelcomePageComponent, data: {title: 'Welcome Page', url: '/'}},
   {path: 'login', component: LoginComponent, data: {title: 'Login'}},
   {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
-  {path: 'taskPage', component: TaskPageComponent, data: {title: 'Task Page'}},
+  {path: 'taskPage/:taskID', component: TaskPageComponent, data: {title: 'Task Page'}},
   {path: 'main', component: MainPageComponent, data: {title: 'Main Page'}},
   {path: '**', redirectTo: '/'},
 ];

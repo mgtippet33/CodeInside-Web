@@ -10,25 +10,26 @@
     </div>
   </div>
 
-  <div class="userMessageBlock">
+  <div class="userMessageBlock" *ngFor="let comment of comments">
     <div class="userTextBlock">
-      <p class="nickname">nickName</p>
-      <p>user text</p>
+      <p class="nickname">{{comment.username}}</p>
+      <p>{{comment.message}}</p>
     </div>
     <div class="user_image"></div>
   </div>
 
-  <div class="userMessageBlock">
+  <!-- <div class="userMessageBlock">
     <div class="userTextBlock">
       <p class="nickname">nickName</p>
       <p>user text</p>
     </div>
     <div class="user_image"></div>
-  </div>
+  </div> -->
 
   <div class="addComment">
-    <input type="text" placeholder="Add comment">
-    <button>
+    <input type="text" placeholder="Add comment" [formControl]="messageValueControl"
+    [(ngModel)]="message">
+    <button (click)="addComment()">
       <fa-icon [icon]="faLocationArrow"></fa-icon>
     </button>
   </div>
