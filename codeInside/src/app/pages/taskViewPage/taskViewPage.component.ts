@@ -6,12 +6,12 @@ import { RangeSliderOptions } from 'src/app/components/slider/range-slider.compo
 import { Task } from 'src/app/models/task';
 
 @Component({
-    selector: 'task',
-    templateUrl: './taskPage.component.html',
-    styleUrls: ['./taskPage.component.scss'],
+    selector: 'taskView',
+    templateUrl: './taskViewPage.component.html',
+    styleUrls: ['./taskViewPage.component.scss'],
     providers: [HttpService]
 })
-export class TaskPageComponent {
+export class TaskViewPageComponent {
     title='Task List';
     form: FormGroup;
     sliderValueControl: FormControl;

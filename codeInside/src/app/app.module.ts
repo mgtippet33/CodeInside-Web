@@ -6,13 +6,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { WelcomePageComponent } from './pages/welcomePage/welcomePage.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TaskPageComponent } from './pages/taskPage/taskPage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/app-header.component';
 import { RangeSliderControlComponent } from './components/slider/range-slider.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TaskViewPageComponent } from './pages/taskViewPage/taskViewPage.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     LoginComponent,
     RegisterComponent,
     WelcomePageComponent,
-    TaskPageComponent,
+    TaskViewPageComponent,
     HeaderComponent,
     RangeSliderControlComponent
   ],
