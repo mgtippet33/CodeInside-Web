@@ -13,6 +13,8 @@ import { RangeSliderControlComponent } from './components/slider/range-slider.co
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TaskViewPageComponent } from './pages/taskViewPage/taskViewPage.component';
+import {TaskPageComponent} from "./pages/taskPage/taskPage.component";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { TaskViewPageComponent } from './pages/taskViewPage/taskViewPage.compone
     WelcomePageComponent,
     TaskViewPageComponent,
     HeaderComponent,
-    RangeSliderControlComponent
+    RangeSliderControlComponent,
+    TaskPageComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { TaskViewPageComponent } from './pages/taskViewPage/taskViewPage.compone
     FormsModule,
     ReactiveFormsModule,
     NgxSliderModule,
-    NgSelectModule
+    NgSelectModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

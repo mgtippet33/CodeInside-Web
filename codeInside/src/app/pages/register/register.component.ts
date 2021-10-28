@@ -67,10 +67,11 @@ export class RegisterComponent {
                     console.log("User successfuly register")
                     this.router.navigateByUrl('/login');
                 }
-                else {
-                    // TODO - modal view about current email exists in the system   
-                }
+            },
+            error => {
+                console.log("Current email exists in the system")
             });
+        console.log(1);
     }
 
     onBackToLoginClick(): void {
