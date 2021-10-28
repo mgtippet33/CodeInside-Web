@@ -1,0 +1,81 @@
+h3 {
+  font-weight: 25;
+  text-align: center;
+}
+
+.background {
+  background-color: #EEF3FF;
+  overflow-y: scroll;
+  width: 80%;
+  height: 400px;
+  margin: 0 auto;
+  padding: 10px 40px;
+}
+
+.messageBlock{
+  display: flex;
+}
+
+.userMessageBlock{
+  display: flex;
+  justify-content: right;
+}
+
+.nickname{
+  font-size: 14px;
+  color: #27335B;
+  margin-bottom: 5px;
+}
+
+.user_image{
+  height: 50px;
+  width: 50px;
+  background: #C4C4C4;
+  border-radius: 50%;
+}
+
+.textBlock{
+  width: 60%;
+  background: white;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 10px 40px;
+}
+
+.userTextBlock{
+  width: 60%;
+  background-color: #CFF3E4;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 10px 40px;
+}
+
+.addComment {
+  padding: 10px 30px;
+  border-radius: 10px 10px 10px 10px;
+  width: 80%;
+  background-color: white;
+  margin: 40px auto 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+input{
+  border: none;
+  width: 90%;
+}
+
+button{
+  background-color: #592bbd;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+fa-icon{
+  color: white;
+}
