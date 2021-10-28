@@ -9,9 +9,9 @@ import { Task } from 'src/app/Models/task';
 })
 export class MainPageComponent {
     tasks: Array<Task> =[
-        { name: '1', description: '1', complexity: 4, solved: true} as Task,        
-        { name: '2', description: '2', complexity: 2, solved: true} as Task,
-        { name: '3', description: '3', complexity: 3, solved: false} as Task
+        { name: 'Task 1', description: 'Description 1', complexity: 4, solved: true} as Task,        
+        { name: 'Task 2', description: 'Description 2', complexity: 2, solved: true} as Task,
+        { name: 'Task 3', description: 'Description 3', complexity: 3, solved: false} as Task
     ];
 
     solved: boolean = false; 
