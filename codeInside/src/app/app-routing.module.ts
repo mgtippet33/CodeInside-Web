@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MainPageComponent } from './pages/mainPage/mainPage.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { TopicPageComponent } from './pages/topic-page/topic-page.component';
 import { WelcomePageComponent } from './pages/welcomePage/welcomePage.component';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, data: {title: 'Login'}},
   {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   {path: 'main', component: MainPageComponent, data: {title: 'Main Page'}},
+  {path: 'topic/:id', component: TopicPageComponent, data: {title: 'Topic Page'}},
   {path: '**', redirectTo: '/'},
 ];
 

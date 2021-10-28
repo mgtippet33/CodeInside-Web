@@ -10,6 +10,7 @@ import { MainPageComponent } from './pages/mainPage/mainPage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/app-header.component';
+import { TopicPageComponent } from './pages/topic-page/topic-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HeaderComponent } from './components/header/app-header.component';
     RegisterComponent,
     WelcomePageComponent,
     MainPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    TopicPageComponent
   ],
   imports: [
     BrowserModule,

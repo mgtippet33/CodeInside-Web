@@ -86,7 +86,7 @@ export class HttpService {
     }
 
     getTopics(topicID: number=null) {
-        var url = ApiConstants.task_url
+        var url = ApiConstants.topic_url
         if(topicID != null) {
             url += topicID.toString() + "/"
         }
