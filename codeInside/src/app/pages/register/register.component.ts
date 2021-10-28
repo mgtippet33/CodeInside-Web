@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/Models/user';
+import { User } from 'src/app/models/user';
 import { HttpService } from 'src/app/api/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -57,7 +57,8 @@ export class RegisterComponent {
             active: true,
             admin: false,
             moderator: false,
-            achievement: []
+            achievement: [],
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone.toString()
         };
         this.httpService.registerUser(this.user)
             .subscribe(response => {
@@ -68,6 +69,9 @@ export class RegisterComponent {
                 else {
                     // TODO - modal view about current email exists in the system   
                 }
+            },
+            error => {
+                console.log("Current email exists in the system")
             });
         console.log(1);
     }

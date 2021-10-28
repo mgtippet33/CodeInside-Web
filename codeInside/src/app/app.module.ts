@@ -6,9 +6,16 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { WelcomePageComponent } from './pages/welcomePage/welcomePage.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MainPageComponent } from './pages/mainPage/mainPage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/app-header.component';
+import { RangeSliderControlComponent } from './components/slider/range-slider.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { TaskViewPageComponent } from './pages/taskViewPage/taskViewPage.component';
+import {TaskPageComponent} from "./pages/taskPage/taskPage.component";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +23,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     RegisterComponent,
     WelcomePageComponent,
-    MainPageComponent
+    TaskViewPageComponent,
+    HeaderComponent,
+    RangeSliderControlComponent,
+    TaskPageComponent,
+    TheoryViewPageComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +35,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSliderModule,
+    NgSelectModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

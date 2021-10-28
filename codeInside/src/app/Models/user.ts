@@ -8,4 +8,5 @@ export class User {
     public admin: boolean;
     public moderator: boolean;
     public achievement: any[];
+    public timezone: string;
 }

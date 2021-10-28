@@ -1,0 +1,28 @@
+<div class="background">
+    <header>
+        <div class="row d-flex align-content-center mx-2">
+            <div class="col d-flex justify-content-start">
+                <figure>
+                    <img src="pictures/logo.svg">
+                </figure>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <h2>{{headerName}}</h2>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <button (click)="onAwardClick()">
+                    <fa-icon [icon]="faAward"></fa-icon>
+                </button>
+                <button (click)="onTaskClick()">
+                    <fa-icon [icon]="faTasks"></fa-icon>
+                </button>
+                <button (click)="onTheoryClick()">
+                    <fa-icon [icon]="faBook"></fa-icon>
+                </button>
+                <button (click)="onProfileClick()">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                </button>
+            </div>
+       </div>
+    </header>
+</div>
