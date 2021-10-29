@@ -67,7 +67,7 @@ export class TaskViewPageComponent {
                     var task = new Task()
                     task.task_id = data[i]['id'] as number
                     task.name = data[i]['name']
-                    task.description = data[i]['desc']
+                    task.description = data[i]['desc'].substring(0, 100) + '...'
                     task.complexity = data[i]['complexity']
                     task.topic_name = data[i]['topic__name']
                     task.input = data[i]['input']
