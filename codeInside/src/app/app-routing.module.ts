@@ -16,9 +16,8 @@ const routes: Routes = [
 
   {path: 'task', component: TaskViewPageComponent, data: {title: 'Task Page'}},
   {path: 'theory', component: TheoryViewPageComponent, data: {title: 'Theory Page'}},
-  {path: 'taskPage/:taskID', component: TaskPageComponent, data: {title: 'Task Page'}},
+  {path: 'task/:taskID', component: TaskPageComponent, data: {title: 'Task Page'}},
   {path: 'theory/:id', component: TopicPageComponent, data: {title: 'Topic Page'}},
-  {path: '**', redirectTo: '/'},
 ];
 
 @NgModule({

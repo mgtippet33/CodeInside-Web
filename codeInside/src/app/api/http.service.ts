@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { User } from '../models/user';
+import { User } from 'src/app/Models/user';
 import { Comment } from '../Models/comment';
 import { ApiConstants } from './ApiConstants';
-import { Task } from '../models/task';
-import { Topic } from '../models/topic';
+import { Task } from 'src/app/Models/task';
+import { Topic } from 'src/app/Models/topic';
 
 @Injectable()
 export class HttpService {

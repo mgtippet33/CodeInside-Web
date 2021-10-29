@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
-import { Task } from 'src/app/models/task';
+import { Task } from 'src/app/Models/task';
 
 @Component({
     selector: 'taskView',

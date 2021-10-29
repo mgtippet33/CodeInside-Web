@@ -3,8 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
-import { Task } from 'src/app/models/task';
-import { Theory } from 'src/app/models/theory.model';
+import { Task } from 'src/app/Models/task';
+import { Theory } from 'src/app/Models/theory.model';
 
 @Component({
     selector: 'theoryView',
