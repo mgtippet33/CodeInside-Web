@@ -17,7 +17,8 @@ export class HttpService {
             email: user.email,
             name: user.username,
             birthday: user.birthday,
-            password: user.password
+            password: user.password,
+            time_zone: user.timezone
         };
         return this.http.post(ApiConstants.register_url, body, { 'headers': headers, observe: 'response' });
     }
