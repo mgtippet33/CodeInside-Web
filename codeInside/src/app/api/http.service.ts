@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { User } from '../models/user';
+import { Comment } from '../Models/comment';
 import { ApiConstants } from './ApiConstants';
 import { Task } from '../models/task';
 import { Topic } from '../models/topic';
@@ -105,6 +106,26 @@ export class HttpService {
     deleteTopic(token: string, topicID: number) {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
         var url = ApiConstants.topic_url + topicID.toString() + "/"
+    }
+
+    createComment(token: string, task_name: string, message: string) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        const body = {
+            task: task_name,
+            message: message,
+        };
+        return this.http.post(ApiConstants.comment_url, body, { 'headers': headers, observe: 'response' });
+    }
+
+    getComments(token: string, taskID: number) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        var url = ApiConstants.comment_url + taskID.toString() + "/"
+        return this.http.get(url, { 'headers': headers, observe: 'response' });
+    }
+
+    deleteComment(token: string, commentID: number) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        var url = ApiConstants.comment_url + commentID.toString() + "/"
         return this.http.delete(url, { 'headers': headers, observe: 'response' });
     }
 }

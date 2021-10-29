@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   {path: 'task', component: TaskViewPageComponent, data: {title: 'Task Page'}},
   {path: 'theory', component: TheoryViewPageComponent, data: {title: 'Theory Page'}},
-  {path: 'taskPage', component: TaskPageComponent, data: {title: 'Task Page'}},
+  {path: 'taskPage/:taskID', component: TaskPageComponent, data: {title: 'Task Page'}},
   {path: '**', redirectTo: '/'},
 ];
 
