@@ -1,0 +1,67 @@
+figure{
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 28px;
+    margin-top: 11px;
+    background: #6D54A4;
+    line-height: 1.7em;
+    
+}
+
+figure img{
+   display:inline-block;
+   width: 25px;
+   height: auto;
+}
+
+text{
+    text-align: center;
+}
+
+
+.container-1 {
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  
+  .container-2 {
+    display: flex;
+  }
+  
+  .container-2 {
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .container-1 div, .container-2 div {
+    padding: 10px;
+ 
+  }
+  
+  .box-1 {
+    flex: 1;
+    order: 1;
+  }
+  
+  .box-2 {
+    flex: 2;
+    order: 2;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .box-3 {
+    flex: 1;
+    order: 3;
+  }
+  
+  .box {
+    flex-basis: 80%;
+  }

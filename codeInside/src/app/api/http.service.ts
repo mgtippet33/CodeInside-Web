@@ -6,7 +6,6 @@ import { ApiConstants } from './ApiConstants';
 import { Task } from '../models/task';
 import { Topic } from '../models/topic';
 
-
 @Injectable()
 export class HttpService {
 

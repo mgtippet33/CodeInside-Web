@@ -16,6 +16,7 @@ import { TaskViewPageComponent } from './pages/taskViewPage/taskViewPage.compone
 import {TaskPageComponent} from "./pages/taskPage/taskPage.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
+import { TopicPageComponent } from './pages/topic-page/topic-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.c
     HeaderComponent,
     RangeSliderControlComponent,
     TaskPageComponent,
-    TheoryViewPageComponent
+    TheoryViewPageComponent,
+    HeaderComponent,
+    TopicPageComponent
   ],
   imports: [
     BrowserModule,
