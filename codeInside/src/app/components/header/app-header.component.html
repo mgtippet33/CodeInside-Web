@@ -1,11 +1,21 @@
 <div class="customBackground">
     <header>
         <div class="row d-flex align-content-center mx-2">
-            <div class="col d-flex justify-content-start">
-                <figure>
-                    <img src="assets/img/logo.png" alt="logo"/>
-                </figure>
-            </div>
+            <div *ngIf="navbarWithLogo;then withLogo else withoutLogo"></div>
+            <ng-template #withLogo>
+                <div class="col d-flex justify-content-start">
+                    <figure>
+                        <img src="assets/img/logo.png" alt="logo" />
+                    </figure>
+                </div>
+            </ng-template>
+            <ng-template #withoutLogo>
+                <div class="col d-flex justify-content-start">
+                    <button (click)="onArrowLeftClick()">
+                        <fa-icon [icon]="faArrowLeft"></fa-icon>
+                    </button>
+                </div>
+            </ng-template>
             <div class="col d-flex justify-content-center">
                 <h2>{{headerName}}</h2>
             </div>
@@ -23,6 +33,6 @@
                     <fa-icon [icon]="faUser"></fa-icon>
                 </button>
             </div>
-       </div>
+        </div>
     </header>
 </div>

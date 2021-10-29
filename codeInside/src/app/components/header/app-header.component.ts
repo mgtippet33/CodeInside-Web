@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { faAward, faBook, faTasks, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAward, faBook, faTasks, faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-header',
@@ -14,8 +14,14 @@ export class HeaderComponent implements ControlValueAccessor {
     faTasks = faTasks;
     faBook = faBook;
     faUser = faUser;
+    faArrowLeft = faArrowLeft;
+
     @Input()
     headerName: string ='';
+    @Input()
+    navbarWithLogo: boolean = true
+    @Input()
+    backUrl: string = ""
 
     constructor(private router: Router){
 
@@ -31,6 +37,17 @@ export class HeaderComponent implements ControlValueAccessor {
     }
     setDisabledState?(isDisabled: boolean): void {
         throw new Error('Method not implemented.');
+    }
+
+    onArrowLeftClick() {
+        if(this.backUrl == "task") {
+            this.onTaskClick();
+            return
+        }
+        if(this.backUrl == "theory") {
+            this.onTheoryClick();
+            return
+        }
     }
 
     onAwardClick(){

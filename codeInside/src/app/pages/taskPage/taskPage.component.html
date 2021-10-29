@@ -1,3 +1,4 @@
+<app-header [headerName]="taskName" [navbarWithLogo]="false" [backUrl]="backUrl"></app-header>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
     type='text/css'>
 <h3>Discussion</h3>
@@ -29,7 +30,7 @@
   <div class="addComment">
     <input type="text" placeholder="Add comment" [formControl]="messageValueControl"
     [(ngModel)]="message">
-    <button (click)="addComment()">
+    <button (click)="onAddComment()">
       <fa-icon [icon]="faLocationArrow"></fa-icon>
     </button>
   </div>

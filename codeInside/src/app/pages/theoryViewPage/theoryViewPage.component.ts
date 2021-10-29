@@ -45,11 +45,33 @@ export class TheoryViewPageComponent {
         this.form = new FormGroup({
             SearchValueControl: this.searchValueControl
         });
-        
+        this.httpService.getTheory().subscribe({
+            next: (data: any) => {
+                data = data['data']
+                var theoretics = new Array<Theory>(data.length)
+                for(var i = 0; i < data.length; ++i) {
+                    var theory = new Theory()
+                    theory.theory_id = data[i]['id'] as number
+                    theory.name = data[i]['name']
+                    theory.description = data[i]['desc'].substring(0, 100) + '...'
+                    theoretics[i] = theory
+                }
+                this.theory = theoretics
+                this.sortedTheory = theoretics
+            },
+            error: (error: any) => {
+                
+                console.error('There was an error!', error);
+            }
+        });
     }
 
     onSearchFieldChange(value: any){
         this.searchValue = value;
         this.sortedTheory = this.theory.filter(x=>x.name.indexOf(this.searchValue)!=-1);
+    }
+
+    onReadTheory(theory_id: number) {
+        this.router.navigateByUrl(`/theory/${theory_id}`)
     }
 }

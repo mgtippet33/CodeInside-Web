@@ -61,7 +61,6 @@ export class TaskViewPageComponent {
         });
         this.httpService.getTasks().subscribe({
             next: (data: any) => {
-                console.log(data)
                 data = data['data']
                 var tasks = new Array<Task>(data.length)
                 for(var i = 0; i < data.length; ++i) {
@@ -100,5 +99,9 @@ export class TaskViewPageComponent {
     private sortTasks(){
         this.sortedTasks = this.tasks.filter(x=>x.complexity>=this.difficulty.value && x.complexity<=this.difficulty.highValue);
         this.sortedTasks = this.sortedTasks.filter(x=>x.name.indexOf(this.searchValue)!=-1);
+    }
+
+    onSolveTask(task_id: number) {
+        this.router.navigateByUrl(`/task/${task_id}`)
     }
 }

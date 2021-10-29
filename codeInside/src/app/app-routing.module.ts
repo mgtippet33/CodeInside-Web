@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { TaskViewPageComponent } from './pages/taskViewPage/taskViewPage.component';
-import { TopicPageComponent } from './pages/topic-page/topic-page.component';
+import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
 import { WelcomePageComponent } from './pages/welcomePage/welcomePage.component';
 import {TaskPageComponent} from "./pages/taskPage/taskPage.component";
 import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'task', component: TaskViewPageComponent, data: {title: 'Task Page'}},
   {path: 'theory', component: TheoryViewPageComponent, data: {title: 'Theory Page'}},
   {path: 'task/:taskID', component: TaskPageComponent, data: {title: 'Task Page'}},
-  {path: 'theory/:id', component: TopicPageComponent, data: {title: 'Topic Page'}},
+  {path: 'theory/:id', component: TheoryPageComponent, data: {title: 'Theory Page'}},
 ];
 
 @NgModule({

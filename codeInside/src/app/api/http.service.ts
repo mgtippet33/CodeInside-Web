@@ -4,12 +4,11 @@ import { User } from 'src/app/Models/user';
 import { Comment } from '../Models/comment';
 import { ApiConstants } from './ApiConstants';
 import { Task } from 'src/app/Models/task';
-import { Topic } from 'src/app/Models/topic';
+import { Theory } from 'src/app/Models/theory.model';
 
 @Injectable()
 export class HttpService {
 
-    testToken: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InJvb3RAcm9vdC5jb20iLCJleHAiOjE2MzUzNDAxOTIsImVtYWlsIjoicm9vdEByb290LmNvbSJ9.-5bg1FVf9v7E-NSV44igwlzTqnPLBvYCjXxoU6yyCLc";
     constructor(private http: HttpClient) { }
 
     registerUser(user: User) {
@@ -75,36 +74,36 @@ export class HttpService {
         return this.http.delete(url, { 'headers': headers, observe: 'response' });
     }
 
-    createTopic(token: string, topic: Topic) {
+    createTheory(token: string, theory: Theory) {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
         const body = {
-            name: topic.name,
-            desc: topic.description,
+            name: theory.name,
+            desc: theory.description,
         };
-        return this.http.post(ApiConstants.topic_url, body, { 'headers': headers, observe: 'response' });
+        return this.http.post(ApiConstants.theory_url, body, { 'headers': headers, observe: 'response' });
     }
 
-    getTopics(topicID: number=null) {
-        var url = ApiConstants.task_url
-        if(topicID != null) {
-            url += topicID.toString() + "/"
+    getTheory(theoryID: number=null) {
+        var url = ApiConstants.theory_url
+        if(theoryID != null) {
+            url += theoryID.toString() + "/"
         }
         return this.http.get(url);
     }
 
-    updateTopic(token: string, topic: Topic) {
+    updateTheory(token: string, theory: Theory) {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
         const body = {
-            name: topic.name,
-            desc: topic.description,
+            name: theory.name,
+            desc: theory.description,
         };
-        var url = ApiConstants.topic_url + topic.id.toString() + "/"
+        var url = ApiConstants.theory_url + theory.theory_id.toString() + "/"
         return this.http.put(url, body, { 'headers': headers, observe: 'response' });
     }
 
-    deleteTopic(token: string, topicID: number) {
+    deleteTheory(token: string, theoryID: number) {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
-        var url = ApiConstants.topic_url + topicID.toString() + "/"
+        var url = ApiConstants.theory_url + theoryID.toString() + "/"
     }
 
     createComment(token: string, task_name: string, message: string) {

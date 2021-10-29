@@ -19,12 +19,14 @@ import { ActivatedRoute } from '@angular/router';
 export class TaskPageComponent {
   faLocationArrow = faLocationArrow;
 
+  title: string
   form: FormGroup
   messageValueControl: FormControl
   token: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InJvb3RAcm9vdC5jb20iLCJleHAiOjE2MzU1Mzk2MDIsImVtYWlsIjoicm9vdEByb290LmNvbSJ9.m76CeSVGuGMzitf98skgVMT53WEiLEYjZKAzQR5YROQ"
   comments: Array<Comment>
   message: string
   taskName: string
+  backUrl: string = 'task'
 
   constructor(private httpService: HttpService, private router: Router,
     private route: ActivatedRoute) {}
@@ -38,7 +40,6 @@ export class TaskPageComponent {
 
     this.route.params.subscribe((params: { [x: string]: string; }) => {
       const taskID = Number.parseInt(params['taskID']);
-      var taskName: string
       this.httpService.getTasks(taskID).subscribe(
         (data: any) => {
           this.taskName = data['data']['name']
@@ -72,12 +73,15 @@ export class TaskPageComponent {
   onMessageFieldChange(value: any) {
     this.message = value
   }
-  addComment() {
-    console.log(this.message)
+  onAddComment() {
     this.httpService.createComment(this.token, this.taskName, this.message).subscribe(
-      (data:any) => console.log(data)
+      (data:any) => {
+        if(data['status'] == 201) {
+          console.log("Comment create successfully")
+          this.message = ""
+          this.ngOnInit()
+        }
+      }
     )
-    this.message = ""
-    this.ngOnInit()
   }
 }

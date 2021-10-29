@@ -41,7 +41,7 @@
             <h6 class="text-justify ml-2">{{task.description}}</h6>
         </div>
         <div class="col-4">
-            <button type="button" class="btn btn-primary w-50 mb-3">Solve</button>
+            <button type="button" class="btn btn-primary w-50 mb-3" (click)="onSolveTask(task.task_id)">Solve</button>
         </div>
     </div>
 </div>

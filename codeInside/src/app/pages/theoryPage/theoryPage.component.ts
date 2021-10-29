@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from 'src/app/api/http.service';
-import { Topic } from 'src/app/Models/topic';
+import { Theory } from 'src/app/Models/theory.model';
 
 @Component({
-  selector: 'app-topic-page',
-  templateUrl: './topic-page.component.html',
-  styleUrls: ['./topic-page.component.scss'],
+  selector: 'theoryPage',
+  templateUrl: './theoryPage.component.html',
+  styleUrls: ['./theoryPage.component.scss'],
   providers: [HttpService]
 })
-export class TopicPageComponent implements OnInit {
+export class TheoryPageComponent implements OnInit {
 
-  topic: Topic
+  theory: Theory
+  backUrl: string = "theory"
 
   constructor(private httpService: HttpService, private router: Router,
     private route: ActivatedRoute) { }
@@ -20,13 +21,12 @@ export class TopicPageComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = Number.parseInt(params['id']);
       console.log(id)
-      this.httpService.getTopics(id).subscribe(
+      this.httpService.getTheory(id).subscribe(
         {
           next: (data: any) => {   
-            console.log(data)
             data = data["data"]    
-            this.topic = {
-              id: id,
+            this.theory = {
+              theory_id: id,
               name: data["name"],
               description: data["desc"]
             }
