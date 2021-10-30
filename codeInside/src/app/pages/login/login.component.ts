@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonValidators } from 'src/app/validators/common-validators';
 import { HttpService } from 'src/app/api/http.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Component({
     selector: 'login',
@@ -34,14 +36,29 @@ export class LoginComponent implements OnInit {
             .subscribe(response => {
                 if (response.status == 200) {
                     console.log("User successfuly login")
-                    this.router.navigateByUrl('/main');
+                    this.router.navigateByUrl('/task');
                 }
-                else if(response.status == 403) {
-                    console.log("User is banned")   
+            },
+            error => {
+                if (error instanceof HttpErrorResponse) {
+                    if (error.error instanceof ErrorEvent) {
+                        console.error("Error Event");
+                    } else {
+                        console.log(`error status : ${error.status} ${error.statusText}`);
+                        switch (error.status) {
+                            case 404:
+                                console.log("No user with this email and password was found")
+                                break;
+                            case 403:
+                                console.log("User is banned")   
+                                break;
+                        }
+                    } 
+                } else {
+                    console.error("some thing else happened");
                 }
-                else {
-                    console.log("Other error")
-                }
+                return throwError(error)
+                
             });
     }
 
