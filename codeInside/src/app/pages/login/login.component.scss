@@ -1,8 +1,11 @@
-h1{
-    font-weight: 25;
+h1 {
+  font-weight: 25;
 }
-.customBackground{
-    background-image: url('./pictures/background.svg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+
+.customBackground {
+  background-image: url('./pictures/background.svg');
+  background-repeat: no-repeat;
+  background-size:  90% 100%;
+  background-position: right bottom;
+  height: 99vh;
 }

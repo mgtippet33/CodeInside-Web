@@ -1,0 +1,38 @@
+<div class="customBackground">
+    <header>
+        <div class="row d-flex align-content-center mx-2">
+            <div *ngIf="navbarWithLogo;then withLogo else withoutLogo"></div>
+            <ng-template #withLogo>
+                <div class="col d-flex justify-content-start">
+                    <figure>
+                        <img src="assets/img/logo.png" alt="logo" />
+                    </figure>
+                </div>
+            </ng-template>
+            <ng-template #withoutLogo>
+                <div class="col d-flex justify-content-start">
+                    <button (click)="onArrowLeftClick()">
+                        <fa-icon [icon]="faArrowLeft"></fa-icon>
+                    </button>
+                </div>
+            </ng-template>
+            <div class="col d-flex justify-content-center">
+                <h2>{{headerName}}</h2>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <button (click)="onAwardClick()">
+                    <fa-icon [icon]="faAward"></fa-icon>
+                </button>
+                <button (click)="onTaskClick()">
+                    <fa-icon [icon]="faTasks"></fa-icon>
+                </button>
+                <button (click)="onTheoryClick()">
+                    <fa-icon [icon]="faBook"></fa-icon>
+                </button>
+                <button (click)="onProfileClick()">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                </button>
+            </div>
+        </div>
+    </header>
+</div>

@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
             .subscribe(response => {
                 if (response.status == 200) {
                     console.log("User successfuly login")
-                    this.router.navigateByUrl('/main');
+                    this.router.navigateByUrl('/task');
                 }
             },
             error => {

@@ -49,6 +49,7 @@ export class RegisterComponent {
         this.validateForm();
         if (!this.form?.valid) { return; }
         this.user = {
+            token: null,
             email: this.form.value['Email'],
             username: this.form.value['Username'],
             birthday: formatDate(this.form.value['Birthday'], 'MM/dd/yyyy', 'en-US'),
@@ -57,17 +58,18 @@ export class RegisterComponent {
             active: true,
             admin: false,
             moderator: false,
-            achievement: []
+            achievement: [],
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone.toString()
         };
         this.httpService.registerUser(this.user)
-            .subscribe(response => {
-                if (response.status == 201) {
+            .subscribe((data: any) =>{
+                if (data['status'] as number == 201) {
                     console.log("User successfuly register")
                     this.router.navigateByUrl('/login');
                 }
-            },
-            error => {
-                console.log("Current email exists in the system")
+                else {
+                    // TODO - modal view about current email exists in the system   
+                }
             });
         console.log(1);
     }
