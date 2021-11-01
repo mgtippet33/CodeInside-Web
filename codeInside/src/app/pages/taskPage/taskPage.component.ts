@@ -8,6 +8,8 @@ import { CommonValidators } from 'src/app/validators/common-validators';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import { Comment } from "src/app/Models/comment"
 import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'src/app/services/cookieService';
+import { AuthorizationService } from 'src/app/services/authorizationService';
 
 @Component({
     selector: 'taskPage',
@@ -17,71 +19,77 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class TaskPageComponent {
-  faLocationArrow = faLocationArrow;
+    faLocationArrow = faLocationArrow;
 
-  title: string
-  form: FormGroup
-  messageValueControl: FormControl
-  token: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InJvb3RAcm9vdC5jb20iLCJleHAiOjE2MzU1Mzk2MDIsImVtYWlsIjoicm9vdEByb290LmNvbSJ9.m76CeSVGuGMzitf98skgVMT53WEiLEYjZKAzQR5YROQ"
-  comments: Array<Comment>
-  message: string
-  taskName: string
-  backUrl: string = 'task'
+    title: string
+    form: FormGroup
+    messageValueControl: FormControl
+    token: string
+    username: string
+    comments: Array<Comment>
+    message: string
+    taskName: string
+    backUrl: string = 'task'
 
-  constructor(private httpService: HttpService, private router: Router,
-    private route: ActivatedRoute) {}
+    constructor(private httpService: HttpService, private router: Router,
+        private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.messageValueControl = new FormControl(this.message)
-    this.form = new FormGroup(
-      {
-        MessageValueControl: this.messageValueControl
-      })
-
-    this.route.params.subscribe((params: { [x: string]: string; }) => {
-      const taskID = Number.parseInt(params['taskID']);
-      this.httpService.getTasks(taskID).subscribe(
-        (data: any) => {
-          this.taskName = data['data']['name']
-          this.httpService.getComments(this.token, taskID).subscribe(
+    ngOnInit(): void {
+        this.messageValueControl = new FormControl(this.message)
+        this.form = new FormGroup(
             {
-              next: (data: any) => {   
-                data = data['body']['data']
-                var comments = new Array<Comment>(data.length)
-                for(var i = 0; i < data.length; ++i) {
-                    var comment = new Comment()
-                    comment.id = data[i]['id'] as number
-                    comment.username = data[i]['user__name']
-                    comment.message = data[i]['message']
-                    comment.datetime = data[i]['complexity']
-                    comment.task_name = this.taskName
-                    comments[i] = comment
-                }
-                this.comments = comments
-            },
-            error: (error: any) => {
-                
-                console.error('There was an error!', error);
-            }
-            }
-          )
-        }
-      )
-    })
-  }
+                MessageValueControl: this.messageValueControl
+            })
 
-  onMessageFieldChange(value: any) {
-    this.message = value
-  }
-  onAddComment() {
-    this.httpService.createComment(this.token, this.taskName, this.message).subscribe(
-      (data:any) => {
-        if(data['status'] == 201) {
-          console.log("Comment create successfully")
-          this.message = ""
-          this.ngOnInit()
-        }
-      }
-    )
-  }
+        AuthorizationService.checkUserAuthorization(this.router)
+        this.token = CookieService.getCookie('JWT_token')
+        if (this.token == null) { return }
+        this.httpService.getUserProfile(this.token).subscribe((data: any) => {
+            this.username = data['body']['data']['name']
+        }, error => {})
+        this.route.params.subscribe((params: { [x: string]: string; }) => {
+            const taskID = Number.parseInt(params['taskID']);
+            this.httpService.getTasks(taskID).subscribe(
+                (data: any) => {
+                    this.taskName = data['data']['name']
+                    this.httpService.getComments(this.token, taskID).subscribe(
+                        {
+                            next: (data: any) => {
+                                data = data['body']['data']
+                                var comments = new Array<Comment>(data.length)
+                                for (var i = 0; i < data.length; ++i) {
+                                    var comment = new Comment()
+                                    comment.id = data[i]['id'] as number
+                                    comment.username = data[i]['user__name']
+                                    comment.message = data[i]['message']
+                                    comment.datetime = data[i]['datetime']
+                                    comment.task_name = this.taskName
+                                    comments[i] = comment
+                                }
+                                this.comments = comments
+                            },
+                            error: (error: any) => {
+                            }
+                        }
+                    )
+                }
+            )
+        })
+    }
+
+    onMessageFieldChange(value: any) {
+        this.message = value
+    }
+
+    onAddComment() {
+        this.httpService.createComment(this.token, this.taskName, this.message).subscribe(
+            (data: any) => {
+                if (data['status'] == 201) {
+                    console.log("Comment create successfully")
+                    this.message = ""
+                    this.ngOnInit()
+                }
+            }
+        )
+    }
 }

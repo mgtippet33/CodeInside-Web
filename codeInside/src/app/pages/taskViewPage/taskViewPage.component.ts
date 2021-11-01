@@ -5,6 +5,7 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
 import { Task } from 'src/app/Models/task';
+import { AuthorizationService } from 'src/app/services/authorizationService';
 
 @Component({
     selector: 'taskView',
@@ -59,6 +60,7 @@ export class TaskViewPageComponent {
             SliderValue: this.sliderValueControl,
             SearchValueControl: this.searchValueControl
         });
+        AuthorizationService.checkUserAuthorization(this.router)
         this.httpService.getTasks().subscribe({
             next: (data: any) => {
                 data = data['data']

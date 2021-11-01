@@ -3,35 +3,22 @@
     type='text/css'>
 <h3>Discussion</h3>
 <div class="background">
-  <div class="messageBlock">
-    <div class="user_image"></div>
-    <div class="textBlock">
-      <p class="nickname">nickName</p>
-      <p>user text</p>
+    <div [ngClass]="username == comment.username ? 'userMessageBlock' : 'messageBlock'"
+        *ngFor="let comment of comments">
+        <div [ngClass]="username == comment.username ? 'userTextBlock' : 'textBlock'">
+            <div class="comment-navbar">
+                <p class="nickname">{{comment.username}}</p>
+                <p class="datetime">{{comment.datetime}}</p>
+            </div>
+            <p>{{comment.message}}</p>
+        </div>
+        <div class="user_image"></div>
     </div>
-  </div>
 
-  <div class="userMessageBlock" *ngFor="let comment of comments">
-    <div class="userTextBlock">
-      <p class="nickname">{{comment.username}}</p>
-      <p>{{comment.message}}</p>
+    <div class="addComment">
+        <input type="text" placeholder="Add comment" [formControl]="messageValueControl" [(ngModel)]="message">
+        <button (click)="onAddComment()">
+            <fa-icon [icon]="faLocationArrow"></fa-icon>
+        </button>
     </div>
-    <div class="user_image"></div>
-  </div>
-
-  <!-- <div class="userMessageBlock">
-    <div class="userTextBlock">
-      <p class="nickname">nickName</p>
-      <p>user text</p>
-    </div>
-    <div class="user_image"></div>
-  </div> -->
-
-  <div class="addComment">
-    <input type="text" placeholder="Add comment" [formControl]="messageValueControl"
-    [(ngModel)]="message">
-    <button (click)="onAddComment()">
-      <fa-icon [icon]="faLocationArrow"></fa-icon>
-    </button>
-  </div>
 </div>

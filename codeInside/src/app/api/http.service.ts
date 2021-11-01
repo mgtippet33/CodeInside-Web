@@ -32,6 +32,11 @@ export class HttpService {
         return this.http.post(ApiConstants.login_url, body, { 'headers': headers, observe: 'response' });
     }
 
+    getUserProfile(token: string) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        return this.http.get(ApiConstants.profile_url, { 'headers': headers, observe: 'response' });
+    }
+
     createTask(token: string, task: Task) {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
         const body = {

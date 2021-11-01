@@ -5,6 +5,7 @@ import { HttpService } from 'src/app/api/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { CommonValidators } from 'src/app/validators/common-validators';
+import { AuthorizationService } from 'src/app/services/authorizationService';
 
 @Component({
     selector: 'register',
@@ -30,6 +31,7 @@ export class RegisterComponent {
     }
 
     ngOnInit(): void {
+        AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
         this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]);
         this.username = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, Validators.minLength(3)]);
         this.birthday = new FormControl('', [ Validators.required, CommonValidators.datePattern]);

@@ -22,8 +22,19 @@ h3 {
 }
 
 .nickname{
+  float: left;
   font-size: 14px;
   color: #27335B;
+}
+
+.datetime {
+  float: right;
+  font-size: 14px;
+  color: #27335B;
+}
+
+.comment-navbar {
+  overflow: hidden;
   margin-bottom: 5px;
 }
 
