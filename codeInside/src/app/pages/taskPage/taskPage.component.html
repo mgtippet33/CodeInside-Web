@@ -19,7 +19,7 @@
 <div class="editorContainer">
     <ngx-codemirror [(ngModel)]="content" [options]="options"></ngx-codemirror>
 </div>
-<div class="row justify-content-md-center">
+<div class="row justify-content-sm-center">
     <p class="langText">Language:</p>
     <p>
         <select class="selectLanguages" [ngModel]="languages" (ngModelChange)="onLanguageChange($event)">
@@ -27,7 +27,7 @@
         </select>
     </p>
 </div>
-<div class="row justify-content-md-center mt-3 mb-5">
+<div class="row justify-content-sm-center mt-3 mb-5">
     <button type="button" class="sendButton">Send</button>
     <button type="button" class="hintButton">Hint</button>
 </div>
