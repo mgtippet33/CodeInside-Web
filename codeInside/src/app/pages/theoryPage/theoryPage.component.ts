@@ -12,7 +12,7 @@ import { AuthorizationService } from 'src/app/services/authorizationService';
 })
 export class TheoryPageComponent implements OnInit {
 
-    theory: Theory
+    theory: Theory = new Theory()
     backUrl: string = "theory"
 
     constructor(private httpService: HttpService, private router: Router,

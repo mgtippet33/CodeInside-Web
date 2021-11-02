@@ -5,11 +5,12 @@ import { HttpService } from 'src/app/api/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { CommonValidators } from 'src/app/validators/common-validators';
-import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb, faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import { Comment } from "src/app/Models/comment"
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'src/app/services/cookieService';
 import { AuthorizationService } from 'src/app/services/authorizationService';
+import { Task } from 'src/app/Models/task';
 
 @Component({
     selector: 'taskPage',
@@ -20,16 +21,31 @@ import { AuthorizationService } from 'src/app/services/authorizationService';
 
 export class TaskPageComponent {
     faLocationArrow = faLocationArrow;
-
+    faLightbulb = faLightbulb;
+    content: string = ""
     title: string
     form: FormGroup
     messageValueControl: FormControl
     token: string
     username: string
     comments: Array<Comment>
+    task: Task = new Task()
     message: string
     taskName: string
     backUrl: string = 'task'
+    //mode: string = 'markdown'
+    options = {
+        lineNumbers: true,
+        theme: 'neat',
+        mode: 'markdown'
+    }
+    currentLanguage: string
+    languages = [
+        { 'id': 0, 'name': 'С', 'mode': 'text/x-csrc' },
+        { 'id': 1, 'name': 'С++', 'mode': 'text/x-c++src' },
+        { 'id': 2, 'name': 'С#', 'mode': 'text/x-csharp' },
+        { 'id': 3, 'name': 'Java', 'mode': 'text/x-java' }
+    ]
 
     constructor(private httpService: HttpService, private router: Router,
         private route: ActivatedRoute) { }
@@ -46,12 +62,23 @@ export class TaskPageComponent {
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
             this.username = data['body']['data']['name']
-        }, error => {})
+        }, error => { })
         this.route.params.subscribe((params: { [x: string]: string; }) => {
             const taskID = Number.parseInt(params['taskID']);
             this.httpService.getTasks(taskID).subscribe(
                 (data: any) => {
                     this.taskName = data['data']['name']
+                    var task = new Task()
+                    task.task_id = taskID
+                    task.name = data['data']['name']
+                    task.description = data['data']['desc']
+                    task.complexity = data['data']['complexity']
+                    task.topic_name = data['data']['topic__name']
+                    task.input = data['data']['input']
+                    task.output = data['data']['output']
+                    task.solution = data['data']['solution']
+                    task.solved = true
+                    this.task = task
                     this.httpService.getComments(this.token, taskID).subscribe(
                         {
                             next: (data: any) => {
@@ -91,5 +118,10 @@ export class TaskPageComponent {
                 }
             }
         )
+    }
+
+    onLanguageChange(value: any): void {
+        this.options.mode = this.languages[value].mode
+        this.currentLanguage = this.languages[value].name
     }
 }

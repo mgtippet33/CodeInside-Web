@@ -1,8 +1,46 @@
 <app-header [headerName]="taskName" [navbarWithLogo]="false" [backUrl]="backUrl"></app-header>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
     type='text/css'>
-<h3>Discussion</h3>
-<div class="background">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet">
+<div class="jumbotron">
+    <div class="row" style="margin-left: 5px;">
+        <fa-icon [icon]="faLightbulb" *ngIf="1<=task.complexity"></fa-icon>
+        <fa-icon [icon]="faLightbulb" *ngIf="2<=task.complexity"></fa-icon>
+        <fa-icon [icon]="faLightbulb" *ngIf="3<=task.complexity"></fa-icon>
+        <fa-icon [icon]="faLightbulb" *ngIf="4<=task.complexity"></fa-icon>
+        <fa-icon [icon]="faLightbulb" *ngIf="5<=task.complexity"></fa-icon>
+    </div>
+    <div class="row">
+        <h6 class="text-justify ml-2 description">{{task.description}}</h6>
+    </div>
+</div>
+<div class="editorContainer">
+    <ngx-codemirror [(ngModel)]="content" [options]="options"></ngx-codemirror>
+</div>
+<div class="row justify-content-md-center">
+    <p class="langText">Language:</p>
+    <p>
+        <select class="selectLanguages" [ngModel]="languages" (ngModelChange)="onLanguageChange($event)">
+            <option *ngFor="let lang of languages" [value]="lang.id">{{lang.name}}</option>
+        </select>
+    </p>
+</div>
+<div class="row justify-content-md-center mt-3 mb-5">
+    <button type="button" class="sendButton">Send</button>
+    <button type="button" class="hintButton">Hint</button>
+</div>
+<div class="row">
+    <p class="resultText">RESULT</p>
+    <p class="answerText">Incorrect</p>
+</div>
+<div class="row">
+    <p class="resultText">DESCRIPTION</p>
+    <p class="descriptionText">Exception! Object reference not set to an instance of an object command.ExecuteNonQuery();</p>
+</div>
+<h3 class="mt-3">Disscussions</h3>
+<div class="discussionBackground mt-5 mb-5" *ngIf="task.solved; else closedDiscussionBlock">
     <div [ngClass]="username == comment.username ? 'userMessageBlock' : 'messageBlock'"
         *ngFor="let comment of comments">
         <div [ngClass]="username == comment.username ? 'userTextBlock' : 'textBlock'">
@@ -18,7 +56,12 @@
     <div class="addComment">
         <input type="text" placeholder="Add comment" [formControl]="messageValueControl" [(ngModel)]="message">
         <button (click)="onAddComment()">
-            <fa-icon [icon]="faLocationArrow"></fa-icon>
+            <fa-icon [icon]="faLocationArrow" class="LocationArrow"></fa-icon>
         </button>
     </div>
 </div>
+<ng-template #closedDiscussionBlock>
+    <div class="row justify-content-md-center mt-3 mb-4">
+        <p class="warningDiscussionText">Please send at leat one corrent solution to view disscussions</p>
+    </div>
+</ng-template>

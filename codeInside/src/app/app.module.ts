@@ -17,6 +17,7 @@ import {TaskPageComponent} from "./pages/taskPage/taskPage.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
 import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
     TaskPageComponent,
     TheoryViewPageComponent,
     HeaderComponent,
-    TheoryPageComponent
+    TheoryPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,10 +39,11 @@ import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
     NgbModule,
     HttpClientModule,
     FormsModule,
+    CodemirrorModule,
     ReactiveFormsModule,
     NgxSliderModule,
     NgSelectModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
