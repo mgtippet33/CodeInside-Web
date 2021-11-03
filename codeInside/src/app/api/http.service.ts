@@ -5,6 +5,7 @@ import { Comment } from '../Models/comment';
 import { ApiConstants } from './ApiConstants';
 import { Task } from 'src/app/Models/task';
 import { Theory } from 'src/app/Models/theory.model';
+import { Submission } from '../Models/submission';
 
 @Injectable()
 export class HttpService {
@@ -131,5 +132,20 @@ export class HttpService {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
         var url = ApiConstants.comment_url + commentID.toString() + "/"
         return this.http.delete(url, { 'headers': headers, observe: 'response' });
+    }
+
+    sendSubmission(token: string, submission: Submission ) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        const body = {
+            task: submission.task_name,
+            language: submission.language,
+            code: submission.code
+        };
+        return this.http.post(ApiConstants.submission_url, body, { 'headers': headers, observe: 'response' });
+    }
+
+    getSubmission(token: string) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        return this.http.get(ApiConstants.submission_url, { 'headers': headers, observe: 'response' });
     }
 }

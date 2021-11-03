@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'src/app/services/cookieService';
 import { AuthorizationService } from 'src/app/services/authorizationService';
 import { Task } from 'src/app/Models/task';
+import { Submission } from 'src/app/Models/submission';
 
 @Component({
     selector: 'taskPage',
@@ -28,12 +29,12 @@ export class TaskPageComponent {
     messageValueControl: FormControl
     token: string
     username: string
+    isUserAdmin: boolean
     comments: Array<Comment>
     task: Task = new Task()
     message: string
     taskName: string
     backUrl: string = 'task'
-    //mode: string = 'markdown'
     options = {
         lineNumbers: true,
         theme: 'neat',
@@ -41,11 +42,15 @@ export class TaskPageComponent {
     }
     currentLanguage: string
     languages = [
-        { 'id': 0, 'name': 'С', 'mode': 'text/x-csrc' },
+        { 'id': 0, 'name': 'Python', 'mode': 'text/x-python' },
         { 'id': 1, 'name': 'С++', 'mode': 'text/x-c++src' },
         { 'id': 2, 'name': 'С#', 'mode': 'text/x-csharp' },
-        { 'id': 3, 'name': 'Java', 'mode': 'text/x-java' }
+        { 'id': 3, 'name': 'Java', 'mode': 'text/x-java' },
+        { 'id': 4, 'name': 'JavaScript', 'mode': 'text/javascript' }
     ]
+    result: string = ""
+    description: string = ""
+    sendSubmission: boolean = false;
 
     constructor(private httpService: HttpService, private router: Router,
         private route: ActivatedRoute) { }
@@ -62,6 +67,7 @@ export class TaskPageComponent {
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
             this.username = data['body']['data']['name']
+            this.isUserAdmin = data['body']['data']['role'] == 'User'? false : true
         }, error => { })
         this.route.params.subscribe((params: { [x: string]: string; }) => {
             const taskID = Number.parseInt(params['taskID']);
@@ -77,7 +83,7 @@ export class TaskPageComponent {
                     task.input = data['data']['input']
                     task.output = data['data']['output']
                     task.solution = data['data']['solution']
-                    task.solved = true
+                    task.solved = false
                     this.task = task
                     this.httpService.getComments(this.token, taskID).subscribe(
                         {
@@ -123,5 +129,39 @@ export class TaskPageComponent {
     onLanguageChange(value: any): void {
         this.options.mode = this.languages[value].mode
         this.currentLanguage = this.languages[value].name
+    }
+
+    onSendSubmission() {
+        var submission = new Submission();
+        submission.task_name = this.taskName;
+        submission.language = this.currentLanguage;
+        submission.code = this.content;
+        this.sendSubmission = true
+        this.httpService.sendSubmission(this.token, submission).subscribe(
+            (data: any) => {
+                if(data['status'] == 201) {
+                    console.log(data)
+                    this.result = data['body']['data']['status']
+                    if(this.result == "Accepted") {
+                        this.task.solved = true
+                    }
+                    else {
+                        this.description = data['body']['data']['message']
+                    }
+                }
+            },
+            (error: any) => {
+                this.result = "System failure"
+                if(this.content.length == 0) {
+                    this.description = "To send, you need to write a code"
+                }
+                else if(this.currentLanguage == null) {
+                    this.description = "Specify the language in which the code is written"
+                }
+                else {
+                    this.description = error['error']['message']
+                }
+            }
+        )
     }
 }

@@ -94,6 +94,9 @@ button{
 fa-icon{
   color: #FFDC97;
   padding: 2px;
+}
+
+.lightIcon {
   font-size: 26px;
 }
 
@@ -109,6 +112,11 @@ fa-icon{
   height: auto;
   margin: 35px auto;
   padding: 20px 35px;
+}
+
+pre {
+  overflow: hidden;
+  white-space:pre-wrap;
 }
 
 .description {
@@ -134,7 +142,7 @@ fa-icon{
 
 .selectLanguages {
   text-align: center;
-  width: 80px;
+  width: 100px;
 }
 
 .sendButton {
@@ -172,7 +180,6 @@ fa-icon{
   font-family: 'Cairo', sans-serif;
   font-weight: 300;
   font-size: 30px;
-  color: #F40101;
   margin-left: 1.5%;
 }
 
@@ -190,4 +197,13 @@ fa-icon{
   font-family: 'Cairo', sans-serif;
   font-weight: 300;
   font-size: 24px;
+}
+
+.controlText {
+  color: black;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  text-decoration: underline;
+  cursor: pointer;
 }
