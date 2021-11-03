@@ -61,7 +61,7 @@ export class TaskViewPageComponent {
             SliderValue: this.sliderValueControl,
             SearchValueControl: this.searchValueControl
         });
-        AuthorizationService.checkUserAuthorization(this.router)
+        //AuthorizationService.checkUserAuthorization(this.router)
         this.httpService.getTasks().subscribe({
             next: (data: any) => {
                 data = data['data']

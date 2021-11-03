@@ -19,7 +19,7 @@ export class TheoryPageComponent implements OnInit {
         private route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        AuthorizationService.checkUserAuthorization(this.router)
+        //AuthorizationService.checkUserAuthorization(this.router)
         this.route.params.subscribe(params => {
             const id = Number.parseInt(params['id']);
             this.httpService.getTheory(id).subscribe(

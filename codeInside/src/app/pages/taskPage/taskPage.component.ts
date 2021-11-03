@@ -62,7 +62,7 @@ export class TaskPageComponent {
                 MessageValueControl: this.messageValueControl
             })
 
-        AuthorizationService.checkUserAuthorization(this.router)
+        //AuthorizationService.checkUserAuthorization(this.router)
         this.token = CookieService.getCookie('JWT_token')
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {

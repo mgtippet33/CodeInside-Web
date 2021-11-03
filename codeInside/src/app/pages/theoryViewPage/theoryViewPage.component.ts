@@ -46,7 +46,7 @@ export class TheoryViewPageComponent {
         this.form = new FormGroup({
             SearchValueControl: this.searchValueControl
         });
-        AuthorizationService.checkUserAuthorization(this.router)
+        //AuthorizationService.checkUserAuthorization(this.router)
         this.httpService.getTheory().subscribe({
             next: (data: any) => {
                 data = data['data']
