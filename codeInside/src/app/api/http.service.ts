@@ -144,8 +144,12 @@ export class HttpService {
         return this.http.post(ApiConstants.submission_url, body, { 'headers': headers, observe: 'response' });
     }
 
-    getSubmission(token: string) {
+    getSubmission(token: string, task_id:number=null) {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
-        return this.http.get(ApiConstants.submission_url, { 'headers': headers, observe: 'response' });
+        var url = ApiConstants.submission_url
+        if(task_id != null) {
+            url += task_id.toString() + "/"
+        }
+        return this.http.get(url, { 'headers': headers, observe: 'response' });
     }
 }

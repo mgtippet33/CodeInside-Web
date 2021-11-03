@@ -6,6 +6,7 @@ import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
 import { Task } from 'src/app/Models/task';
 import { AuthorizationService } from 'src/app/services/authorizationService';
+import { CookieService } from 'src/app/services/cookieService';
 
 @Component({
     selector: 'taskView',
@@ -65,6 +66,7 @@ export class TaskViewPageComponent {
             next: (data: any) => {
                 data = data['data']
                 var tasks = new Array<Task>(data.length)
+                var token = CookieService.getCookie("JWT_token")
                 for(var i = 0; i < data.length; ++i) {
                     var task = new Task()
                     task.task_id = data[i]['id'] as number
@@ -75,7 +77,18 @@ export class TaskViewPageComponent {
                     task.input = data[i]['input']
                     task.output = data[i]['output']
                     task.solution = data[i]['solution']
-                    task.solved = false
+                    this.httpService.getSubmission(token, task.task_id).subscribe(
+                        (data:any) => {
+                            task.solved = false
+                            data = data['body']['data']
+                            for(var i = 0; i < data.length; ++i) {
+                                if(data[i]['result'] == "Accepted") {
+                                    task.solved = true;
+                                    break;
+                                }
+                            }
+                        }
+                    )
                     tasks[i] = task
                 }
                 this.tasks = tasks;

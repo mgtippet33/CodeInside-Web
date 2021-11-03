@@ -83,7 +83,18 @@ export class TaskPageComponent {
                     task.input = data['data']['input']
                     task.output = data['data']['output']
                     task.solution = data['data']['solution']
-                    task.solved = false
+                    this.httpService.getSubmission(this.token, task.task_id).subscribe(
+                        (data:any) => {
+                            task.solved = false
+                            data = data['body']['data']
+                            for(var i = 0; i < data.length; ++i) {
+                                if(data[i]['result'] == "Accepted") {
+                                    task.solved = true;
+                                    break;
+                                }
+                            }
+                        }
+                    )
                     this.task = task
                     this.httpService.getComments(this.token, taskID).subscribe(
                         {
@@ -140,7 +151,6 @@ export class TaskPageComponent {
         this.httpService.sendSubmission(this.token, submission).subscribe(
             (data: any) => {
                 if(data['status'] == 201) {
-                    console.log(data)
                     this.result = data['body']['data']['status']
                     if(this.result == "Accepted") {
                         this.task.solved = true
