@@ -103,20 +103,37 @@ export class TaskViewPageComponent {
 
     onRangeSliderChange(value: any): void {
         this.difficulty = value;
-        this.sortTasks();
+        this.sortedTasks = this.tasks.filter(x=>x.complexity>=this.difficulty.value && x.complexity<=this.difficulty.highValue);
     }
 
     onSearchFieldChange(value: any){
         this.searchValue = value.toLowerCase();
-        this.sortTasks();
-    }
-
-    private sortTasks(){
-        this.sortedTasks = this.tasks.filter(x=>x.complexity>=this.difficulty.value && x.complexity<=this.difficulty.highValue);
         this.sortedTasks = this.tasks.filter(x=>x.name.toLowerCase().indexOf(this.searchValue)!=-1 || x.description.toLowerCase().indexOf(this.searchValue)!=-1);
+    }
+    solvedSort(){
+        this.sortedTasks = this.tasks.filter(x=>x.solved);
+    }
+    unsolvedSort(){
+        this.sortedTasks = this.tasks.filter(x=>!x.solved);
     }
 
     onSolveTask(task_id: number) {
         this.router.navigateByUrl(`/task/${task_id}`)
+    }
+
+    difficultySortAsc(){
+        this.sortedTasks = this.tasks.sort((one, two) => (one.complexity > two.complexity ? 1 : -1));
+    }
+
+    difficultySortDesc(){        
+        this.sortedTasks = this.tasks.sort((one, two) => (one.complexity > two.complexity ? -1 : 1));
+    }
+
+    nameSortAsc(){
+        this.sortedTasks = this.tasks.sort((one, two) => (one.name > two.name ? 1 : -1));
+    }
+
+    nameSortDesc(){        
+        this.sortedTasks = this.tasks.sort((one, two) => (one.name > two.name ? -1 : 1));
     }
 }
