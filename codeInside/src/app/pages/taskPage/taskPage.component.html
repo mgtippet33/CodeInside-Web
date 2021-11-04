@@ -1,37 +1,75 @@
 <app-header [headerName]="taskName" [navbarWithLogo]="false" [backUrl]="backUrl"></app-header>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
     type='text/css'>
-<h3>Discussion</h3>
-<div class="background">
-  <div class="messageBlock">
-    <div class="user_image"></div>
-    <div class="textBlock">
-      <p class="nickname">nickName</p>
-      <p>user text</p>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet">
+<div class="jumbotron">
+    <div class="row justify-content-between">
+        <div class="col-1">
+            <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="1<=task.complexity"></fa-icon>
+            <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="2<=task.complexity"></fa-icon>
+            <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="3<=task.complexity"></fa-icon>
+            <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="4<=task.complexity"></fa-icon>
+            <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="5<=task.complexity"></fa-icon>
+        </div>
+        <div class="col-1" *ngIf="isUserAdmin">
+            <a class="controlText">EDIT</a>
+        </div>
     </div>
-  </div>
-
-  <div class="userMessageBlock" *ngFor="let comment of comments">
-    <div class="userTextBlock">
-      <p class="nickname">{{comment.username}}</p>
-      <p>{{comment.message}}</p>
+    <div class="row">
+        <h6 class="text-justify ml-2 description"><pre>{{task.description}}</pre></h6>
     </div>
-    <div class="user_image"></div>
-  </div>
-
-  <!-- <div class="userMessageBlock">
-    <div class="userTextBlock">
-      <p class="nickname">nickName</p>
-      <p>user text</p>
-    </div>
-    <div class="user_image"></div>
-  </div> -->
-
-  <div class="addComment">
-    <input type="text" placeholder="Add comment" [formControl]="messageValueControl"
-    [(ngModel)]="message">
-    <button (click)="onAddComment()">
-      <fa-icon [icon]="faLocationArrow"></fa-icon>
-    </button>
-  </div>
 </div>
+<div class="editorContainer">
+    <ngx-codemirror [(ngModel)]="content" [options]="options"></ngx-codemirror>
+</div>
+<div class="row justify-content-sm-center">
+    <p class="langText">Language:</p>
+    <p>
+        <select class="selectLanguages" [ngModel]="languages" (ngModelChange)="onLanguageChange($event)">
+            <option disabled>Choose language</option>
+            <option *ngFor="let lang of languages" [value]="lang.id">{{lang.name}}</option>
+        </select>
+    </p>
+</div>
+<div class="row justify-content-sm-center mt-3 mb-5">
+    <button type="button" class="sendButton" (click)="onSendSubmission()">Send</button>
+    <button type="button" class="hintButton">Hint</button>
+</div>
+<div *ngIf="sendSubmission == true">
+    <div class="row">
+        <p class="resultText">RESULT</p>
+        <p class="answerText" [ngStyle]="{'color': result == 'Accepted'? '#1A994C' : '#F40101'}">{{result}}</p>
+    </div>
+    <div class="row" *ngIf="result != 'Accepted'">
+        <p class="resultText">DESCRIPTION</p>
+        <p class="descriptionText">{{description}}</p>
+    </div>
+</div>
+<h3 class="mt-3">Disscussions</h3>
+<div class="discussionBackground mt-5 mb-5" *ngIf="task.solved; else closedDiscussionBlock">
+    <div [ngClass]="username == comment.username ? 'userMessageBlock' : 'messageBlock'"
+        *ngFor="let comment of comments">
+        <div [ngClass]="username == comment.username ? 'userTextBlock' : 'textBlock'">
+            <div class="comment-navbar">
+                <p class="nickname">{{comment.username}}</p>
+                <p class="datetime">{{comment.datetime}}</p>
+            </div>
+            <p>{{comment.message}}</p>
+        </div>
+        <div class="user_image"></div>
+    </div>
+
+    <div class="addComment">
+        <input type="text" placeholder="Add comment" [formControl]="messageValueControl" [(ngModel)]="message">
+        <button (click)="onAddComment()">
+            <fa-icon [icon]="faLocationArrow" class="LocationArrow"></fa-icon>
+        </button>
+    </div>
+</div>
+<ng-template #closedDiscussionBlock>
+    <div class="row justify-content-sm-center mt-3 mb-4">
+        <p class="warningDiscussionText">Please send at leat one corrent solution to view disscussions</p>
+    </div>
+</ng-template>

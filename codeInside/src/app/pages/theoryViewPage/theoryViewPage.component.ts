@@ -5,6 +5,7 @@ import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
 import { Task } from 'src/app/Models/task';
 import { Theory } from 'src/app/Models/theory.model';
+import { AuthorizationService } from 'src/app/services/authorizationService';
 
 @Component({
     selector: 'theoryView',
@@ -45,6 +46,7 @@ export class TheoryViewPageComponent {
         this.form = new FormGroup({
             SearchValueControl: this.searchValueControl
         });
+        //AuthorizationService.checkUserAuthorization(this.router)
         this.httpService.getTheory().subscribe({
             next: (data: any) => {
                 data = data['data']
