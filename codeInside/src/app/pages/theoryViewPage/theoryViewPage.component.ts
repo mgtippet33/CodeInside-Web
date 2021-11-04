@@ -53,7 +53,7 @@ export class TheoryViewPageComponent {
                     var theory = new Theory()
                     theory.theory_id = data[i]['id'] as number
                     theory.name = data[i]['name']
-                    theory.description = data[i]['desc'].substring(0, 100) + '...'
+                    theory.description = data[i]['desc'].replace(/[a-z\/<>]/gi, '').substring(0, 100) + '...'
                     theoretics[i] = theory
                 }
                 this.theory = theoretics
