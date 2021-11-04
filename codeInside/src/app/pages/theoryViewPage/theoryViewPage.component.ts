@@ -67,8 +67,9 @@ export class TheoryViewPageComponent {
     }
 
     onSearchFieldChange(value: any){
-        this.searchValue = value;
-        this.sortedTheory = this.theory.filter(x=>x.name.indexOf(this.searchValue)!=-1);
+        this.searchValue = value.toLowerCase();
+        this.sortedTheory = this.theory.filter(x=>x.name.toLowerCase().indexOf(this.searchValue)!=-1);
+        this.sortedTheory = this.theory.filter(x=>x.description.toLowerCase().indexOf(this.searchValue)!=-1);
     }
 
     onReadTheory(theory_id: number) {

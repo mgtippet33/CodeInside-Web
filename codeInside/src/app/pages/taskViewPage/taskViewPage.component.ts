@@ -92,13 +92,13 @@ export class TaskViewPageComponent {
     }
 
     onSearchFieldChange(value: any){
-        this.searchValue = value;
+        this.searchValue = value.toLowerCase();
         this.sortTasks();
     }
 
     private sortTasks(){
         this.sortedTasks = this.tasks.filter(x=>x.complexity>=this.difficulty.value && x.complexity<=this.difficulty.highValue);
-        this.sortedTasks = this.sortedTasks.filter(x=>x.name.indexOf(this.searchValue)!=-1);
+        this.sortedTasks = this.sortedTasks.filter(x=>x.name.toLowerCase().indexOf(this.searchValue)!=-1);
     }
 
     onSolveTask(task_id: number) {
