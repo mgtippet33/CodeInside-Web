@@ -5,6 +5,7 @@ import { Comment } from '../Models/comment';
 import { ApiConstants } from './ApiConstants';
 import { Task } from 'src/app/Models/task';
 import { Theory } from 'src/app/Models/theory.model';
+import { Submission } from '../Models/submission';
 
 @Injectable()
 export class HttpService {
@@ -30,6 +31,11 @@ export class HttpService {
             password: password
         };
         return this.http.post(ApiConstants.login_url, body, { 'headers': headers, observe: 'response' });
+    }
+
+    getUserProfile(token: string) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        return this.http.get(ApiConstants.profile_url, { 'headers': headers, observe: 'response' });
     }
 
     createTask(token: string, task: Task) {
@@ -126,5 +132,24 @@ export class HttpService {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
         var url = ApiConstants.comment_url + commentID.toString() + "/"
         return this.http.delete(url, { 'headers': headers, observe: 'response' });
+    }
+
+    sendSubmission(token: string, submission: Submission ) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        const body = {
+            task: submission.task_name,
+            language: submission.language,
+            code: submission.code
+        };
+        return this.http.post(ApiConstants.submission_url, body, { 'headers': headers, observe: 'response' });
+    }
+
+    getSubmission(token: string, task_id:number=null) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        var url = ApiConstants.submission_url
+        if(task_id != null) {
+            url += task_id.toString() + "/"
+        }
+        return this.http.get(url, { 'headers': headers, observe: 'response' });
     }
 }

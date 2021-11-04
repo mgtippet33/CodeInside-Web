@@ -5,6 +5,8 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
 import { Task } from 'src/app/Models/task';
+import { AuthorizationService } from 'src/app/services/authorizationService';
+import { CookieService } from 'src/app/services/cookieService';
 
 @Component({
     selector: 'taskView',
@@ -59,10 +61,12 @@ export class TaskViewPageComponent {
             SliderValue: this.sliderValueControl,
             SearchValueControl: this.searchValueControl
         });
+        //AuthorizationService.checkUserAuthorization(this.router)
         this.httpService.getTasks().subscribe({
             next: (data: any) => {
                 data = data['data']
                 var tasks = new Array<Task>(data.length)
+                var token = CookieService.getCookie("JWT_token")
                 for(var i = 0; i < data.length; ++i) {
                     var task = new Task()
                     task.task_id = data[i]['id'] as number
@@ -73,7 +77,18 @@ export class TaskViewPageComponent {
                     task.input = data[i]['input']
                     task.output = data[i]['output']
                     task.solution = data[i]['solution']
-                    task.solved = false
+                    this.httpService.getSubmission(token, task.task_id).subscribe(
+                        (data:any) => {
+                            task.solved = false
+                            data = data['body']['data']
+                            for(var i = 0; i < data.length; ++i) {
+                                if(data[i]['result'] == "Accepted") {
+                                    task.solved = true;
+                                    break;
+                                }
+                            }
+                        }
+                    )
                     tasks[i] = task
                 }
                 this.tasks = tasks;
@@ -92,13 +107,13 @@ export class TaskViewPageComponent {
     }
 
     onSearchFieldChange(value: any){
-        this.searchValue = value;
+        this.searchValue = value.toLowerCase();
         this.sortTasks();
     }
 
     private sortTasks(){
         this.sortedTasks = this.tasks.filter(x=>x.complexity>=this.difficulty.value && x.complexity<=this.difficulty.highValue);
-        this.sortedTasks = this.sortedTasks.filter(x=>x.name.indexOf(this.searchValue)!=-1);
+        this.sortedTasks = this.tasks.filter(x=>x.name.toLowerCase().indexOf(this.searchValue)!=-1 || x.description.toLowerCase().indexOf(this.searchValue)!=-1);
     }
 
     onSolveTask(task_id: number) {

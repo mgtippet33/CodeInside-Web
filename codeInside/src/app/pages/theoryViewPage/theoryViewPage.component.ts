@@ -5,6 +5,7 @@ import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
 import { Task } from 'src/app/Models/task';
 import { Theory } from 'src/app/Models/theory.model';
+import { AuthorizationService } from 'src/app/services/authorizationService';
 
 @Component({
     selector: 'theoryView',
@@ -45,6 +46,7 @@ export class TheoryViewPageComponent {
         this.form = new FormGroup({
             SearchValueControl: this.searchValueControl
         });
+        //AuthorizationService.checkUserAuthorization(this.router)
         this.httpService.getTheory().subscribe({
             next: (data: any) => {
                 data = data['data']
@@ -53,7 +55,7 @@ export class TheoryViewPageComponent {
                     var theory = new Theory()
                     theory.theory_id = data[i]['id'] as number
                     theory.name = data[i]['name']
-                    theory.description = data[i]['desc'].substring(0, 100) + '...'
+                    theory.description = data[i]['desc'].replace(/[a-z\/<>]/gi, '').substring(0, 100) + '...'
                     theoretics[i] = theory
                 }
                 this.theory = theoretics
@@ -67,8 +69,8 @@ export class TheoryViewPageComponent {
     }
 
     onSearchFieldChange(value: any){
-        this.searchValue = value;
-        this.sortedTheory = this.theory.filter(x=>x.name.indexOf(this.searchValue)!=-1);
+        this.searchValue = value.toLowerCase();
+        this.sortedTheory = this.theory.filter(x=>x.name.toLowerCase().indexOf(this.searchValue)!=-1 || x.description.toLowerCase().indexOf(this.searchValue)!=-1);
     }
 
     onReadTheory(theory_id: number) {

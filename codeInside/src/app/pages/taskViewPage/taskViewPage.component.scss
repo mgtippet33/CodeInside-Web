@@ -1,11 +1,11 @@
 .custom-block{
-    border-radius:16px;
-    background:#f3f7ef;
-    box-shadow:inset -5px -5px 5px 0 rgba(0,0,0,.5), 
-               inset 5px 5px 5px 0 rgba(255,255,255,0.5);
-    text-align:center;
-    color:#333;
-    margin: 20px;
+  border-radius:16px;
+  background:#f3f7ef;
+  box-shadow:inset -3px -3px 3px 0 rgba(0,0,0,.5), 
+             inset 3px 3px 3px 0 rgba(255,255,255,0.5);
+  text-align:center;
+  color:#333;
+  margin: 20px;
 }
 .solved-block{
     width: 120px;
@@ -24,6 +24,7 @@
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
+    margin-left: 10px;
 }
 .wrapper {
     position: relative;
@@ -32,10 +33,12 @@
   }
   
   .search {
+    margin-left: 10px;
+    margin-top: 10px;
     border: 1px solid #4D4D4D;
     border-radius: 5px;
     height: 35px;
-    width: 100%;
+    width: 30%;
     padding: 2px 23px 2px 30px;
     outline: 0;
     background-color: #CFF3E4;
@@ -43,8 +46,8 @@
   
   .search-icon {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 20px;
+    left: 20px;
     width: 14px;
   }
   
