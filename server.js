@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
-const whitelist = ['https://codeinside.herokuapp.com/'];
+const whitelist = ['https://codeinside.herokuapp.com'];
 
 const corsOptions = {
     origin: function (origin, callback) {
