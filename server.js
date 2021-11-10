@@ -4,7 +4,14 @@ const cors = require('cors');
 
 const app = express();
 
-app.options('*', cors())
+var corsOptions = {
+    origin: 'https://codeinside.herokuapp.com',
+    optionsSuccessStatus: 200
+  }
+  
+  app.get('/register/', cors(corsOptions), function (req, res, next) {
+    res.json({msg: 'This is CORS-enabled for only example.com.'})
+  })
 
 app.use(express.static(__dirname + '/dist/codeInside'));
 
