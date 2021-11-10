@@ -1,6 +1,12 @@
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/neat';
 @import '~bootstrap/scss/bootstrap';
 $fa-font-path: "../../../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
+
+html {
+    overflow-x: hidden;
+}
 
 .light-green {
     background-color: #CFF3E4;
@@ -33,6 +39,6 @@ input[type=submit] {
 * {
     font-family: Cairo, sans-serif !important; 
   }
-  .customSearch{
+.customSearch{
     min-width: 500px;
 }
