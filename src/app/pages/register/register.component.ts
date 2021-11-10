@@ -31,7 +31,7 @@ export class RegisterComponent {
     }
 
     ngOnInit(): void {
-        //AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
+        AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
         this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]);
         this.username = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, Validators.minLength(3)]);
         this.birthday = new FormControl('', [ Validators.required, CommonValidators.datePattern]);
