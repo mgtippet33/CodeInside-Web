@@ -30,6 +30,7 @@
     "@ng-select/ng-select": "^7.3.0",
     "bootstrap": "^4.5.0",
     "codemirror": "^5.63.3",
+    "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
@@ -49,5 +50,8 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.3.5"
   },
-  "engines": { "node": "14.18.1", "npm": "8.1.0" }
+  "engines": {
+    "node": "14.18.1",
+    "npm": "8.1.0"
+  }
 }
