@@ -5,7 +5,7 @@ const cors = require('cors');
 const app = express();
 
 var corsOptions = {
-    origin: 'https://codeinside.herokuapp.com',
+    origin: 'https://codeinside-web.herokuapp.com',
     optionsSuccessStatus: 200
   }
   
