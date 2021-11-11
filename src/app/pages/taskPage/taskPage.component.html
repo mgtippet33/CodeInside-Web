@@ -37,12 +37,31 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="jumbotron">
-                    
-                </div>
+                <form class="jumbotron" [formGroup]="form" action="">
+                    <div class="field">
+                        <p>Task Name</p>
+                        <input type="text" [formControl]="taskNameControl">
+                    </div>
+                    <div class="field">
+                        <p>Description</p>
+                        <input type="text" [formControl]="descriptionControl">
+                    </div>
+                    <div class="field">
+                        <p>Complexity</p>
+                        <input type="text" [formControl]="complexityControl">
+                    </div>
+                    <div class="field">
+                        <p>Input</p>
+                        <input type="text" [formControl]="inputControl">
+                    </div>
+                    <div class="field">
+                        <p>Output</p>
+                        <input type="text" [formControl]="outputControl">
+                    </div>
+                </form>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="sendButton" data-dismiss="modal">Close</button>
-                    <button type="button" class="hintButton">Save changes</button>
+                    <button type="button" class="sendButton" data-dismiss="modal" (click)="onApplyChange()">Apply changes</button>
+                    <button type="button" class="hintButton" (click)="onRemoveTask()">Remove task</button>
                 </div>
             </div>
         </div>

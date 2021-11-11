@@ -57,6 +57,12 @@ export class TaskPageComponent implements OnInit {
     sendSubmission: boolean = false;
     editTaskModal: Modal;
 
+    taskForm: FormGroup;
+    taskNameControl: FormControl;
+    descriptionControl: FormControl;
+    complexityControl: FormControl;
+    inputControl: FormControl;
+    outputControl: FormControl;
 
     constructor(private httpService: HttpService, private router: Router,
         private route: ActivatedRoute) { }
@@ -102,6 +108,21 @@ export class TaskPageComponent implements OnInit {
                         }
                     )
                     this.task = task
+
+                    this.taskNameControl = new FormControl(task.name);
+                    this.descriptionControl = new FormControl(task.description);
+                    this.complexityControl = new FormControl(task.complexity);
+                    this.inputControl = new FormControl(task.input);
+                    this.outputControl = new FormControl(task.output);
+                    this.taskForm = new FormGroup(
+                    {
+                        TaskNameControl: this.taskNameControl,
+                        DescriptionControl: this.descriptionControl,
+                        ComplexityControl: this.complexityControl,
+                        InputControl: this.inputControl,
+                        OutputControl: this.outputControl
+                    })
+
                     this.httpService.getComments(this.token, taskID).subscribe(
                         {
                             next: (data: any) => {
@@ -190,5 +211,24 @@ export class TaskPageComponent implements OnInit {
             keyboard: false
         })
         this.editTaskModal?.show();
+    }
+
+    onApplyChange() {
+        this.task.name = this.taskForm.get('TaskNameControl').value;
+        this.task.description = this.taskForm.get('DescriptionControl').value;
+        this.task.complexity = this.taskForm.get('ComplexityControl').value;
+        this.task.input = this.taskForm.get('InputControl').value;
+        this.task.output = this.taskForm.get('OutputControl').value;
+        this.httpService.updateTask(this.token, this.task).subscribe(
+            (data: any) => {
+            }
+        )
+    }
+
+    onRemoveTask(){
+        this.httpService.deleteTask(this.token, this.task.task_id).subscribe(
+            (data: any) => {
+            }
+        )
     }
 }
