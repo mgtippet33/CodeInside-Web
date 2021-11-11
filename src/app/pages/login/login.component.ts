@@ -5,6 +5,7 @@ import { CommonValidators } from 'src/app/validators/common-validators';
 import { HttpService } from 'src/app/api/http.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { AuthorizationService } from 'src/app/services/authorizationService';
 
 @Component({
     selector: 'login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
 
     }
     ngOnInit(): void {
+        //AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
         this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]);
         this.password = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.passwordPattern]);
         this.form = new FormGroup({
@@ -33,10 +35,12 @@ export class LoginComponent implements OnInit {
         this.validateForm();
         if (!this.form?.valid) { return; }
         this.httpService.loginUser(this.email.value, this.password.value)
-            .subscribe(response => {
-                if (response.status == 200) {
-                    console.log("User successfuly login")
+            .subscribe((data: any) => {
+                if (data['status'] == 200) {
+                    var token = data['body']['token']
+                    document.cookie = `JWT_token=${token}; secure`
                     this.router.navigateByUrl('/task');
+                    console.log("User successfuly login")
                 }
             },
             error => {

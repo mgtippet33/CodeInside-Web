@@ -18,6 +18,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
 import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
 import {ProfilePageComponent} from "./pages/profile/profile.component";
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 @NgModule({
   declarations: [
@@ -40,10 +41,11 @@ import {ProfilePageComponent} from "./pages/profile/profile.component";
     NgbModule,
     HttpClientModule,
     FormsModule,
+    CodemirrorModule,
     ReactiveFormsModule,
     NgxSliderModule,
     NgSelectModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
