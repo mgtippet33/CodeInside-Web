@@ -1,4 +1,5 @@
 export class User {
+    public user_id: number;
     public token: string;
     public email: string;
     public username: string;
@@ -10,4 +11,5 @@ export class User {
     public moderator: boolean;
     public achievement: any[];
     public timezone: string;
+    public image: string;
 }

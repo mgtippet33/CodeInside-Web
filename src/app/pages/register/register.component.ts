@@ -51,6 +51,7 @@ export class RegisterComponent {
         this.validateForm();
         if (!this.form?.valid) { return; }
         this.user = {
+            user_id: null,
             token: null,
             email: this.form.value['Email'],
             username: this.form.value['Username'],
@@ -61,7 +62,8 @@ export class RegisterComponent {
             admin: false,
             moderator: false,
             achievement: [],
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone.toString()
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone.toString(),
+            image: null
         };
         this.httpService.registerUser(this.user)
             .subscribe((data: any) =>{

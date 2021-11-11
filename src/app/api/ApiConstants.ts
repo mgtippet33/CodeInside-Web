@@ -7,4 +7,5 @@ export enum ApiConstants {
     theory_url = "topics/",
     comment_url = "comments/",
     submission_url = "submissions/",
+    payment_url = "payment/"
   }
