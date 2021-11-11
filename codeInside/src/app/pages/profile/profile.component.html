@@ -1,0 +1,32 @@
+<app-header [headerName]="title"></app-header>
+<div class="page">
+  <div class="wrapper">
+    <div>
+      <div class="user_image">
+      </div>
+      <button class="settings-button">Change image</button>
+      <button class="buy-button">Buy premium</button>
+      <button class="logout-button" (click)="onLogoutClick()">Log out</button>
+    </div>
+    <form [formGroup]="form" action="">
+      <div class="field">
+        <p>User name</p>
+        <input type="text" [formControl]="username">
+      </div>
+      <div class="field">
+        <p>Email</p>
+        <input type="text" [formControl]="email">
+      </div>
+      <div class="field">
+        <p>Date of birth</p>
+        <input type="date" [formControl]="birthday">
+      </div>
+      <div class="field">
+        <p>Password</p>
+        <input type="password" [formControl]="password">
+      </div>
+      <button class="apply" (click)="onSendFormClick()">Apply</button>
+    </form>
+  </div>
+</div>
+

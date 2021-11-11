@@ -63,6 +63,6 @@ export class HeaderComponent implements ControlValueAccessor {
     }
 
     onProfileClick(){
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/profile');
     }
 }
