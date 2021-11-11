@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import { HttpService } from 'src/app/api/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { CommonValidators } from 'src/app/validators/common-validators';
-import { faLightbulb, faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb, faLocationArrow, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Comment } from "src/app/Models/comment"
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'src/app/services/cookieService';
 import { AuthorizationService } from 'src/app/services/authorizationService';
 import { Task } from 'src/app/Models/task';
 import { Submission } from 'src/app/Models/submission';
+import { Modal } from 'bootstrap';
+import * as bootstrap from 'bootstrap';
+
 
 @Component({
     selector: 'taskPage',
@@ -20,9 +23,10 @@ import { Submission } from 'src/app/Models/submission';
     providers: [HttpService]
 })
 
-export class TaskPageComponent {
+export class TaskPageComponent implements OnInit {
     faLocationArrow = faLocationArrow;
     faLightbulb = faLightbulb;
+    faTimes = faTimes;
     content: string = ""
     title: string
     form: FormGroup
@@ -51,6 +55,8 @@ export class TaskPageComponent {
     result: string = ""
     description: string = ""
     sendSubmission: boolean = false;
+    editTaskModal: Modal;
+
 
     constructor(private httpService: HttpService, private router: Router,
         private route: ActivatedRoute) { }
@@ -67,7 +73,7 @@ export class TaskPageComponent {
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
             this.username = data['body']['data']['name']
-            this.isUserAdmin = data['body']['data']['role'] == 'User'? false : true
+            this.isUserAdmin = data['body']['data']['role'] == 'User' ? false : true
         }, error => { })
         this.route.params.subscribe((params: { [x: string]: string; }) => {
             const taskID = Number.parseInt(params['taskID']);
@@ -84,11 +90,11 @@ export class TaskPageComponent {
                     task.output = data['data']['output']
                     task.solution = data['data']['solution']
                     this.httpService.getSubmission(this.token, task.task_id).subscribe(
-                        (data:any) => {
+                        (data: any) => {
                             task.solved = false
                             data = data['body']['data']
-                            for(var i = 0; i < data.length; ++i) {
-                                if(data[i]['result'] == "Accepted") {
+                            for (var i = 0; i < data.length; ++i) {
+                                if (data[i]['result'] == "Accepted") {
                                     task.solved = true;
                                     break;
                                 }
@@ -150,9 +156,9 @@ export class TaskPageComponent {
         this.sendSubmission = true
         this.httpService.sendSubmission(this.token, submission).subscribe(
             (data: any) => {
-                if(data['status'] == 201) {
+                if (data['status'] == 201) {
                     this.result = data['body']['data']['status']
-                    if(this.result == "Accepted") {
+                    if (this.result == "Accepted") {
                         this.task.solved = true
                     }
                     else {
@@ -162,10 +168,10 @@ export class TaskPageComponent {
             },
             (error: any) => {
                 this.result = "System failure"
-                if(this.content.length == 0) {
+                if (this.content.length == 0) {
                     this.description = "To send, you need to write a code"
                 }
-                else if(this.currentLanguage == null) {
+                else if (this.currentLanguage == null) {
                     this.description = "Specify the language in which the code is written"
                 }
                 else {
@@ -173,5 +179,16 @@ export class TaskPageComponent {
                 }
             }
         )
+    }  
+    
+    onSaveEditModal() {
+        this.editTaskModal?.toggle();
+    }
+
+    onOpenEditModal() {
+        this.editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'), {
+            keyboard: false
+        })
+        this.editTaskModal?.show();
     }
 }
