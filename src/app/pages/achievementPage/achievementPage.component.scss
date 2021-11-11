@@ -1,0 +1,28 @@
+h1 {
+  font-weight: 25;
+}
+
+.award-image {
+  width: 200px;
+  height: 150px;
+  border-radius: 15px;
+}
+
+.award-image-wrapper {
+  width: 200px;
+  display: inline-block;
+  margin: 30px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.wrapper{
+  width: 90%;
+  margin: 30px auto;
+}
+
+p{
+  text-align: center;
+}
+

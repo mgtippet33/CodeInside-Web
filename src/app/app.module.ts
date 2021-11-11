@@ -18,6 +18,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
 import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import {AchievementPageComponent} from "./pages/achievementPage/achievementPage.component";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
     TheoryViewPageComponent,
     HeaderComponent,
     TheoryPageComponent,
+    AchievementPageComponent
   ],
   imports: [
     BrowserModule,
