@@ -234,13 +234,13 @@ form {
   margin: 10px auto;
 }
 
-p {
-  width: 100px;
-  height: 10px;
-}
-
-input {
-  width: 170px;
+textarea, input, .topic-select {
+  width: 75%;
   padding: 15px 30px;
   border-radius: 10px;
+  resize: none;
+}
+
+a {
+  cursor: pointer;
 }

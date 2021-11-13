@@ -14,6 +14,8 @@ import { Task } from 'src/app/Models/task';
 import { Submission } from 'src/app/Models/submission';
 import { Modal } from 'bootstrap';
 import * as bootstrap from 'bootstrap';
+import { Theory } from 'src/app/Models/theory.model';
+import { ApiConstants } from 'src/app/api/ApiConstants';
 
 
 @Component({
@@ -34,6 +36,7 @@ export class TaskPageComponent implements OnInit {
     token: string
     username: string
     isUserAdmin: boolean
+    isPremiumUser: boolean
     comments: Array<Comment>
     task: Task = new Task()
     message: string
@@ -56,13 +59,22 @@ export class TaskPageComponent implements OnInit {
     description: string = ""
     sendSubmission: boolean = false;
     editTaskModal: Modal;
+    removeTaskModal: Modal;
+    theoretics: Array<Theory>;
+    taskForm = new FormGroup(
+        {
+            taskName: new FormControl(''),
+            description: new FormControl(''),
+            complexity: new FormControl(''),
+            theoryName: new FormControl(''),
+            input: new FormControl(''),
+            output: new FormControl(''),
+            solution: new FormControl('')
+        });
 
-    taskForm: FormGroup;
-    taskNameControl: FormControl;
-    descriptionControl: FormControl;
-    complexityControl: FormControl;
-    inputControl: FormControl;
-    outputControl: FormControl;
+    openCommentTool: boolean = false;
+    theoryID: number;
+    user_id: number;
 
     constructor(private httpService: HttpService, private router: Router,
         private route: ActivatedRoute) { }
@@ -78,8 +90,10 @@ export class TaskPageComponent implements OnInit {
         this.token = CookieService.getCookie('JWT_token')
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
+            this.user_id = data['body']['data']['id']
             this.username = data['body']['data']['name']
             this.isUserAdmin = data['body']['data']['role'] == 'User' ? false : true
+            this.isPremiumUser = data['body']['data']['premium']
         }, error => { })
         this.route.params.subscribe((params: { [x: string]: string; }) => {
             const taskID = Number.parseInt(params['taskID']);
@@ -109,19 +123,16 @@ export class TaskPageComponent implements OnInit {
                     )
                     this.task = task
 
-                    this.taskNameControl = new FormControl(task.name);
-                    this.descriptionControl = new FormControl(task.description);
-                    this.complexityControl = new FormControl(task.complexity);
-                    this.inputControl = new FormControl(task.input);
-                    this.outputControl = new FormControl(task.output);
                     this.taskForm = new FormGroup(
-                    {
-                        TaskNameControl: this.taskNameControl,
-                        DescriptionControl: this.descriptionControl,
-                        ComplexityControl: this.complexityControl,
-                        InputControl: this.inputControl,
-                        OutputControl: this.outputControl
-                    })
+                        {
+                            taskName: new FormControl(task.name),
+                            description: new FormControl(task.description),
+                            complexity: new FormControl(task.complexity),
+                            theoryName: new FormControl(task.topic_name),
+                            input: new FormControl(task.input),
+                            output: new FormControl(task.output),
+                            solution: new FormControl(task.solution)
+                        })
 
                     this.httpService.getComments(this.token, taskID).subscribe(
                         {
@@ -146,6 +157,23 @@ export class TaskPageComponent implements OnInit {
                 }
             )
         })
+
+        this.httpService.getTheory().subscribe({
+            next: (data: any) => {
+                data = data['data'];
+                this.theoretics = new Array<Theory>(data.length)
+                for(var i = 0; i < data.length; ++i) {
+                    var theory = new Theory()
+                    theory.theory_id = data[i]['id']
+                    theory.name = data[i]['name']
+                    this.theoretics[i] = theory;
+
+                    if(data[i]['name'] == this.task.topic_name) {
+                        this.theoryID = data[i]['id']
+                    }
+                }
+            }
+        });
     }
 
     onMessageFieldChange(value: any) {
@@ -200,35 +228,59 @@ export class TaskPageComponent implements OnInit {
                 }
             }
         )
-    }  
-    
-    onSaveEditModal() {
-        this.editTaskModal?.toggle();
-    }
-
-    onOpenEditModal() {
-        this.editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'), {
-            keyboard: false
-        })
-        this.editTaskModal?.show();
     }
 
     onApplyChange() {
-        this.task.name = this.taskForm.get('TaskNameControl').value;
-        this.task.description = this.taskForm.get('DescriptionControl').value;
-        this.task.complexity = this.taskForm.get('ComplexityControl').value;
-        this.task.input = this.taskForm.get('InputControl').value;
-        this.task.output = this.taskForm.get('OutputControl').value;
+        this.task.name = this.taskForm.get('taskName').value;
+        this.task.description = this.taskForm.get('description').value;
+        this.task.complexity = this.taskForm.get('complexity').value;
+        this.task.topic_name = this.taskForm.get('theoryName').value;
+        this.task.input = this.taskForm.get('input').value;
+        this.task.output = this.taskForm.get('output').value;
+        this.task.solution = this.taskForm.get('solution').value;
         this.httpService.updateTask(this.token, this.task).subscribe(
             (data: any) => {
+                if(data.status == 200) {
+                    this.ngOnInit();
+                }
             }
         )
     }
 
-    onRemoveTask(){
+    onRemoveTask() {
         this.httpService.deleteTask(this.token, this.task.task_id).subscribe(
             (data: any) => {
+                if(data.status == 200) {
+                    this.router.navigateByUrl("/task")
+                }
             }
         )
+    }
+
+    onCancelEdit() {
+        this.editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'), {
+            keyboard: false
+        })
+        this.editTaskModal?.hide();
+    }
+
+    onRemoveComment(comment_id: number) {
+        this.httpService.deleteComment(this.token, comment_id).subscribe(
+            (data: any) => {
+                this.ngOnInit();
+            }
+        )
+    }
+
+    onTheoryChange(value: any) {
+        this.taskForm.get('theoryName').setValue(value);
+    }
+
+    onReadLecture() {
+        this.router.navigateByUrl(`theory/${this.theoryID}`)  
+    }
+
+    onBuyPremium() {
+        window.location.href = ApiConstants.main_url + ApiConstants.payment_url + this.user_id.toString();
     }
 }
