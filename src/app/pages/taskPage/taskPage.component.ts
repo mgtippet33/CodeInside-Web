@@ -16,6 +16,7 @@ import { Modal } from 'bootstrap';
 import * as bootstrap from 'bootstrap';
 import { Theory } from 'src/app/Models/theory.model';
 import { ApiConstants } from 'src/app/api/ApiConstants';
+import { isArray } from 'jquery';
 
 
 @Component({
@@ -125,13 +126,13 @@ export class TaskPageComponent implements OnInit {
 
                     this.taskForm = new FormGroup(
                         {
-                            taskName: new FormControl(task.name),
-                            description: new FormControl(task.description),
-                            complexity: new FormControl(task.complexity),
-                            theoryName: new FormControl(task.topic_name),
-                            input: new FormControl(task.input),
-                            output: new FormControl(task.output),
-                            solution: new FormControl(task.solution)
+                            taskName: new FormControl(task.name, [Validators.required, Validators.minLength(4)]),
+                            description: new FormControl(task.description, [Validators.required, Validators.minLength(4)]),
+                            complexity: new FormControl(task.complexity, [Validators.required,]),
+                            theoryName: new FormControl(task.topic_name, [Validators.required, Validators.minLength(4)]),
+                            input: new FormControl(task.input, [Validators.required, Validators.minLength(1)]),
+                            output: new FormControl(task.output, [Validators.required, Validators.minLength(1)]),
+                            solution: new FormControl(task.solution, [Validators.required, Validators.minLength(1)])
                         })
 
                     this.httpService.getComments(this.token, taskID).subscribe(
@@ -231,10 +232,13 @@ export class TaskPageComponent implements OnInit {
     }
 
     onApplyChange() {
+        if (!this.taskForm?.valid) { return; }
         this.task.name = this.taskForm.get('taskName').value;
         this.task.description = this.taskForm.get('description').value;
         this.task.complexity = this.taskForm.get('complexity').value;
-        this.task.topic_name = this.taskForm.get('theoryName').value;
+        if(!isArray(this.taskForm.get('theoryName').value)) {
+            this.task.topic_name = this.taskForm.get('theoryName').value;
+        }
         this.task.input = this.taskForm.get('input').value;
         this.task.output = this.taskForm.get('output').value;
         this.task.solution = this.taskForm.get('solution').value;
