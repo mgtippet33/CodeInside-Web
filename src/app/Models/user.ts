@@ -12,4 +12,5 @@ export class User {
     public achievement: any[];
     public timezone: string;
     public image: string;
+    public birthdayDate?: Date;
 }
