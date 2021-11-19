@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {HttpService} from 'src/app/api/http.service';
 import {Achievement} from 'src/app/Models/achievement';
 import {CookieService} from 'src/app/services/cookieService';
+import * as bootstrap from 'bootstrap';
+import { isArray } from 'jquery';
 
 
 @Component({
@@ -11,25 +13,55 @@ import {CookieService} from 'src/app/services/cookieService';
   styleUrls: ['./achievementPage.component.scss'],
   providers: [HttpService]
 })
-
+      
 export class AchievementPageComponent {
-
   title='Achievement'
   achievementName: string = "Achievements"
- achievements: Array<Achievement> = [
+  achievements: Array<Achievement> = [
     {
-      name: 'award 1',
+      name: 'C# DEV',
       description: 'Description 1',
-      link: "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fphotographer&psig=AOvVaw0VwsT_GKJ4qqbO1_UlLGoa&ust=1636746460025000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMCmhu6JkfQCFQAAAAAdAAAAABAD",
+      link: "https://i.ibb.co/JnBnHS3/C-DEV.png",
       earned: true
     } as Achievement,
     {
-      name: 'award 2',
+      name: 'C++ DEV',
       description: 'Description 2',
-      link: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fdiscover%2F10-free-stock-images&psig=AOvVaw0VwsT_GKJ4qqbO1_UlLGoa&ust=1636746460025000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMCmhu6JkfQCFQAAAAAdAAAAABAJ",
+      link: "https://i.ibb.co/zS9d10G/C-DEV.png",
+      earned: false
+    } as Achievement,
+    {
+      name: 'JAVA DEV',
+      description: 'Description 2',
+      link: "https://i.ibb.co/2Kcq9Mv/JAVA-DEV.png",
+      earned: true
+    } as Achievement,
+    {
+      name: 'PYTHON DEV',
+      description: 'Description 2',
+      link: "https://i.ibb.co/0ZrYcWQ/PYTHON-DEV.png",
+      earned: true
+    } as Achievement,
+    {
+      name: 'JAVASCRIPT DEV',
+      description: 'Description 2',
+      link: "https://i.ibb.co/j4FYSZ4/JAVASCRIPT-DEV.png",
+      earned: false
+    } as Achievement,
+    {
+      name: 'ERROR',
+      description: 'Description 2',
+      link: "https://i.ibb.co/G7bLF9r/ERROR.png",
+      earned: false
+    } as Achievement,
+    {
+      name: 'TIME LIMITED',
+      description: 'Description 2',
+      link: "https://i.ibb.co/yqQDCnf/TIME-LIMITED.png",
       earned: false
     } as Achievement,
   ];
+  earned: boolean = false; 
   token: string
 
   constructor(private httpService: HttpService, private router: Router) {
@@ -60,5 +92,18 @@ export class AchievementPageComponent {
       }
     )
   }
-
+  
+  modalName = "";
+  modalDesc = "";
+  modalLink = "";
+  openModal(name: string, description: string, link: string) {
+    this.modalName = name;
+    this.modalDesc = description;
+    this.modalLink = link;
+    
+    var notificationModal = new bootstrap.Modal(document.getElementById("exampleModalCenter"), {
+        keyboard: false
+    });
+    notificationModal?.show();
+  }
 }

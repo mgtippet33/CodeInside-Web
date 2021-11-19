@@ -3,9 +3,16 @@ h1 {
 }
 
 .award-image {
-  width: 200px;
-  height: 150px;
+  width: 159px;
+  height: 133px;
   border-radius: 15px;
+}
+
+.unaward-image {
+  width: 159px;
+  height: 133px;
+  border-radius: 15px;
+  filter: brightness(70%);
 }
 
 .award-image-wrapper {
@@ -17,12 +24,25 @@ h1 {
   background-position: center;
 }
 
+.award-modal-image {
+  width: 159px;
+  height: 133px;
+  border-radius: 15px;
+  margin: 0 auto;
+}
+
+.text-modal-center{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .wrapper{
-  width: 90%;
-  margin: 30px auto;
+  margin: 0 auto;
 }
 
 p{
+  width: 164px;
   text-align: center;
 }
-
