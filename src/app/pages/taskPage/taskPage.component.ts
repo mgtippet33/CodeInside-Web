@@ -144,6 +144,7 @@ export class TaskPageComponent implements OnInit {
                                     var comment = new Comment()
                                     comment.id = data[i]['id'] as number
                                     comment.username = data[i]['user__name']
+                                    comment.user_id = data[i]['user__id']
                                     comment.message = data[i]['message']
                                     comment.datetime = data[i]['datetime']
                                     comment.task_name = this.taskName
@@ -274,6 +275,15 @@ export class TaskPageComponent implements OnInit {
                 this.ngOnInit();
             }
         )
+    }
+
+    onOpenProfile(user_id: number, username: string) {
+        if(username == this.username) {
+            this.router.navigateByUrl(`profile/`)  
+        }
+        else {
+            this.router.navigateByUrl(`profile/${user_id}`)  
+        }
     }
 
     onTheoryChange(value: any) {

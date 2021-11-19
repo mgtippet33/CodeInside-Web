@@ -153,20 +153,20 @@
         </div>
     </div>
     <h3 class="mt-3">Disscussions</h3>
-    <div class="discussionBackground mt-5 mb-5" *ngIf="task.solved; else closedDiscussionBlock">
+    <div class="discussionBackground mt-5 mb-5" *ngIf="task.solved || isUserAdmin; else closedDiscussionBlock">
         <div [ngClass]="username == comment.username ? 'userMessageBlock' : 'messageBlock'"
             *ngFor="let comment of comments">
             <div [ngClass]="username == comment.username ? 'userTextBlock' : 'textBlock'" 
             (mouseover)="openCommentTool=true" (mouseout)="openCommentTool=false">
                 <div class="comment-navbar">
-                    <p class="nickname">{{comment.username}}</p>
+                    <p class="nickname" (click)="onOpenProfile(comment.user_id, comment.username)">{{comment.username}}</p>
                     <p class="datetime" *ngIf="!openCommentTool">{{comment.datetime}}</p>
                     <p class="datetime" *ngIf="openCommentTool && !isUserAdmin">{{comment.datetime}}</p>
                     <a class="datetime" *ngIf="openCommentTool && isUserAdmin" (click)="onRemoveComment(comment.id)">REMOVE</a>
                 </div>
                 <p>{{comment.message}}</p>
             </div>
-            <div class="user_image"></div>
+            <div class="user_image" (click)="onOpenProfile(comment.user_id, comment.username)"></div>
         </div>
 
         <div class="addComment">
