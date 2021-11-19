@@ -19,6 +19,7 @@ import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.c
 import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
+
 @NgModule({
   declarations: [
     AppComponent,

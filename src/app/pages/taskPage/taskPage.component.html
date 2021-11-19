@@ -4,72 +4,180 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <div class="jumbotron">
     <div class="row justify-content-between">
-        <div class="col-1">
+        <div class="col-2">
             <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="1<=task.complexity"></fa-icon>
             <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="2<=task.complexity"></fa-icon>
             <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="3<=task.complexity"></fa-icon>
             <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="4<=task.complexity"></fa-icon>
             <fa-icon class="lightIcon" [icon]="faLightbulb" *ngIf="5<=task.complexity"></fa-icon>
         </div>
-        <div class="col-1" *ngIf="isUserAdmin">
-            <a class="controlText">EDIT</a>
+        <div class="col-4 mr-5" *ngIf="isUserAdmin">
+            <a class="controlText col-2" data-toggle="modal" data-target="#editTaskModal">EDIT</a>
+            <a class="controlText col-2" data-toggle="modal" data-target="#removeTaskModal">REMOVE</a>
         </div>
     </div>
     <div class="row">
-        <h6 class="text-justify ml-2 description"><pre>{{task.description}}</pre></h6>
+        <h6 class="text-justify ml-2 description">
+            <pre>{{task.description}}</pre>
+        </h6>
     </div>
 </div>
-<div class="editorContainer">
-    <ngx-codemirror [(ngModel)]="content" [options]="options"></ngx-codemirror>
-</div>
-<div class="row justify-content-sm-center">
-    <p class="langText">Language:</p>
-    <p>
-        <select class="selectLanguages" [ngModel]="languages" (ngModelChange)="onLanguageChange($event)">
-            <option disabled>Choose language</option>
-            <option *ngFor="let lang of languages" [value]="lang.id">{{lang.name}}</option>
-        </select>
-    </p>
-</div>
-<div class="row justify-content-sm-center mt-3 mb-5">
-    <button type="button" class="sendButton" (click)="onSendSubmission()">Send</button>
-    <button type="button" class="hintButton">Hint</button>
-</div>
-<div *ngIf="sendSubmission == true">
-    <div class="row">
-        <p class="resultText">RESULT</p>
-        <p class="answerText" [ngStyle]="{'color': result == 'Accepted'? '#1A994C' : '#F40101'}">{{result}}</p>
-    </div>
-    <div class="row" *ngIf="result != 'Accepted'">
-        <p class="resultText">DESCRIPTION</p>
-        <p class="descriptionText">{{description}}</p>
-    </div>
-</div>
-<h3 class="mt-3">Disscussions</h3>
-<div class="discussionBackground mt-5 mb-5" *ngIf="task.solved; else closedDiscussionBlock">
-    <div [ngClass]="username == comment.username ? 'userMessageBlock' : 'messageBlock'"
-        *ngFor="let comment of comments">
-        <div [ngClass]="username == comment.username ? 'userTextBlock' : 'textBlock'">
-            <div class="comment-navbar">
-                <p class="nickname">{{comment.username}}</p>
-                <p class="datetime">{{comment.datetime}}</p>
-            </div>
-            <p>{{comment.message}}</p>
-        </div>
-        <div class="user_image"></div>
-    </div>
 
-    <div class="addComment">
-        <input type="text" placeholder="Add comment" [formControl]="messageValueControl" [(ngModel)]="message">
-        <button (click)="onAddComment()">
-            <fa-icon [icon]="faLocationArrow" class="LocationArrow"></fa-icon>
-        </button>
+<!-- Edit Task Modal -->
+<div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="editTaskModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTaskModalLongTitle">Manage Task</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="jumbotron" [formGroup]="taskForm" action="">
+                    <div class="field" [formGroup]="taskForm">
+                        <p>Task Name</p>
+                        <input type="text" formControlName="taskName">
+                    </div>
+                    <div class="field">
+                        <p>Description</p>
+                        <textarea rows="5" formControlName="description"></textarea> 
+                    </div>
+                    <div class="field">
+                        <p>Complexity</p>
+                        <input type="number" min="0" max="5" formControlName="complexity">
+                    </div>
+                    <div class="field">
+                        <p>Theory Name</p>
+                        <select class="topic-select" [ngModel]="theoretics" formControlName="theoryName">
+                            <option disabled>Choose theory</option>
+                            <option *ngFor="let theory of theoretics" [selected]="theory.name == task.topic_name">{{theory.name}}</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <p>Input</p>
+                        <textarea rows="5" formControlName="input"></textarea> 
+                    </div>
+                    <div class="field">
+                        <p>Output</p>
+                        <textarea rows="5" formControlName="output"></textarea> 
+                    </div>
+                    <div class="field">
+                        <p>Solution</p>
+                        <textarea rows="5" formControlName="solution"></textarea> 
+                    </div>
+                </form>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="sendButton" data-dismiss="modal" (click)="onApplyChange()">Apply changes</button>
+                    <button type="button" class="hintButton" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<ng-template #closedDiscussionBlock>
-    <div class="row justify-content-sm-center mt-3 mb-4">
-        <p class="warningDiscussionText">Please send at leat one corrent solution to view disscussions</p>
+
+<!-- Remove Modal -->
+<div class="modal fade" id="removeTaskModal" tabindex="-1" role="dialog" aria-labelledby="editRemoveModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editRemovekModalLongTitle">Remove Task</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <p class="resultText">Are you sure you want to remove this task?</p>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="sendButton" data-dismiss="modal" (click)="onRemoveTask()">Yes</button>
+                    <button type="button" class="hintButton" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
     </div>
-</ng-template>
+</div>
+
+<!-- Hint Modal -->
+<div class="modal fade" id="hintModal" tabindex="-1" role="dialog" aria-labelledby="hintModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hintModalLongTitle">Hint</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <p class="resultText" *ngIf="!isPremiumUser">Sorry, but you can’t view hilnt without premium account</p>
+                <pre class="resultText" *ngIf="isPremiumUser">{{task.solution}}</pre>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="sendButton" data-dismiss="modal" *ngIf="!isPremiumUser" (click)="onBuyPremium()">Buy premium</button>
+                    <button type="button" class="hintButton" data-dismiss="modal" (click)="onReadLecture()">Read lecture</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="editorContainer">
+        <ngx-codemirror [(ngModel)]="content" [options]="options"></ngx-codemirror>
+    </div>
+    <div class="row justify-content-sm-center">
+        <p class="langText">Language:</p>
+        <p>
+            <select class="selectLanguages" [ngModel]="languages" (ngModelChange)="onLanguageChange($event)">
+                <option disabled>Choose language</option>
+                <option *ngFor="let lang of languages" [value]="lang.id">{{lang.name}}</option>
+            </select>
+        </p>
+    </div>
+    <div class="row justify-content-sm-center mt-3 mb-5">
+        <button type="button" class="sendButton" (click)="onSendSubmission()">Send</button>
+        <button type="button" class="hintButton" data-toggle="modal" data-target="#hintModal">Hint</button>
+    </div>
+    <div *ngIf="sendSubmission == true">
+        <div class="row">
+            <p class="resultText">RESULT</p>
+            <p class="answerText" [ngStyle]="{'color': result == 'Accepted'? '#1A994C' : '#F40101'}">{{result}}</p>
+        </div>
+        <div class="row" *ngIf="result != 'Accepted'">
+            <p class="resultText">DESCRIPTION</p>
+            <p class="descriptionText">{{description}}</p>
+        </div>
+    </div>
+    <h3 class="mt-3">Disscussions</h3>
+    <div class="discussionBackground mt-5 mb-5" *ngIf="task.solved || isUserAdmin; else closedDiscussionBlock">
+        <div [ngClass]="username == comment.username ? 'userMessageBlock' : 'messageBlock'"
+            *ngFor="let comment of comments">
+            <div [ngClass]="username == comment.username ? 'userTextBlock' : 'textBlock'" 
+            (mouseover)="openCommentTool=true" (mouseout)="openCommentTool=false">
+                <div class="comment-navbar">
+                    <p class="nickname" (click)="onOpenProfile(comment.user_id, comment.username)">{{comment.username}}</p>
+                    <p class="datetime" *ngIf="!openCommentTool">{{comment.datetime}}</p>
+                    <p class="datetime" *ngIf="openCommentTool && !isUserAdmin">{{comment.datetime}}</p>
+                    <a class="datetime" *ngIf="openCommentTool && isUserAdmin" (click)="onRemoveComment(comment.id)">REMOVE</a>
+                </div>
+                <p>{{comment.message}}</p>
+            </div>
+            <div class="user_image" (click)="onOpenProfile(comment.user_id, comment.username)"></div>
+        </div>
+
+        <div class="addComment">
+            <input type="text" placeholder="Add comment" [formControl]="messageValueControl" [(ngModel)]="message">
+            <button (click)="onAddComment()">
+                <fa-icon [icon]="faLocationArrow" class="LocationArrow"></fa-icon>
+            </button>
+        </div>
+    </div>
+    <ng-template #closedDiscussionBlock>
+        <div class="row justify-content-sm-center mt-3 mb-4">
+            <p class="warningDiscussionText">Please send at leat one corrent solution to view disscussions</p>
+        </div>
+    </ng-template>
