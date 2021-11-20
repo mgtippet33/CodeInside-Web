@@ -15,6 +15,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, data: {title: 'Login'}},
   {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   {path: 'profile', component: ProfilePageComponent, data: {title: 'Profile'}},
+  {path: 'profile/:id', component: ProfilePageComponent, data: {title: 'Profile'}},
   {path: 'task', component: TaskViewPageComponent, data: {title: 'Task Page'}},
   {path: 'theory', component: TheoryViewPageComponent, data: {title: 'Theory Page'}},
   {path: 'task/:taskID', component: TaskPageComponent, data: {title: 'Task Page'}},

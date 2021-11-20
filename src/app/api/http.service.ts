@@ -7,6 +7,7 @@ import {Theory} from 'src/app/Models/theory.model';
 import {Submission} from '../Models/submission';
 import {ApiConstants} from './ApiConstants';
 import {UserPermissions} from "../Models/userPermissions";
+import { tokenName } from '@angular/compiler';
 
 @Injectable()
 export class HttpService {
@@ -40,6 +41,12 @@ export class HttpService {
   getUserProfile(token: string) {
     const headers = {'Authorization': 'Bearer ' + token, 'content-type': 'application/json'}
     var profile_url = ApiConstants.main_url.toString() + ApiConstants.profile_url.toString()
+    return this.http.get(profile_url, {'headers': headers, observe: 'response'});
+  }
+
+  getUserProfileById(token: string, id: string) {
+    const headers = {'Authorization': 'Bearer ' + token, 'content-type': 'application/json'}
+    var profile_url = ApiConstants.main_url.toString() + ApiConstants.profile_url.toString() + id
     return this.http.get(profile_url, {'headers': headers, observe: 'response'});
   }
 

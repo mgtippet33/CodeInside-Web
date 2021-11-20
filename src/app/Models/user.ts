@@ -13,4 +13,5 @@ export class User {
     public timezone: string;
     public image: string;
     public birthdayDate?: Date;
+    public role?: string;
 }
