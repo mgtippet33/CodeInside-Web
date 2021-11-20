@@ -1,14 +1,18 @@
 h3 {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
   font-weight: 25;
+  font-size: 30px;
   text-align: center;
 }
 
-.background {
+.discussionBackground {
   background-color: #EEF3FF;
   overflow-y: scroll;
   width: 80%;
   height: 400px;
   margin: 0 auto;
+  margin-bottom: 20px;
   padding: 10px 40px;
 }
 
@@ -22,6 +26,7 @@ h3 {
 }
 
 .nickname{
+  float: left;
   font-size: 14px;
   color: #27335B;
   cursor: pointer;
