@@ -48,7 +48,87 @@
         </div>
         
     </div>
+    <div class="row justify-content-end" *ngIf="isUserAdmin">
+        <div class="col-2 mr-5">
+            <p class="controlText" data-toggle="modal" data-target="#createNewTaskModal">NEW TASK</p>
+        </div>
+    </div>
 </div>
+
+<!-- Create New Task Modal -->
+<div class="modal fade" id="createNewTaskModal" tabindex="-1" role="dialog" aria-labelledby="createNewTaskModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createNewTaskModalLongTitle">Manage Task</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="jumbotron" [formGroup]="taskForm" action="">
+                    <div class="field" [formGroup]="taskForm">
+                        <p>Task Name</p>
+                        <input type="text" formControlName="taskName">
+                    </div>
+                    <div class="field">
+                        <p>Description</p>
+                        <textarea rows="5" formControlName="description"></textarea> 
+                    </div>
+                    <div class="field">
+                        <p>Complexity</p>
+                        <input type="number" min="0" max="5" formControlName="complexity">
+                    </div>
+                    <div class="field">
+                        <p>Theory Name</p>
+                        <select class="topic-select" [ngModel]="theoretics" formControlName="theoryName">
+                            <option disabled>Choose theory</option>
+                            <option *ngFor="let theory of theoretics">{{theory.name}}</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <p>Input</p>
+                        <textarea rows="5" formControlName="input"></textarea> 
+                    </div>
+                    <div class="field">
+                        <p>Output</p>
+                        <textarea rows="5" formControlName="output"></textarea> 
+                    </div>
+                    <div class="field">
+                        <p>Solution</p>
+                        <textarea rows="5" formControlName="solution"></textarea> 
+                    </div>
+                </form>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="sendButton" data-dismiss="modal" (click)="onCreateTask()">Create Task</button>
+                    <button type="button" class="hintButton" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLongTitle">Create Task Error</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <p class="resultText">Something went wrong, please try again</p>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="hintButton" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="custom-block" *ngFor="let task of sortedTasks">
     <div class="row">
         <div class="col">

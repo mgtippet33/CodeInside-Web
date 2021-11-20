@@ -20,6 +20,7 @@ import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import {AchievementPageComponent} from "./pages/achievementPage/achievementPage.component";
 
+
 @NgModule({
   declarations: [
     AppComponent,
