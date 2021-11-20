@@ -174,4 +174,70 @@ export class TaskPageComponent {
             }
         )
     }
+
+    onApplyChange() {
+        if (!this.taskForm?.valid) { return; }
+        this.task.name = this.taskForm.get('taskName').value;
+        this.task.description = this.taskForm.get('description').value;
+        this.task.complexity = this.taskForm.get('complexity').value;
+        if(!isArray(this.taskForm.get('theoryName').value)) {
+            this.task.topic_name = this.taskForm.get('theoryName').value;
+        }
+        this.task.input = this.taskForm.get('input').value;
+        this.task.output = this.taskForm.get('output').value;
+        this.task.solution = this.taskForm.get('solution').value;
+        this.httpService.updateTask(this.token, this.task).subscribe(
+            (data: any) => {
+                if(data.status == 200) {
+                    this.ngOnInit();
+                }
+            }
+        )
+    }
+
+    onRemoveTask() {
+        this.httpService.deleteTask(this.token, this.task.task_id).subscribe(
+            (data: any) => {
+                if(data.status == 200) {
+                    this.router.navigateByUrl("/task")
+                }
+            }
+        )
+    }
+
+    onCancelEdit() {
+        this.editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'), {
+            keyboard: false
+        })
+        this.editTaskModal?.hide();
+    }
+
+    onRemoveComment(comment_id: number) {
+        this.httpService.deleteComment(this.token, comment_id).subscribe(
+            (data: any) => {
+                this.ngOnInit();
+            }
+        )
+    }
+
+    onOpenProfile(user_id: number, username: string) {
+        if(username == this.username) {
+            this.router.navigateByUrl(`profile/`)  
+        }
+        else {
+            this.router.navigateByUrl(`profile/${user_id}`)  
+        }
+    }
+
+    onTheoryChange(value: any) {
+        this.taskForm.get('theoryName').setValue(value);
+    }
+
+    onReadLecture() {
+        this.router.navigateByUrl(`theory/${this.theoryID}`)  
+    }
+
+    onBuyPremium() {
+        window.location.href = ApiConstants.main_url + ApiConstants.payment_url + this.user_id.toString();
+    }
 }

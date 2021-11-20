@@ -1,0 +1,40 @@
+<app-header [headerName]="title"></app-header>
+<div class="page">
+    <div class="wrapper">
+        <div >
+            <div class="user_image" [style.background-image]="'url(' + user.image + ')'"></div>
+            <button class="settings-button" *ngIf="isOwnPage">Change image</button>
+            <button class="buy-button" (click)="onBuyPremium()" *ngIf="isOwnPage">Buy premium</button>
+            <button class="logout-button" (click)="onLogoutClick()" *ngIf="isOwnPage">Log out</button>
+            <button class="grey-button" (click)="onChangeToModeratorClick()" *ngIf="!isOwnPage && isUserAdmin">Set moderator role</button>
+            <button class="red-button" (click)="onBanClick()" *ngIf="!isOwnPage && isUserAdmin">Ban user</button>
+        </div>
+        <form [formGroup]="form">
+            <div class="field">
+                <p>User name</p>
+                <input type="text" formControlName="Username" *ngIf="isOwnPage">
+                <input type="text" formControlName="Username" *ngIf="!isOwnPage" readonly>
+            </div>
+            <div class="field">
+                <p>Email</p>
+                <input type="text" formControlName="Email" *ngIf="isOwnPage">
+                <input type="text" formControlName="Email" *ngIf="!isOwnPage" readonly>
+            </div>
+            <div class="field">
+                <p>Date of birth</p>
+                <input type="date" formControlName="Birthday" *ngIf="isOwnPage">
+                <input type="date" formControlName="Birthday" *ngIf="!isOwnPage" readonly>
+            </div>
+            <div class="field" *ngIf="!isOwnPage">
+                <p>Role</p>
+                <input type="text" value={{user.role}} readonly>
+            </div>
+            <div class="field" *ngIf="isOwnPage">
+                <p>Password</p>
+                <input type="password" formControlName="Password" *ngIf="isOwnPage">
+            </div>
+            <button class="apply" (click)="onSendFormClick()" *ngIf="isOwnPage">Apply</button>
+        </form>
+    </div>
+  
+</div>

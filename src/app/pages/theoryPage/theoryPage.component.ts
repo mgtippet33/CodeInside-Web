@@ -5,18 +5,18 @@ import { Theory } from 'src/app/Models/theory.model';
 import { AuthorizationService } from 'src/app/services/authorizationService';
 
 @Component({
-    selector: 'theoryPage',
-    templateUrl: './theoryPage.component.html',
-    styleUrls: ['./theoryPage.component.scss'],
-    providers: [HttpService]
+  selector: 'theoryPage',
+  templateUrl: './theoryPage.component.html',
+  styleUrls: ['./theoryPage.component.scss'],
+  providers: [HttpService]
 })
 export class TheoryPageComponent implements OnInit {
 
     theory: Theory = new Theory()
     backUrl: string = "theory"
 
-    constructor(private httpService: HttpService, private router: Router,
-        private route: ActivatedRoute) { }
+  constructor(private httpService: HttpService, private router: Router,
+    private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         //AuthorizationService.checkUserAuthorization(this.router)
