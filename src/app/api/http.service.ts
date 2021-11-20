@@ -176,4 +176,33 @@ export class HttpService {
     };
     var permissions_url = ApiConstants.main_url.toString() + ApiConstants.permissions_url.toString()
     return this.http.put(permissions_url, body, {'headers': headers, observe: 'response'});
+  }
+
+  getUserProfileById(token: string, id: string) {
+    const headers = {'Authorization': 'Bearer ' + token, 'content-type': 'application/json'}
+    var profile_url = ApiConstants.main_url.toString() + ApiConstants.profile_url.toString() + id
+    return this.http.get(profile_url, {'headers': headers, observe: 'response'});
+  }
+  
+  updateUserProfile(token: string, user: User) {
+    const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+    var body;
+    if (user.password != null) {
+        body = {
+            email: user.email,
+            name: user.username,
+            birthday: user.birthday,
+            password: user.password,
+        };
+    } else {
+        body = {
+            email: user.email,
+            name: user.username,
+            birthday: user.birthday
+        };
+    }
+    console.log(body)
+    var profile_url = ApiConstants.main_url.toString() + ApiConstants.profile_url.toString()
+    return this.http.put(profile_url, body, { 'headers': headers, observe: 'response' });
+}
 }
