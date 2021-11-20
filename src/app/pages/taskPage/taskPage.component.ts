@@ -77,8 +77,14 @@ export class TaskPageComponent implements OnInit {
     theoryID: number;
     user_id: number;
 
-    constructor(private httpService: HttpService, private router: Router,
-        private route: ActivatedRoute) { }
+  title: string
+  form: FormGroup
+  messageValueControl: FormControl
+  token: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InJvb3RAcm9vdC5jb20iLCJleHAiOjE2MzU1Mzk2MDIsImVtYWlsIjoicm9vdEByb290LmNvbSJ9.m76CeSVGuGMzitf98skgVMT53WEiLEYjZKAzQR5YROQ"
+  comments: Array<Comment>
+  message: string
+  taskName: string
+  backUrl: string = 'task'
 
     ngOnInit(): void {
         this.messageValueControl = new FormControl(this.message)
@@ -194,10 +200,12 @@ export class TaskPageComponent implements OnInit {
         )
     }
 
-    onLanguageChange(value: any): void {
-        this.options.mode = this.languages[value].mode
-        this.currentLanguage = this.languages[value].name
-    }
+  ngOnInit(): void {
+    this.messageValueControl = new FormControl(this.message)
+    this.form = new FormGroup(
+      {
+        MessageValueControl: this.messageValueControl
+      })
 
     onSendSubmission() {
         var submission = new Submission();
@@ -216,6 +224,7 @@ export class TaskPageComponent implements OnInit {
                         this.description = data['body']['data']['message']
                     }
                 }
+                this.comments = comments
             },
             (error: any) => {
                 this.result = "System failure"

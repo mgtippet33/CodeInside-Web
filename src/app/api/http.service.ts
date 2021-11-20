@@ -6,6 +6,7 @@ import { Task } from 'src/app/Models/task';
 import { Theory } from 'src/app/Models/theory.model';
 import { Submission } from '../Models/submission';
 import { ApiConstants } from './ApiConstants';
+import { UserPermissions } from '../Models/userPermissions';
 
 @Injectable()
 export class HttpService {
@@ -166,4 +167,13 @@ export class HttpService {
     var achievement_url = ApiConstants.main_url.toString() + ApiConstants.achievement_url.toString()
     return this.http.get(achievement_url, { 'headers': headers, observe: 'response' });
   }
+
+  updatePermissions(token: string, permission: UserPermissions) {
+    const headers = {'Authorization': 'Bearer ' + token, 'content-type': 'application/json'}
+    const body = {
+      is_staff: permission.is_staff,
+      is_active: permission.is_active,
+    };
+    var permissions_url = ApiConstants.main_url.toString() + ApiConstants.permissions_url.toString()
+    return this.http.put(permissions_url, body, {'headers': headers, observe: 'response'});
 }

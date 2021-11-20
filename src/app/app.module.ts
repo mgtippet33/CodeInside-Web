@@ -17,6 +17,7 @@ import {TaskPageComponent} from "./pages/taskPage/taskPage.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
 import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
+import {ProfilePageComponent} from "./pages/profile/profile.component";
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import {AchievementPageComponent} from "./pages/achievementPage/achievementPage.component";
 
@@ -34,6 +35,7 @@ import {AchievementPageComponent} from "./pages/achievementPage/achievementPage.
     TheoryViewPageComponent,
     HeaderComponent,
     TheoryPageComponent,
+    ProfilePageComponent,
     AchievementPageComponent
   ],
   imports: [

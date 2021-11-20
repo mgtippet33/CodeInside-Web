@@ -124,6 +124,16 @@
             </div>
         </div>
     </div>
+    <div class="user_image"></div>
+  </div> -->
+
+  <div class="addComment">
+    <input type="text" placeholder="Add comment" [formControl]="messageValueControl"
+    [(ngModel)]="message">
+    <button (click)="onAddComment()">
+      <fa-icon [icon]="faLocationArrow"></fa-icon>
+    </button>
+  </div>
 </div>
 
     <div class="editorContainer">

@@ -8,6 +8,6 @@ export enum ApiConstants {
   comment_url = "comments/",
   submission_url = "submissions/",
   payment_url = "payment/",
-  achievement_url = "achievements/"
+  achievement_url = "achievements/",
+  permissions_url = "permissions/2/"
 }
-

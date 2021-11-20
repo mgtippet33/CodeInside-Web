@@ -8,10 +8,10 @@ import { AuthorizationService } from 'src/app/services/authorizationService';
 import { CookieService } from 'src/app/services/cookieService';
 
 @Component({
-    selector: 'theoryPage',
-    templateUrl: './theoryPage.component.html',
-    styleUrls: ['./theoryPage.component.scss'],
-    providers: [HttpService]
+  selector: 'theoryPage',
+  templateUrl: './theoryPage.component.html',
+  styleUrls: ['./theoryPage.component.scss'],
+  providers: [HttpService]
 })
 export class TheoryPageComponent implements OnInit {
 
@@ -26,8 +26,8 @@ export class TheoryPageComponent implements OnInit {
             description: new FormControl('')
         });
 
-    constructor(private httpService: HttpService, private router: Router,
-        private route: ActivatedRoute) { }
+  constructor(private httpService: HttpService, private router: Router,
+    private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         //AuthorizationService.checkUserAuthorization(this.router)
