@@ -7,6 +7,7 @@ import { CommonValidators } from "../../validators/common-validators";
 import { CookieService } from 'src/app/services/cookieService';
 import { ApiConstants } from 'src/app/api/ApiConstants';
 import { UserPermissions } from "../../Models/userPermissions";
+import { formatDate } from '@angular/common';
 
 @Component({
     selector: 'profile',
@@ -93,9 +94,15 @@ export class ProfilePageComponent {
     onSendFormClick() {
         // this.validateForm();
         // if (!this.form?.valid) { return; }
+        this.user.username = this.form.get("Username").value;
+        this.user.email = this.form.get("Email").value;
+        this.user.birthday = formatDate(this.form.value['Birthday'], 'MM/dd/yyyy', 'en-US');
+        if(this.form.get("Password").value.length != 0) {
+            this.user.password = this.form.get("Password").value;
+        }
         this.httpService.updateUserProfile(this.token, this.user).subscribe(
             (data: any) => {
-                // console.log(data);
+                console.log(data);
             });
 
     }

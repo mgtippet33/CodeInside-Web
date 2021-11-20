@@ -6,8 +6,8 @@
             <button class="settings-button" *ngIf="isOwnPage">Change image</button>
             <button class="buy-button" (click)="onBuyPremium()" *ngIf="isOwnPage">Buy premium</button>
             <button class="logout-button" (click)="onLogoutClick()" *ngIf="isOwnPage">Log out</button>
-            <button class="grey-button" (click)="onChangeToModeratorClick()" *ngIf="!isOwnPage">Set moderator role</button>
-            <button class="red-button" (click)="onBanClick()" *ngIf="!isOwnPage">Ban user</button>
+            <button class="grey-button" (click)="onChangeToModeratorClick()" *ngIf="!isOwnPage && isUserAdmin">Set moderator role</button>
+            <button class="red-button" (click)="onBanClick()" *ngIf="!isOwnPage && isUserAdmin">Ban user</button>
         </div>
         <form [formGroup]="form">
             <div class="field">
