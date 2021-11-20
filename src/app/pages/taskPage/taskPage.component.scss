@@ -24,6 +24,17 @@ h3 {
 .nickname{
   font-size: 14px;
   color: #27335B;
+  cursor: pointer;
+}
+
+.datetime {
+  float: right;
+  font-size: 14px;
+  color: #27335B;
+}
+
+.comment-navbar {
+  overflow: hidden;
   margin-bottom: 5px;
 }
 
@@ -32,6 +43,7 @@ h3 {
   width: 50px;
   background: #C4C4C4;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .textBlock{
@@ -77,5 +89,155 @@ button{
 }
 
 fa-icon{
-  color: white;
+  color: #FFDC97;
+  padding: 2px;
+}
+
+.lightIcon {
+  font-size: 26px;
+}
+
+.LocationArrow{
+  color: #ffffff;
+}
+
+.closeFaTimes {
+  color: black;
+  font-size: 21px;
+}
+
+.closeButtonTimes {
+  background-color: #FFDC97;
+}
+
+.jumbotron{
+  text-align: center;
+  background-color: #CFF3E4;
+  border-radius: 30px;
+  width: 80%;
+  height: auto;
+  margin: 35px auto;
+  padding: 20px 35px;
+}
+
+pre {
+  overflow: hidden;
+  white-space:pre-wrap;
+}
+
+.description {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 44,98px;
+}
+
+.editorContainer {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 2%;
+  border: 2px solid rgb(109, 103, 103);
+}
+
+.langText {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  margin-right: 1.5%;
+}
+
+.selectLanguages {
+  text-align: center;
+  width: 100px;
+}
+
+.sendButton {
+  background-color: #50E08A;
+  border: none;
+  border-radius: 15px;
+  width: 180.23px;
+  height: 57px;
+  margin-right: 2.5%;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.hintButton {
+  background-color: #FFDC97;
+  border: none;
+  border-radius: 15px;
+  width: 180.23px;
+  height: 57px;
+  margin-left: 2.5%;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.resultText {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  margin-left: 10%;
+}
+
+.answerText {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  margin-left: 1.5%;
+}
+
+.descriptionText {
+  text-align: justify;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  color: #F40101;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.warningDiscussionText {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+}
+
+.controlText {
+  color: black;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+form {
+  width: 50%;
+  height: 440px;
+  border-radius: 15px;
+  background: #CFF3E4;
+  box-shadow: 0px 11px 8px rgba(0, 0, 0, 0.15);
+  padding-top: 35px;
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 10px auto;
+}
+
+textarea, input, .topic-select {
+  width: 75%;
+  padding: 15px 30px;
+  border-radius: 10px;
+  resize: none;
+}
+
+a {
+  cursor: pointer;
 }

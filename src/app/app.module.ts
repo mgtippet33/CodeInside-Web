@@ -19,6 +19,8 @@ import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.c
 import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
 import {ProfilePageComponent} from "./pages/profile/profile.component";
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import {AchievementPageComponent} from "./pages/achievementPage/achievementPage.component";
+
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
     HeaderComponent,
     TheoryPageComponent,
     ProfilePageComponent,
+    AchievementPageComponent
   ],
   imports: [
     BrowserModule,
