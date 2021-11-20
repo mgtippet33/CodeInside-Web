@@ -18,8 +18,9 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { TheoryViewPageComponent } from './pages/theoryViewPage/theoryViewPage.component';
 import { TheoryPageComponent } from './pages/theoryPage/theoryPage.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import {AchievementPageComponent} from "./pages/achievementPage/achievementPage.component";
-
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faLightbulb as fasLightbulb, faPen as fasPen } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb as farLightbulb } from '@fortawesome/free-regular-svg-icons';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,6 @@ import {AchievementPageComponent} from "./pages/achievementPage/achievementPage.
     TheoryViewPageComponent,
     HeaderComponent,
     TheoryPageComponent,
-    AchievementPageComponent
   ],
   imports: [
     BrowserModule,
@@ -51,4 +51,8 @@ import {AchievementPageComponent} from "./pages/achievementPage/achievementPage.
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(fasLightbulb, farLightbulb, fasPen);
+  }
+}

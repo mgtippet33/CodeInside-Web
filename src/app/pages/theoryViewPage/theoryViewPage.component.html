@@ -5,74 +5,19 @@
         <input placeholder="Search" type="text" class="search" [formControl]="searchValueControl" (ngModelChange)="onSearchFieldChange($event)">
         <img class="clear-icon" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxLjk3NiA1MS45NzYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxLjk3NiA1MS45NzY7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4KPGc+Cgk8cGF0aCBkPSJNNDQuMzczLDcuNjAzYy0xMC4xMzctMTAuMTM3LTI2LjYzMi0xMC4xMzgtMzYuNzcsMGMtMTAuMTM4LDEwLjEzOC0xMC4xMzcsMjYuNjMyLDAsMzYuNzdzMjYuNjMyLDEwLjEzOCwzNi43NywwICAgQzU0LjUxLDM0LjIzNSw1NC41MSwxNy43NCw0NC4zNzMsNy42MDN6IE0zNi4yNDEsMzYuMjQxYy0wLjc4MSwwLjc4MS0yLjA0NywwLjc4MS0yLjgyOCwwbC03LjQyNS03LjQyNWwtNy43NzgsNy43NzggICBjLTAuNzgxLDAuNzgxLTIuMDQ3LDAuNzgxLTIuODI4LDBjLTAuNzgxLTAuNzgxLTAuNzgxLTIuMDQ3LDAtMi44MjhsNy43NzgtNy43NzhsLTcuNDI1LTcuNDI1Yy0wLjc4MS0wLjc4MS0wLjc4MS0yLjA0OCwwLTIuODI4ICAgYzAuNzgxLTAuNzgxLDIuMDQ3LTAuNzgxLDIuODI4LDBsNy40MjUsNy40MjVsNy4wNzEtNy4wNzFjMC43ODEtMC43ODEsMi4wNDctMC43ODEsMi44MjgsMGMwLjc4MSwwLjc4MSwwLjc4MSwyLjA0NywwLDIuODI4ICAgbC03LjA3MSw3LjA3MWw3LjQyNSw3LjQyNUMzNy4wMjIsMzQuMTk0LDM3LjAyMiwzNS40NiwzNi4yNDEsMzYuMjQxeiIgZmlsbD0iIzAwMDAwMCIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
     </div>
-    <div class="row justify-content-end" *ngIf="isUserAdmin">
-        <div class="col-2 mr-5">
-            <p class="controlText" data-toggle="modal" data-target="#createNewTheoryModal">NEW THEORY</p>
-        </div>
-    </div>
 </div>
 <div class="custom-block" *ngFor="let theory of sortedTheory">
     <div class="row">
         <div class="col">
-            <h4 class="text-left ml-2" style="margin-top: 10px;">{{theory.name}}</h4>
+            <h4 class="text-left ml-3 mt-3" style="margin-top: 10px;">{{theory.name}}</h4>
         </div>
     </div>
     <div class="row">
-        <div class="col-8">
-            <h6 class="text-justify ml-2">{{theory.description}}</h6>
+        <div class="col-10">
+            <h6 class="text-justify ml-3 mt-2 mb-3">{{theory.description}}</h6>
         </div>
-        <div class="col-4">
-            <button type="button" class="btn btn-primary w-50 mb-3" (click)="onReadTheory(theory.theory_id)">Read</button>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="createNewTheoryModal" tabindex="-1" role="dialog" aria-labelledby="createNewTheoryModalTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-centred modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createNewTheoryModalLongTitle">Manage Theory</h5>
-                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
-                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="jumbotron" [formGroup]="theoryForm" action="">
-                    <div class="field" [formGroup]="theoryForm">
-                        <p>Task Name</p>
-                        <input type="text" formControlName="theoryName">
-                    </div>
-                    <div class="field">
-                        <p>Description</p>
-                        <textarea rows="5" formControlName="description"></textarea> 
-                    </div>
-                </form>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="sendButton" data-dismiss="modal" (click)="onCreateTheory()">Create</button>
-                    <button type="button" class="hintButton" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-centred modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="notificationModalLongTitle">Create Task Error</h5>
-                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
-                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
-                </button>
-            </div>
-            <div class="modal-body justify-content-center">
-                <p class="resultText">Something went wrong, please try again</p>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="hintButton" data-dismiss="modal">OK</button>
-                </div>
-            </div>
+        <div class="col-2 d-flex justify-content-end">
+            <button type="button" class="btn btn-primary w-50 mr-3 mb-3" (click)="onReadTheory(theory.theory_id)">Read</button>
         </div>
     </div>
 </div>

@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
         //AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
         this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]);
-        this.password = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.passwordPattern]);
+        this.password = new FormControl('', [Validators.required]);
         this.form = new FormGroup({
             Email: this.email,
             Password: this.password,

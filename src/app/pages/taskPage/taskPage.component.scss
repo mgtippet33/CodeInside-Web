@@ -29,7 +29,6 @@ h3 {
   float: left;
   font-size: 14px;
   color: #27335B;
-  cursor: pointer;
 }
 
 .datetime {
@@ -48,7 +47,6 @@ h3 {
   width: 50px;
   background: #C4C4C4;
   border-radius: 50%;
-  cursor: pointer;
 }
 
 .textBlock{
@@ -96,6 +94,7 @@ button{
 fa-icon{
   color: #FFDC97;
   padding: 2px;
+  font-size: 24px;
 }
 
 .lightIcon {
@@ -106,19 +105,9 @@ fa-icon{
   color: #ffffff;
 }
 
-.closeFaTimes {
-  color: black;
-  font-size: 21px;
-}
-
-.closeButtonTimes {
-  background-color: #FFDC97;
-}
-
 .jumbotron{
   text-align: center;
-  background-color: #CFF3E4;
-  border-radius: 30px;
+  background-color: #ffffff;
   width: 80%;
   height: auto;
   margin: 35px auto;
@@ -216,33 +205,5 @@ pre {
   font-weight: 300;
   font-size: 30px;
   text-decoration: underline;
-  cursor: pointer;
-}
-
-form {
-  width: 50%;
-  height: 440px;
-  border-radius: 15px;
-  background: #CFF3E4;
-  box-shadow: 0px 11px 8px rgba(0, 0, 0, 0.15);
-  padding-top: 35px;
-}
-
-.field {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  margin: 10px auto;
-}
-
-textarea, input, .topic-select {
-  width: 75%;
-  padding: 15px 30px;
-  border-radius: 10px;
-  resize: none;
-}
-
-a {
   cursor: pointer;
 }

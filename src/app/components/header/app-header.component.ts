@@ -51,7 +51,7 @@ export class HeaderComponent implements ControlValueAccessor {
     }
 
     onAwardClick(){
-        this.router.navigateByUrl('/achievement');
+        this.router.navigateByUrl('/');
     }
 
     onTaskClick(){
