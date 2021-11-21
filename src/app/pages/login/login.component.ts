@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
     }
     ngOnInit(): void {
-        //AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
+        AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
         this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]);
         this.password = new FormControl('', [Validators.required]);
         this.form = new FormGroup({
@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
                     if (error.error instanceof ErrorEvent) {
                         console.error("Error Event");
                     } else {
-                        console.log(`error status : ${error.status} ${error.statusText}`);
                         switch (error.status) {
                             case 404:
                                 this.openNotificationModal('The email or password is incorrect.\n\n Please try again.')

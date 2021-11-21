@@ -80,7 +80,7 @@ export class TaskViewPageComponent {
             SliderValue: this.sliderValueControl,
             SearchValueControl: this.searchValueControl
         });
-        //AuthorizationService.checkUserAuthorization(this.router)
+        AuthorizationService.checkUserAuthorization(this.router)
         this.token = CookieService.getCookie('JWT_token')
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {

@@ -89,7 +89,7 @@ export class TaskPageComponent implements OnInit {
                 MessageValueControl: this.messageValueControl
             })
 
-        //AuthorizationService.checkUserAuthorization(this.router)
+        AuthorizationService.checkUserAuthorization(this.router)
         this.token = CookieService.getCookie('JWT_token')
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
@@ -188,7 +188,6 @@ export class TaskPageComponent implements OnInit {
         this.httpService.createComment(this.token, this.taskName, this.message).subscribe(
             (data: any) => {
                 if (data['status'] == 201) {
-                    console.log("Comment create successfully")
                     this.message = ""
                     this.ngOnInit()
                 }
