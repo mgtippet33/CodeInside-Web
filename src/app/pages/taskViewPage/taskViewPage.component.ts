@@ -74,14 +74,14 @@ export class TaskViewPageComponent {
     }
 
     ngOnInit(): void {
+        AuthorizationService.checkUserAuthorization(this.router)
+        this.token = CookieService.getCookie('JWT_token')
         this.searchValueControl = new FormControl(this.searchValue);
         this.sliderValueControl = new FormControl(this.difficulty);
         this.form = new FormGroup({
             SliderValue: this.sliderValueControl,
             SearchValueControl: this.searchValueControl
         });
-        AuthorizationService.checkUserAuthorization(this.router)
-        this.token = CookieService.getCookie('JWT_token')
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
             this.isUserAdmin = data['body']['data']['role'] == 'User' ? false : true

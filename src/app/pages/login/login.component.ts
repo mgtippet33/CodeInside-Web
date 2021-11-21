@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
             .subscribe((data: any) => {
                 if (data['status'] == 200) {
                     var token = data['body']['token']
-                    document.cookie = `JWT_token=${token}; secure`
+                    document.cookie = `JWT_token=${token}; Path=/; secure`
                     this.router.navigateByUrl('/task');
                 }
             },
