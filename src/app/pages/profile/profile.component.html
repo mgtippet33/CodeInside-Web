@@ -6,8 +6,9 @@
             <button class="settings-button" *ngIf="isOwnPage">Change image</button>
             <button class="buy-button" (click)="onBuyPremium()" *ngIf="isOwnPage">Buy premium</button>
             <button class="logout-button" (click)="onLogoutClick()" *ngIf="isOwnPage">Log out</button>
-            <button class="grey-button" (click)="onChangeToModeratorClick()" *ngIf="!isOwnPage && isUserAdmin">Set moderator role</button>
-            <button class="red-button" (click)="onBanClick()" *ngIf="!isOwnPage && isUserAdmin">Ban user</button>
+            <button class="grey-button" (click)="onChangeToModeratorClick()" *ngIf="!isCurrentUserAdmin && !isOwnPage && isUserAdmin">Set moderator role</button>
+            <button class="red-button" (click)="onBanClick()" *ngIf="!isOwnPage && isUserAdmin && !isCurrentUserBanned">Ban user</button>
+            <button class="green-button" (click)="onUnBanClick()" *ngIf="!isOwnPage && isUserAdmin && isCurrentUserBanned">Unban user</button>
         </div>
         <form [formGroup]="form">
             <div class="field">
@@ -37,4 +38,22 @@
         </form>
     </div>
   
+</div>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLongTitle">Notification</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                {{notification}}
+            </div>
+        </div>
+    </div>
 </div>
