@@ -8,6 +8,7 @@ import { throwError } from 'rxjs';
 import { AuthorizationService } from 'src/app/services/authorizationService';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as bootstrap from 'bootstrap';
+import { ApiConstants } from 'src/app/api/ApiConstants';
 
 @Component({
     selector: 'login',
@@ -101,5 +102,9 @@ export class LoginComponent implements OnInit {
             password.setErrors({ ...password.errors, passwordValid: true });
         }
 
+    }
+
+    onResetPassword() {
+        window.location.href = ApiConstants.main_url + ApiConstants.password_reset_url;
     }
 }

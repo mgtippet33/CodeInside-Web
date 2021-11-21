@@ -123,7 +123,6 @@ export class ProfilePageComponent {
     }
 
     onBuyPremium() {
-        console.log(ApiConstants.main_url + ApiConstants.payment_url + this.user.user_id.toString())
         window.location.href = ApiConstants.main_url + ApiConstants.payment_url + this.user.user_id.toString();
     }
 
