@@ -1,5 +1,5 @@
 export enum ApiConstants {
-  main_url = "http://127.0.0.1:8000/",
+  main_url = "https://codeinside.herokuapp.com/",
   register_url = "signUp/",
   login_url = "signIn/",
   profile_url = "profile/",
