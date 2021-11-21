@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faLightbulb, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb, faTimes, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import * as bootstrap from 'bootstrap';
 import { isArray } from 'jquery';
 import { HttpService } from 'src/app/api/http.service';
@@ -20,6 +20,7 @@ import { CookieService } from 'src/app/services/cookieService';
 export class TaskViewPageComponent {
     faLightbulb = faLightbulb;
     faTimes = faTimes;
+    faPlusSquare = faPlusSquare;
     title='Task List';
     form: FormGroup;
     sliderValueControl: FormControl;
@@ -180,6 +181,10 @@ export class TaskViewPageComponent {
     }
 
     onCreateTask() {
+        if(isArray(this.taskForm.get('theoryName').value)) {
+            var theory = this.taskForm.get('theoryName').value[0]
+            this.taskForm.controls['theoryName'].setValue(theory.name);
+        }
         if (!this.taskForm?.valid) { 
             this.openNotificationModal();
             return; 
@@ -188,9 +193,7 @@ export class TaskViewPageComponent {
         task.name = this.taskForm.get('taskName').value;
         task.description = this.taskForm.get('description').value;
         task.complexity = this.taskForm.get('complexity').value;
-        if(!isArray(this.taskForm.get('theoryName').value)) {
-            task.topic_name = this.taskForm.get('theoryName').value;
-        }
+        task.topic_name = this.taskForm.get('theoryName').value;
         task.input = this.taskForm.get('input').value;
         task.output = this.taskForm.get('output').value;
         task.solution = this.taskForm.get('solution').value;

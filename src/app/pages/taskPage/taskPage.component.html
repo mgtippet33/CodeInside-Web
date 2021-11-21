@@ -23,8 +23,11 @@
             <fa-icon [icon]="['far', 'lightbulb']" *ngIf="5==task.complexity"></fa-icon>
         </div>
         <div class="col-2 d-flex justify-content-end" *ngIf="isUserAdmin">
+            <a class="controlText mr-2">
+                <fa-icon [icon]="['fas', 'pen']" data-toggle="modal" data-target="#editTaskModal"></fa-icon>
+            </a>
             <a class="controlText">
-                <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                <fa-icon [icon]="faTrash" data-toggle="modal" data-target="#removeTaskModal"></fa-icon>
             </a>
         </div>
     </div>
@@ -45,7 +48,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="jumbotron" [formGroup]="taskForm" action="">
+                <form class="jumbotron" style="background-color: #CFF3E4;" [formGroup]="taskForm" action="">
                     <div class="field" [formGroup]="taskForm">
                         <p>Task Name</p>
                         <input type="text" formControlName="taskName">
@@ -126,6 +129,27 @@
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="sendButton" data-dismiss="modal" *ngIf="!isPremiumUser" (click)="onBuyPremium()">Buy premium</button>
                     <button type="button" class="hintButton" data-dismiss="modal" (click)="onReadLecture()">Read lecture</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLongTitle">Edit Task Error</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <p class="resultText">Something went wrong, please try again</p>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="hintButton" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

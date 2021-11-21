@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as bootstrap from 'bootstrap';
 import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
@@ -43,6 +43,7 @@ export class TheoryViewPageComponent {
     isUserAdmin: boolean;
     token:string;
     faTimes = faTimes;
+    faPlusSquare = faPlusSquare;
     theoryForm = new FormGroup(
         {
             theoryName: new FormControl('', [Validators.required]),

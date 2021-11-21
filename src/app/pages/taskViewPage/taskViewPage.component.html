@@ -58,10 +58,12 @@
         </div>
 
     </div>
-    <div class="row justify-content-end" *ngIf="isUserAdmin">
-        <div class="col-2 mr-5">
-            <p class="controlText" data-toggle="modal" data-target="#createNewTaskModal">NEW TASK</p>
-        </div>
+</div>
+<div class="row justify-content-end" *ngIf="isUserAdmin">
+    <div class="col-1">
+        <a class="controlText">
+            <fa-icon class="faPlus" [icon]="faPlusSquare" data-toggle="modal" data-target="#createNewTaskModal"></fa-icon>
+        </a>
     </div>
 </div>
 
