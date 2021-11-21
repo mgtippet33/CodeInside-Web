@@ -1,0 +1,44 @@
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/neat';
+@import '~bootstrap/scss/bootstrap';
+$fa-font-path: "../../../node_modules/font-awesome/fonts";
+@import "../node_modules/font-awesome/scss/font-awesome.scss";
+
+html {
+    overflow-x: hidden;
+}
+
+.light-green {
+    background-color: #CFF3E4;
+}
+.btn-primary{
+    color: black;
+    background-color: #50E08A;
+    border-color: #50E08A;
+    border-radius: 10px;
+}
+.btn-primary:hover{
+    color: black;
+    background-color: #50e08acb;
+}
+
+input[type=submit] {
+    color: black;
+    background-color: #ff9100cb;
+}
+.btn-secondary{
+    color: black;
+    background-color: #FFDC97;
+    border-color: #FFDC97;
+    border-radius: 10px;
+}
+.btn-secondary:hover{
+    color: black;
+    background-color: #ffdc97bd;
+}
+* {
+    font-family: Cairo, sans-serif !important; 
+  }
+.customSearch{
+    min-width: 500px;
+}

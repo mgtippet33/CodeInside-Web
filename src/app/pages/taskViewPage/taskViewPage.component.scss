@@ -1,0 +1,78 @@
+.custom-block{
+  border-radius:16px;
+  background:#FFFFFF;
+  box-shadow: 2px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  text-align:center;
+  color:#333;
+  margin: 20px;
+}
+.solved-block{
+  width: 120px;
+  border-radius:16px;
+  font-size:16px;
+  background-color: #CFF3E4;
+  padding-top: 2px;
+}
+
+.unsolved-block{
+  width: 120px;
+  border-radius:16px;
+  font-size:16px;
+  background-color: #EEF3FF;
+  padding-top: 2px;
+}
+.filter{
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  background-color: #CFF3E4;
+  border-radius: 10px;
+}
+.wrapper {
+  position: relative;
+  display: flex;
+  min-width: 100px;
+}
+  
+.search {
+  margin: 10px;
+  border-radius: 5px;
+  height: 35px;
+  width: 100%;
+  padding: 2px 23px 2px 30px;
+  outline: 0;
+  border: 0px;
+  background-color: #FFFFFF;
+}
+
+.search-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 14px;
+}
+
+.clear-icon {
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  width: 12px;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.search:hover, .search:focus {
+  border: 1px solid #009688;
+}
+
+fa-icon{
+  color: #FFDC97;
+  margin-top: 6px;
+  padding: 4px;
+  font-size: 24px;
+}
+
+.btn-primary {
+  max-height: 40px;
+}
