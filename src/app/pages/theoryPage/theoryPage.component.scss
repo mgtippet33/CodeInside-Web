@@ -1,53 +1,143 @@
 text{
-    text-align: center;
+  text-align: center;
 }
 
 
 .container-1 {
-    display: flex;
-    align-items: stretch;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-  
-  
-  .container-2 {
-    display: flex;
-  }
-  
-  .container-2 {
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
-  .container-1 div, .container-2 div {
-    padding: 10px;
- 
-  }
-  
-  .box-1 {
-    flex: 1;
-    order: 1;
-  }
-  
-  .box-2 {
-    flex: 2;
-    order: 2;
-    text-align: center;
-    margin-top: 15px;
-  }
-  
-  .box-3 {
-    flex: 1;
-    order: 3;
-  }
-  
-  .box {
-    flex-basis: 70%;
-    line-height: 2;
-  }
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  justify-content: space-around;
+}
 
-  pre {
-    overflow: hidden;
-    white-space:pre-wrap;
-  }
+
+.container-2 {
+  display: flex;
+}
+
+.container-2 {
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.container-1 div, .container-2 div {
+  padding: 10px;
+
+}
+
+.box-1 {
+  flex: 1;
+  order: 1;
+}
+
+.box-2 {
+  flex: 2;
+  order: 2;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.box-3 {
+  flex: 1;
+  order: 3;
+}
+
+.box {
+  flex-basis: 70%;
+  line-height: 2;
+}
+
+pre {
+  overflow: hidden;
+  white-space:pre-wrap;
+}
+
+fa-icon{
+  color: #FFDC97;
+  padding: 2px;
+  font-size: 24px;
+}
+
+.jumbotron{
+  text-align: center;
+  background-color: #CFF3E4;
+  border-radius: 30px;
+  width: 80%;
+  height: auto;
+  margin: 35px auto;
+  padding: 20px 35px;
+}
+
+.sendButton {
+  background-color: #50E08A;
+  border: none;
+  border-radius: 15px;
+  width: 180.23px;
+  height: 57px;
+  margin-right: 2.5%;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.hintButton {
+  background-color: #FFDC97;
+  border: none;
+  border-radius: 15px;
+  width: 180.23px;
+  height: 57px;
+  margin-left: 2.5%;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+form {
+  width: 50%;
+  height: 440px;
+  border-radius: 15px;
+  background: #CFF3E4;
+  box-shadow: 0px 11px 8px rgba(0, 0, 0, 0.15);
+  padding-top: 35px;
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 10px auto;
+}
+
+textarea, input, .topic-select {
+  width: 75%;
+  padding: 15px 30px;
+  border-radius: 10px;
+  resize: none;
+}
+
+.closeFaTimes {
+  color: black;
+  font-size: 21px;
+}
+
+
+.closeButtonTimes {
+background-color: #FFDC97;
+border: none;
+border-radius: 50%;
+width: 40px;
+height: 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.controlText {
+color: black;
+font-family: 'Cairo', sans-serif;
+font-weight: 300;
+font-size: 24px;
+text-decoration: underline;
+cursor: pointer;
+}

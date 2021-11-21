@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faPlusSquare, faTimes } from '@fortawesome/free-solid-svg-icons';
+import * as bootstrap from 'bootstrap';
 import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
 import { Task } from 'src/app/Models/task';
 import { Theory } from 'src/app/Models/theory.model';
 import { AuthorizationService } from 'src/app/services/authorizationService';
+import { CookieService } from 'src/app/services/cookieService';
 
 @Component({
     selector: 'theoryView',
@@ -37,6 +40,15 @@ export class TheoryViewPageComponent {
         { name: 'Theory 7', description: 'Description 7'} as Theory
     ];
     solved: boolean = false; 
+    isUserAdmin: boolean;
+    token:string;
+    faTimes = faTimes;
+    faPlusSquare = faPlusSquare;
+    theoryForm = new FormGroup(
+        {
+            theoryName: new FormControl('', [Validators.required]),
+            description: new FormControl('', [Validators.required])
+        });
     constructor(private httpService: HttpService, private router: Router) {
 
     }
@@ -47,6 +59,11 @@ export class TheoryViewPageComponent {
             SearchValueControl: this.searchValueControl
         });
         AuthorizationService.checkUserAuthorization(this.router)
+        this.token = CookieService.getCookie('JWT_token')
+        if (this.token == null) { return }
+        this.httpService.getUserProfile(this.token).subscribe((data: any) => {
+            this.isUserAdmin = data['body']['data']['role'] == 'User' ? false : true
+        }, error => { })
         this.httpService.getTheory().subscribe({
             next: (data: any) => {
                 data = data['data']
@@ -55,7 +72,7 @@ export class TheoryViewPageComponent {
                     var theory = new Theory()
                     theory.theory_id = data[i]['id'] as number
                     theory.name = data[i]['name']
-                    theory.description = data[i]['desc'].replace(/<\/?[a-zA-Z]+>/gi,'').substring(0, 100) + '...'
+                    theory.description = data[i]['desc'].replace(/<\/?[a-zA-Z]+>/gi, '').substring(0, data[i]['desc'].indexOf('.')) + '...'
                     theoretics[i] = theory
                 }
                 this.theory = theoretics
@@ -75,5 +92,34 @@ export class TheoryViewPageComponent {
 
     onReadTheory(theory_id: number) {
         this.router.navigateByUrl(`/theory/${theory_id}`)
+    }
+
+    openNotificationModal() {
+        var notificationModal = new bootstrap.Modal(document.getElementById("notificationModal"), {
+            keyboard: false
+        });
+        notificationModal?.show();
+    }
+
+    onCreateTheory() {
+        if (!this.theoryForm?.valid) { 
+            this.openNotificationModal();
+            return; 
+        }
+        var theory = new Theory();
+        theory.name = this.theoryForm.get('theoryName').value;
+        theory.description = this.theoryForm.get('description').value;
+        
+
+        this.httpService.createTheory(this.token, theory).subscribe(
+            (data:any) => {
+                if(data.status == 201) {
+                    this.ngOnInit();
+                }
+            },
+            (error:any) => {
+                this.openNotificationModal();
+            }
+        )
     }
 }

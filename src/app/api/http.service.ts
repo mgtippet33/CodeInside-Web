@@ -6,6 +6,7 @@ import { Task } from 'src/app/Models/task';
 import { Theory } from 'src/app/Models/theory.model';
 import { Submission } from '../Models/submission';
 import { ApiConstants } from './ApiConstants';
+import { UserPermissions } from '../Models/userPermissions';
 
 @Injectable()
 export class HttpService {
@@ -56,9 +57,9 @@ export class HttpService {
         return this.http.post(task_url, body, { 'headers': headers, observe: 'response' });
     }
 
-    getTasks(taskID: number=null) {
+    getTasks(taskID: number = null) {
         var task_url = ApiConstants.main_url.toString() + ApiConstants.task_url.toString()
-        if(taskID != null) {
+        if (taskID != null) {
             task_url += taskID.toString() + "/"
         }
         return this.http.get(task_url);
@@ -95,9 +96,9 @@ export class HttpService {
         return this.http.post(theory_url, body, { 'headers': headers, observe: 'response' });
     }
 
-    getTheory(theoryID: number=null) {
+    getTheory(theoryID: number = null) {
         var theory_url = ApiConstants.main_url.toString() + ApiConstants.theory_url.toString()
-        if(theoryID != null) {
+        if (theoryID != null) {
             theory_url += theoryID.toString() + "/"
         }
         return this.http.get(theory_url);
@@ -141,7 +142,7 @@ export class HttpService {
         return this.http.delete(comment_url, { 'headers': headers, observe: 'response' });
     }
 
-    sendSubmission(token: string, submission: Submission ) {
+    sendSubmission(token: string, submission: Submission) {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
         const body = {
             task: submission.task_name,
@@ -152,12 +153,55 @@ export class HttpService {
         return this.http.post(submission_url, body, { 'headers': headers, observe: 'response' });
     }
 
-    getSubmission(token: string, task_id:number=null) {
+    getSubmission(token: string, task_id: number = null) {
         const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
         var submission_url = ApiConstants.main_url.toString() + ApiConstants.submission_url.toString()
-        if(task_id != null) {
+        if (task_id != null) {
             submission_url += task_id.toString() + "/"
         }
         return this.http.get(submission_url, { 'headers': headers, observe: 'response' });
+    }
+
+    getAchievement(token: string) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        var achievement_url = ApiConstants.main_url.toString() + ApiConstants.achievement_url.toString()
+        return this.http.get(achievement_url, { 'headers': headers, observe: 'response' });
+    }
+
+    updatePermissions(token: string, permission: UserPermissions) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        const body = {
+            is_staff: permission.is_staff,
+            is_active: permission.is_active,
+        };
+        var permissions_url = ApiConstants.main_url.toString() + ApiConstants.permissions_url.toString()
+        return this.http.put(permissions_url, body, { 'headers': headers, observe: 'response' });
+    }
+
+    getUserProfileById(token: string, id: string) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        var profile_url = ApiConstants.main_url.toString() + ApiConstants.profile_url.toString() + id
+        return this.http.get(profile_url, { 'headers': headers, observe: 'response' });
+    }
+
+    updateUserProfile(token: string, user: User) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        var body;
+        if (user.password != null) {
+            body = {
+                email: user.email,
+                name: user.username,
+                birthday: user.birthday,
+                password: user.password,
+            };
+        } else {
+            body = {
+                email: user.email,
+                name: user.username,
+                birthday: user.birthday
+            };
+        }
+        var profile_url = ApiConstants.main_url.toString() + ApiConstants.profile_url.toString()
+        return this.http.put(profile_url, body, { 'headers': headers, observe: 'response' });
     }
 }

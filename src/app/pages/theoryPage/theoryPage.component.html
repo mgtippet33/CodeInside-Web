@@ -1,7 +1,91 @@
 <app-header [headerName]="theory.name" [navbarWithLogo]="false" [backUrl]="backUrl"></app-header>
 
+<div class="row d-flex justify-content-end" *ngIf="isUserAdmin">
+    <div class="col-2">
+        <a class="controlText mr-2">
+            <fa-icon [icon]="['fas', 'pen']" data-toggle="modal" data-target="#editTheoryModal"></fa-icon>
+        </a>
+        <a class="controlText">
+            <fa-icon [icon]="faTrash" data-toggle="modal" data-target="#removeTheoryModal"></fa-icon>
+        </a>
+    </div>
+</div>
 <div class="container-2">
     <div class="box">
         <pre><font size="4.5"> <div [innerHTML]=theory.description></div></font></pre>      
+    </div>
+</div>
+
+<!-- Edit Task Modal -->
+<div class="modal fade" id="editTheoryModal" tabindex="-1" role="dialog" aria-labelledby="editTheoryModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTheoryModalLongTitle">Manage Theory</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="jumbotron" [formGroup]="theoryForm" action="">
+                    <div class="field" [formGroup]="theoryForm">
+                        <p>Task Name</p>
+                        <input type="text" formControlName="theoryName">
+                    </div>
+                    <div class="field">
+                        <p>Description</p>
+                        <textarea rows="5" formControlName="description"></textarea> 
+                    </div>
+                </form>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="sendButton" data-dismiss="modal" (click)="onApplyChange()">Apply changes</button>
+                    <button type="button" class="hintButton" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Remove Modal -->
+<div class="modal fade" id="removeTheoryModal" tabindex="-1" role="dialog" aria-labelledby="removeTheoryModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeTheoryModalLongTitle">Remove Theory</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <p class="resultText">Are you sure you want to remove this theory?</p>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="sendButton" data-dismiss="modal" (click)="onRemoveTheory()">Yes</button>
+                    <button type="button" class="hintButton" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLongTitle">Edit Theory Error</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <p class="resultText">Something went wrong, please try again</p>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="hintButton" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

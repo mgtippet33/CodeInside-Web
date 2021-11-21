@@ -1,25 +1,44 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { HttpService } from 'src/app/api/http.service';
 import { Theory } from 'src/app/Models/theory.model';
 import { AuthorizationService } from 'src/app/services/authorizationService';
+import { CookieService } from 'src/app/services/cookieService';
+import { Modal } from 'bootstrap';
+import * as bootstrap from 'bootstrap';
 
 @Component({
-    selector: 'theoryPage',
-    templateUrl: './theoryPage.component.html',
-    styleUrls: ['./theoryPage.component.scss'],
-    providers: [HttpService]
+  selector: 'theoryPage',
+  templateUrl: './theoryPage.component.html',
+  styleUrls: ['./theoryPage.component.scss'],
+  providers: [HttpService]
 })
 export class TheoryPageComponent implements OnInit {
 
     theory: Theory = new Theory()
+    faTimes = faTimes;
+    faTrash = faTrash;
     backUrl: string = "theory"
+    isUserAdmin: boolean;
+    token: string;
+    theoryForm = new FormGroup(
+        {
+            theoryName: new FormControl(''),
+            description: new FormControl('')
+        });
 
-    constructor(private httpService: HttpService, private router: Router,
-        private route: ActivatedRoute) { }
+  constructor(private httpService: HttpService, private router: Router,
+    private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         AuthorizationService.checkUserAuthorization(this.router)
+        this.token = CookieService.getCookie('JWT_token')
+        if (this.token == null) { return }
+        this.httpService.getUserProfile(this.token).subscribe((data: any) => {
+            this.isUserAdmin = data['body']['data']['role'] == 'User' ? false : true
+        }, error => { })
         this.route.params.subscribe(params => {
             const id = Number.parseInt(params['id']);
             this.httpService.getTheory(id).subscribe(
@@ -31,11 +50,52 @@ export class TheoryPageComponent implements OnInit {
                             name: data["name"],
                             description: data["desc"]
                         }
+
+                        this.theoryForm = new FormGroup(
+                            {
+                                theoryName: new FormControl(data["name"], [Validators.required]),
+                                description: new FormControl(data["desc"], [Validators.required])
+                            });
+
                     },
                     error: (error: any) => {
                     }
                 }
             )
         })
+    }
+
+    
+    openNotificationModal() {
+        var notificationModal = new bootstrap.Modal(document.getElementById("notificationModal"), {
+            keyboard: false
+        });
+        notificationModal?.show();
+    }
+
+    onApplyChange() {
+        if (!this.theoryForm?.valid) { 
+            this.openNotificationModal()
+            return; 
+        }
+        this.theory.name = this.theoryForm.get('theoryName').value;
+        this.theory.description = this.theoryForm.get('description').value;
+        this.httpService.updateTheory(this.token, this.theory).subscribe(
+            (data: any) => {
+                if(data.status == 200) {
+                    this.ngOnInit();
+                }
+            }
+        )
+    }
+
+    onRemoveTheory() {
+        this.httpService.deleteTheory(this.token, this.theory.theory_id).subscribe(
+            (data: any) => {
+                if(data.status == 200) {
+                    this.router.navigateByUrl("/theory")
+                }
+            }
+        )
     }
 }

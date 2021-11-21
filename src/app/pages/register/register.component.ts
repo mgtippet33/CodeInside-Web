@@ -51,6 +51,7 @@ export class RegisterComponent {
         this.validateForm();
         if (!this.form?.valid) { return; }
         this.user = {
+            user_id: null,
             token: null,
             email: this.form.value['Email'],
             username: this.form.value['Username'],
@@ -61,19 +62,18 @@ export class RegisterComponent {
             admin: false,
             moderator: false,
             achievement: [],
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone.toString()
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone.toString(),
+            image: null
         };
         this.httpService.registerUser(this.user)
             .subscribe((data: any) =>{
                 if (data['status'] as number == 201) {
-                    console.log("User successfuly register")
                     this.router.navigateByUrl('/login');
                 }
                 else {
                     // TODO - modal view about current email exists in the system   
                 }
             });
-        console.log(1);
     }
 
     onBackToLoginClick(): void {
