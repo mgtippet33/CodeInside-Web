@@ -96,6 +96,7 @@ button{
 fa-icon{
   color: #FFDC97;
   padding: 2px;
+  font-size: 24px;
 }
 
 .lightIcon {
@@ -117,8 +118,7 @@ fa-icon{
 
 .jumbotron{
   text-align: center;
-  background-color: #CFF3E4;
-  border-radius: 30px;
+  background-color: #ffffff;
   width: 80%;
   height: auto;
   margin: 35px auto;
@@ -246,3 +246,4 @@ textarea, input, .topic-select {
 a {
   cursor: pointer;
 }
+

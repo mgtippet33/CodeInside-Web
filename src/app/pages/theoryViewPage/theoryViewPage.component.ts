@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as bootstrap from 'bootstrap';
 import { HttpService } from 'src/app/api/http.service';
 import { RangeSliderOptions } from 'src/app/components/slider/range-slider.component';
@@ -43,6 +43,7 @@ export class TheoryViewPageComponent {
     isUserAdmin: boolean;
     token:string;
     faTimes = faTimes;
+    faPlusSquare = faPlusSquare;
     theoryForm = new FormGroup(
         {
             theoryName: new FormControl('', [Validators.required]),
@@ -57,7 +58,7 @@ export class TheoryViewPageComponent {
         this.form = new FormGroup({
             SearchValueControl: this.searchValueControl
         });
-        //AuthorizationService.checkUserAuthorization(this.router)
+        AuthorizationService.checkUserAuthorization(this.router)
         this.token = CookieService.getCookie('JWT_token')
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
@@ -71,7 +72,7 @@ export class TheoryViewPageComponent {
                     var theory = new Theory()
                     theory.theory_id = data[i]['id'] as number
                     theory.name = data[i]['name']
-                    theory.description = data[i]['desc'].replace(/<\/?[a-zA-Z]+>/gi,'').substring(0, 100) + '...'
+                    theory.description = data[i]['desc'].replace(/<\/?[a-zA-Z]+>/gi, '').substring(0, data[i]['desc'].indexOf('.')) + '...'
                     theoretics[i] = theory
                 }
                 this.theory = theoretics

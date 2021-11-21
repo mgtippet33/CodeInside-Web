@@ -8,6 +8,9 @@ import { CookieService } from 'src/app/services/cookieService';
 import { ApiConstants } from 'src/app/api/ApiConstants';
 import { UserPermissions } from "../../Models/userPermissions";
 import { formatDate } from '@angular/common';
+import * as bootstrap from 'bootstrap';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { AuthorizationService } from 'src/app/services/authorizationService';
 
 @Component({
     selector: 'profile',
@@ -18,6 +21,7 @@ import { formatDate } from '@angular/common';
 
 export class ProfilePageComponent {
     title = 'Profile';
+    faTimes = faTimes;
     form: FormGroup;
     email: FormControl;
     username: FormControl;
@@ -27,16 +31,19 @@ export class ProfilePageComponent {
     secondUser: User = new User();
     token: string;
     isUserAdmin: boolean;
+    isCurrentUserAdmin: boolean;
+    isCurrentUserBanned: boolean;
     isOwnPage = false;
+    notification = 'Your data has been successfully changed.';
 
     constructor(private httpService: HttpService, private router: Router) {
     }
 
     ngOnInit(): void {
+        AuthorizationService.checkUserAuthorization(this.router)
         if(this.router.url === '/profile'){
             this.isOwnPage = true;
         }
-        //AuthorizationService.checkUserAuthorization(this.router);
         this.form = new FormGroup({
             Email: new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]),
             Username: new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, Validators.minLength(3)]),
@@ -50,7 +57,6 @@ export class ProfilePageComponent {
         this.httpService.getUserProfile(this.token).subscribe((dataResponse: any) => {
             var user = new User();
             var data = dataResponse.body.data;
-            console.log(data)
             user.user_id = data.id;
             user.token = this.token;
             user.email = data.email
@@ -66,7 +72,6 @@ export class ProfilePageComponent {
         if(!this.isOwnPage){
             this.httpService.getUserProfileById(this.token, this.router.url.replace('/profile/','')).subscribe((dataResponse: any) => {
                 var data = dataResponse.body.data;
-                console.log(data)
                 if(this.user.user_id != data.id){
                     var user = new User();
                     user.user_id = data.id;
@@ -75,6 +80,8 @@ export class ProfilePageComponent {
                     user.birthday = data.birthday;
                     user.role = data.role;
                     user.image = data.image;
+                    this.isCurrentUserAdmin = data.role != 'User'
+                    this.isCurrentUserBanned = data.banned
                     this.user = user;
                     this.initializeForm();
                 }
@@ -87,7 +94,7 @@ export class ProfilePageComponent {
     }
 
     onLogoutClick() {
-        document.cookie = `JWT_token=null; secure`
+        CookieService.removeCookie();
         this.router.navigateByUrl('/login');
     }
 
@@ -102,18 +109,23 @@ export class ProfilePageComponent {
         }
         this.httpService.updateUserProfile(this.token, this.user).subscribe(
             (data: any) => {
-                console.log(data);
+                this.openNotificationModal()
             });
 
     }
 
+    private openNotificationModal() {
+        var notificationModal = new bootstrap.Modal(document.getElementById("notificationModal"), {
+            keyboard: false
+        });
+        notificationModal?.show();
+    }
+
     onBuyPremium() {
-        console.log(ApiConstants.main_url + ApiConstants.payment_url + this.user.user_id.toString())
         window.location.href = ApiConstants.main_url + ApiConstants.payment_url + this.user.user_id.toString();
     }
 
     onBanClick() {
-        console.log("inside ban user")
         var permissions = new UserPermissions();
         permissions.is_active = false;
         permissions.is_staff = false;
@@ -126,11 +138,26 @@ export class ProfilePageComponent {
 
                 }
             });
-        console.log(1);
+        this.ngOnInit();
+    }
+
+    onUnBanClick() {
+        var permissions = new UserPermissions();
+        permissions.is_active = true;
+        permissions.is_staff = false;
+        this.httpService.updatePermissions(this.token, permissions)
+            .subscribe((data: any) => {
+                if (data['status'] as number == 201) {
+                    console.log("User successfuly baned")
+                }
+                else {
+
+                }
+            });
+        this.ngOnInit();
     }
 
     onChangeToModeratorClick() {
-        console.log("change user to moderator role")
         var permissions = new UserPermissions();
         permissions.is_active = false;
         permissions.is_staff = true;
@@ -143,7 +170,6 @@ export class ProfilePageComponent {
 
                 }
             });
-        console.log(1);
     }
 
     private initializeForm() {

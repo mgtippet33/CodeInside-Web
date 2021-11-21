@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { HttpService } from 'src/app/api/http.service';
 import { Theory } from 'src/app/Models/theory.model';
 import { AuthorizationService } from 'src/app/services/authorizationService';
 import { CookieService } from 'src/app/services/cookieService';
+import { Modal } from 'bootstrap';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'theoryPage',
@@ -17,6 +19,7 @@ export class TheoryPageComponent implements OnInit {
 
     theory: Theory = new Theory()
     faTimes = faTimes;
+    faTrash = faTrash;
     backUrl: string = "theory"
     isUserAdmin: boolean;
     token: string;
@@ -30,7 +33,7 @@ export class TheoryPageComponent implements OnInit {
     private route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        //AuthorizationService.checkUserAuthorization(this.router)
+        AuthorizationService.checkUserAuthorization(this.router)
         this.token = CookieService.getCookie('JWT_token')
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
@@ -62,9 +65,19 @@ export class TheoryPageComponent implements OnInit {
         })
     }
 
+    
+    openNotificationModal() {
+        var notificationModal = new bootstrap.Modal(document.getElementById("notificationModal"), {
+            keyboard: false
+        });
+        notificationModal?.show();
+    }
+
     onApplyChange() {
-        if (!this.theoryForm?.valid) 
-        { return; }
+        if (!this.theoryForm?.valid) { 
+            this.openNotificationModal()
+            return; 
+        }
         this.theory.name = this.theoryForm.get('theoryName').value;
         this.theory.description = this.theoryForm.get('description').value;
         this.httpService.updateTheory(this.token, this.theory).subscribe(

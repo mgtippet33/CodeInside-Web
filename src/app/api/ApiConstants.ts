@@ -9,5 +9,6 @@ export enum ApiConstants {
   submission_url = "submissions/",
   payment_url = "payment/",
   achievement_url = "achievements/",
-  permissions_url = "permissions/2/"
+  permissions_url = "permissions/2/",
+  password_reset_url = "password/reset/"
 }

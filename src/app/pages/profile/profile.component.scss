@@ -114,6 +114,12 @@ input {
   width: 350px;
 }
 
+.green-button{
+  margin: 10px auto 0;
+  background-color: rgb(21, 197, 21);
+  width: 350px;
+}
+
 .grey-button{
   margin: 30px auto 0;
   background-color: burlywood;
@@ -127,4 +133,21 @@ input {
 
 fa-icon {
   color: white;
+}
+
+.closeFaTimes {
+  color: black;
+  font-size: 21px;
+}
+
+
+.closeButtonTimes {
+  background-color: #FFDC97;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

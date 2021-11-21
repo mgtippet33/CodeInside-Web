@@ -5,7 +5,7 @@ import { HttpService } from 'src/app/api/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { CommonValidators } from 'src/app/validators/common-validators';
-import { faLightbulb, faLocationArrow, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb, faLocationArrow, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Comment } from "src/app/Models/comment"
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'src/app/services/cookieService';
@@ -26,10 +26,12 @@ import { isArray } from 'jquery';
     providers: [HttpService]
 })
 
+
 export class TaskPageComponent implements OnInit {
     faLocationArrow = faLocationArrow;
     faLightbulb = faLightbulb;
     faTimes = faTimes;
+    faTrash = faTrash;
     content: string = ""
     title: string
     form: FormGroup
@@ -87,7 +89,7 @@ export class TaskPageComponent implements OnInit {
                 MessageValueControl: this.messageValueControl
             })
 
-        //AuthorizationService.checkUserAuthorization(this.router)
+        AuthorizationService.checkUserAuthorization(this.router)
         this.token = CookieService.getCookie('JWT_token')
         if (this.token == null) { return }
         this.httpService.getUserProfile(this.token).subscribe((data: any) => {
@@ -186,7 +188,6 @@ export class TaskPageComponent implements OnInit {
         this.httpService.createComment(this.token, this.taskName, this.message).subscribe(
             (data: any) => {
                 if (data['status'] == 201) {
-                    console.log("Comment create successfully")
                     this.message = ""
                     this.ngOnInit()
                 }
@@ -232,17 +233,28 @@ export class TaskPageComponent implements OnInit {
         )
     }
 
+    openNotificationModal() {
+        var notificationModal = new bootstrap.Modal(document.getElementById("notificationModal"), {
+            keyboard: false
+        });
+        notificationModal?.show();
+    }
+
     onApplyChange() {
-        if (!this.taskForm?.valid) { return; }
+        if(isArray(this.taskForm.get('theoryName').value)) {
+            this.taskForm.controls['theoryName'].setValue(this.task.topic_name);
+        }
+        if (!this.taskForm?.valid) { 
+            this.openNotificationModal()
+            return; 
+        }
         this.task.name = this.taskForm.get('taskName').value;
         this.task.description = this.taskForm.get('description').value;
         this.task.complexity = this.taskForm.get('complexity').value;
-        if(!isArray(this.taskForm.get('theoryName').value)) {
-            this.task.topic_name = this.taskForm.get('theoryName').value;
-        }
         this.task.input = this.taskForm.get('input').value;
         this.task.output = this.taskForm.get('output').value;
         this.task.solution = this.taskForm.get('solution').value;
+        this.task.topic_name = this.taskForm.get('theoryName').value;
         this.httpService.updateTask(this.token, this.task).subscribe(
             (data: any) => {
                 if(data.status == 200) {

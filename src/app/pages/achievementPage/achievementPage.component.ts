@@ -5,6 +5,7 @@ import {Achievement} from 'src/app/Models/achievement';
 import {CookieService} from 'src/app/services/cookieService';
 import * as bootstrap from 'bootstrap';
 import { isArray } from 'jquery';
+import { AuthorizationService } from 'src/app/services/authorizationService';
 
 
 @Component({
@@ -68,7 +69,7 @@ export class AchievementPageComponent {
   }
 
   ngOnInit(): void {
-    //AuthorizationService.checkUserAuthorization(this.router)
+    AuthorizationService.checkUserAuthorization(this.router)
     this.token = CookieService.getCookie("JWT_token");
     if (this.token == null) {
       return

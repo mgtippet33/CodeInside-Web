@@ -31,7 +31,7 @@ export class RegisterComponent {
     }
 
     ngOnInit(): void {
-        //AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
+        AuthorizationService.checkUserAuthorization(this.router, 'login_register', '/task')
         this.email = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.emailPattern]);
         this.username = new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, Validators.minLength(3)]);
         this.birthday = new FormControl('', [ Validators.required, CommonValidators.datePattern]);
@@ -68,14 +68,12 @@ export class RegisterComponent {
         this.httpService.registerUser(this.user)
             .subscribe((data: any) =>{
                 if (data['status'] as number == 201) {
-                    console.log("User successfuly register")
                     this.router.navigateByUrl('/login');
                 }
                 else {
                     // TODO - modal view about current email exists in the system   
                 }
             });
-        console.log(1);
     }
 
     onBackToLoginClick(): void {
