@@ -35,7 +35,7 @@ export class ProfilePageComponent {
     isCurrentUserAdmin: boolean;
     isCurrentUserBanned: boolean;
     isOwnPage = false;
-    notification = 'Your data has been successfully changed.';
+    notification: string;
 
     constructor(private httpService: HttpService, private router: Router) {
     }
@@ -110,6 +110,7 @@ export class ProfilePageComponent {
         }
         this.httpService.updateUserProfile(this.token, this.user).subscribe(
             (data: any) => {
+                this.notification = 'Your data has been successfully changed.'
                 this.openNotificationModal()
             });
 
@@ -194,6 +195,11 @@ export class ProfilePageComponent {
 
     onFileChanged(event: any) {
         var image = event.target.files[0]
+        if(image.type.indexOf("image/") == -1) {
+            this.notification = 'You can only add photos to your profile.';
+            this.openNotificationModal();
+            return;
+        }
         this.httpService.uploadImage(image).subscribe(
             (data: any) => {
                 var image_url = data['data']['display_url'];
