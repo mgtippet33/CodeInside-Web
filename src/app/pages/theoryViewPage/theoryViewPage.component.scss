@@ -6,19 +6,6 @@
   color:#333;
   margin: 20px;
 }
-.solved-block{
-  width: 120px;
-  border-radius:16px;
-  font-size:16px;
-  background-color: #CFF3E4;
-}
-
-.unsolved-block{
-  width: 120px;
-  border-radius:16px;
-  font-size:16px;
-  background-color: #EEF3FF;
-}
 .filter{
   padding: 5px;
   padding-left: 10px;
@@ -35,12 +22,12 @@
   
 .search {
   margin: 10px;
-  border: 1px solid #4D4D4D;
   border-radius: 5px;
   height: 35px;
   width: 100%;
   padding: 2px 23px 2px 30px;
   outline: 0;
+  border: 0px;
   background-color: #FFFFFF;
 }
 
@@ -58,11 +45,6 @@
   width: 12px;
   cursor: pointer;
   visibility: hidden;
-}
-
-.search:hover, .search:focus {
-  border: 1px solid #009688;
-  background-color: white;
 }
 
 fa-icon{

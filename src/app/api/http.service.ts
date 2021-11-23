@@ -204,4 +204,10 @@ export class HttpService {
         var profile_url = ApiConstants.main_url.toString() + ApiConstants.profile_url.toString()
         return this.http.put(profile_url, body, { 'headers': headers, observe: 'response' });
     }
+
+    uploadImage(base64Img: string) {
+        var body = new FormData();
+        body.append('image', base64Img);
+        return this.http.post(ApiConstants.img_upload_url, body);
+    }
 }

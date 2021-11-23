@@ -2,26 +2,38 @@ h1 {
   font-weight: 25;
 }
 
+.wrapper {
+  margin: 0 auto;
+  text-align: center;
+}
+
 .award-image {
+  margin: 0 auto;
   width: 159px;
   height: 133px;
   border-radius: 15px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .unaward-image {
+  margin: 0 auto;
   width: 159px;
   height: 133px;
   border-radius: 15px;
   filter: brightness(70%);
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .award-image-wrapper {
-  width: 200px;
+  width: 10%;
   display: inline-block;
-  margin: 30px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
+  margin: 2%;
 }
 
 .award-modal-image {
@@ -29,6 +41,9 @@ h1 {
   height: 133px;
   border-radius: 15px;
   margin: 0 auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .text-modal-center{
@@ -36,13 +51,4 @@ h1 {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
-
-.wrapper{
-  margin: 0 auto;
-}
-
-p{
-  width: 164px;
-  text-align: center;
 }

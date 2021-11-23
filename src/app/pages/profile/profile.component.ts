@@ -61,7 +61,7 @@ export class ProfilePageComponent {
             user.token = this.token;
             user.email = data.email
             user.username = data.name;
-            user.birthday = data.birthday;
+            user.birthday = new Date(data.birthday).toLocaleDateString().replace(/\./g, "/");
             user.image = data.image;
             this.isUserAdmin = data.role != 'User'
             this.user = user;
@@ -77,7 +77,7 @@ export class ProfilePageComponent {
                     user.user_id = data.id;
                     user.email = data.email
                     user.username = data.name;
-                    user.birthday = data.birthday;
+                    user.birthday = new Date(data.birthday).toLocaleDateString().replace(/\./g, "/");
                     user.role = data.role;
                     user.image = data.image;
                     this.isCurrentUserAdmin = data.role != 'User'
@@ -128,7 +128,6 @@ export class ProfilePageComponent {
     onBanClick() {
         var permissions = new UserPermissions();
         permissions.is_active = false;
-        permissions.is_staff = false;
         this.httpService.updatePermissions(this.token, permissions)
             .subscribe((data: any) => {
                 if (data['status'] as number == 201) {
@@ -138,13 +137,11 @@ export class ProfilePageComponent {
 
                 }
             });
-        this.ngOnInit();
     }
 
     onUnBanClick() {
         var permissions = new UserPermissions();
         permissions.is_active = true;
-        permissions.is_staff = false;
         this.httpService.updatePermissions(this.token, permissions)
             .subscribe((data: any) => {
                 if (data['status'] as number == 201) {
@@ -154,13 +151,26 @@ export class ProfilePageComponent {
 
                 }
             });
-        this.ngOnInit();
     }
 
-    onChangeToModeratorClick() {
+    onSetModeratorClick() {
         var permissions = new UserPermissions();
-        permissions.is_active = false;
         permissions.is_staff = true;
+        this.httpService.updatePermissions(this.token, permissions)
+            .subscribe((data: any) => {
+                if (data['status'] as number == 201) {
+                    console.log("User successfuly set as moderator")
+                }
+                else {
+
+                }
+            });
+    }
+
+
+    onUnSetModeratorClick() {
+        var permissions = new UserPermissions();
+        permissions.is_staff = false;
         this.httpService.updatePermissions(this.token, permissions)
             .subscribe((data: any) => {
                 if (data['status'] as number == 201) {

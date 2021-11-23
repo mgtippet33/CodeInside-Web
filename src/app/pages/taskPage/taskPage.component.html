@@ -177,6 +177,14 @@
         <p class="resultText">RESULT</p>
         <p class="answerText" [ngStyle]="{'color': result == 'Accepted'? '#1A994C' : '#F40101'}">{{result}}</p>
     </div>
+   <div class="row">
+        <p class="resultText">TIME</p>
+        <p class="timeText" [ngStyle]="{'color': time != 'N/A'? '#1A994C' : '#F40101'}">{{time}}</p>
+    </div>
+   <div class="row">
+        <p class="resultText">MEMORY</p>
+        <p class="memoryText" [ngStyle]="{'color': memory != 'N/A'? '#1A994C' : '#F40101'}">{{memory}}</p>
+    </div>
     <div class="row" *ngIf="result != 'Accepted'">
         <p class="resultText">DESCRIPTION</p>
         <p class="descriptionText">{{description}}</p>

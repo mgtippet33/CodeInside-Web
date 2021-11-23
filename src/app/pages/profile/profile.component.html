@@ -1,12 +1,13 @@
 <app-header [headerName]="title"></app-header>
 <div class="page">
     <div class="wrapper">
-        <div >
-            <div class="user_image" [style.background-image]="'url(' + user.image + ')'"></div>
+        <div>
+            <div class="user_image" style="margin: 0 auto;" [style.background-image]="'url(' + user.image + ')'"></div>
             <button class="settings-button" *ngIf="isOwnPage">Change image</button>
             <button class="buy-button" (click)="onBuyPremium()" *ngIf="isOwnPage">Buy premium</button>
             <button class="logout-button" (click)="onLogoutClick()" *ngIf="isOwnPage">Log out</button>
-            <button class="grey-button" (click)="onChangeToModeratorClick()" *ngIf="!isCurrentUserAdmin && !isOwnPage && isUserAdmin">Set moderator role</button>
+            <button class="grey-button" (click)="onSetModeratorClick()" *ngIf="!isCurrentUserAdmin && !isOwnPage && isUserAdmin">Set moderator role</button>
+            <button class="grey-button" (click)="onUnSetModeratorClick()" *ngIf="isCurrentUserAdmin && !isOwnPage && isUserAdmin">Unset moderator role</button>
             <button class="red-button" (click)="onBanClick()" *ngIf="!isOwnPage && isUserAdmin && !isCurrentUserBanned">Ban user</button>
             <button class="green-button" (click)="onUnBanClick()" *ngIf="!isOwnPage && isUserAdmin && isCurrentUserBanned">Unban user</button>
         </div>

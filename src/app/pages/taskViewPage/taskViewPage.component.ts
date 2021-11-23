@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faLightbulb, faTimes, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb, faTimes, faPlusSquare, faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import * as bootstrap from 'bootstrap';
 import { isArray } from 'jquery';
 import { HttpService } from 'src/app/api/http.service';
@@ -21,6 +21,8 @@ export class TaskViewPageComponent {
     faLightbulb = faLightbulb;
     faTimes = faTimes;
     faPlusSquare = faPlusSquare;
+    faArrowDown = faArrowDown;
+    faArrowUp = faArrowUp;
     title='Task List';
     form: FormGroup;
     sliderValueControl: FormControl;
@@ -166,11 +168,16 @@ export class TaskViewPageComponent {
     }
 
     nameSortAsc(){
-        this.sortedTasks = this.tasks.sort((one, two) => (one.name > two.name ? 1 : -1));
+        this.sortedTasks = this.tasks.sort((one, two) => (one.name < two.name ? 1 : -1));
     }
 
     nameSortDesc(){        
-        this.sortedTasks = this.tasks.sort((one, two) => (one.name > two.name ? -1 : 1));
+        this.sortedTasks = this.tasks.sort((one, two) => (one.name < two.name ? -1 : 1));
+    }
+    
+    filterPanel() {
+        let filter = document.getElementById('filter');
+        filter.style.display = (filter.style.display == 'none') ? 'flex' : 'none';
     }
 
     openNotificationModal() {

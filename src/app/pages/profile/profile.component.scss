@@ -23,6 +23,9 @@ h3 {
   background: #6D54A4;
   border-radius: 50%;
   margin-bottom: 40px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 button {
@@ -116,7 +119,7 @@ input {
 
 .green-button{
   margin: 10px auto 0;
-  background-color: rgb(21, 197, 21);
+  background-color: rgb(95, 236, 95);
   width: 350px;
 }
 

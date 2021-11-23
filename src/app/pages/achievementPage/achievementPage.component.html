@@ -7,9 +7,9 @@
 
 <div class="wrapper">
   <div class="award-image-wrapper" *ngFor="let achievement of achievements">
-    <p class="award-image" *ngIf="achievement.earned" data-toggle="modal"  (click)="openModal(achievement.name, achievement.description, achievement.link)" [style.background-image]="'url(' + achievement.link + ')'"></p>
-    <p class="unaward-image" *ngIf="!achievement.earned" data-toggle="modal"  (click)="openModal(achievement.name, achievement.description, achievement.link)" [style.background-image]="'url(' + achievement.link + ')'"></p>
-    <p>{{achievement.name}}</p>
+    <div class="award-image" *ngIf="achievement.earned" data-toggle="modal"  (click)="openModal(achievement.name, achievement.description, achievement.link)" [style.background-image]="'url(' + achievement.link + ')'"></div>
+    <div class="unaward-image" *ngIf="!achievement.earned" data-toggle="modal"  (click)="openModal(achievement.name, achievement.description, achievement.link)" [style.background-image]="'url(' + achievement.link + ')'"></div>
+    <div class="mt-1">{{achievement.name}}</div>
   </div>
 </div>
 

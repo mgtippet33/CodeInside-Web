@@ -14,21 +14,24 @@
   padding-top: 2px;
 }
 
-.unsolved-block{
+.unsolved-block {
   width: 120px;
   border-radius:16px;
   font-size:16px;
   background-color: #EEF3FF;
   padding-top: 2px;
 }
-.filter{
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: 10px;
+.filter {
+  padding: 10px;
+  margin: 0 10px;
   background-color: #CFF3E4;
   border-radius: 10px;
 }
+
+.filterin {
+  margin-right: 50px;
+}
+
 .wrapper {
   position: relative;
   display: flex;
@@ -62,8 +65,8 @@
   visibility: hidden;
 }
 
-.search:hover, .search:focus {
-  border: 1px solid #009688;
+.filter-icon {
+  cursor: pointer;
 }
 
 fa-icon{
@@ -71,6 +74,13 @@ fa-icon{
   margin-top: 6px;
   padding: 4px;
   font-size: 24px;
+}
+
+.faArrow {
+  color: #000;
+  padding: 0;
+  margin-top: 0;
+  font-size: 12px;
 }
 
 .btn-primary {
@@ -152,12 +162,13 @@ textarea, input, .topic-select {
 
 
 .closeButtonTimes {
-background-color: #FFDC97;
-border: none;
-border-radius: 50%;
-width: 40px;
-height: 40px;
-display: flex;
-justify-content: center;
-align-items: center;
+  background-color: #FFDC97;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+

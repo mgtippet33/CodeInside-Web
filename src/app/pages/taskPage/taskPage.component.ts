@@ -59,6 +59,8 @@ export class TaskPageComponent implements OnInit {
         { 'id': 4, 'name': 'JavaScript', 'mode': 'text/javascript' }
     ]
     result: string = ""
+    time: string = ""
+    memory: string = ""
     description: string = ""
     sendSubmission: boolean = false;
     editTaskModal: Modal;
@@ -210,6 +212,8 @@ export class TaskPageComponent implements OnInit {
             (data: any) => {
                 if (data['status'] == 201) {
                     this.result = data['body']['data']['status']
+                    this.time = data['body']['data']['time']
+                    this.memory = data['body']['data']['memory']
                     if (this.result == "Accepted") {
                         this.task.solved = true
                     }
