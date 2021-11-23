@@ -178,8 +178,12 @@
             </div>
         </div>
         <div class="col c3 d-flex justify-content-end mr-4">
-            <p class="solved-block mt-2" *ngIf="task.solved">solved</p>
-            <p class="unsolved-block mt-2" *ngIf="!task.solved">unsolved</p>
+            <div *ngIf="isTaskSolve(task.name); else unsolved">
+                <p class="solved-block mt-2">solved</p>
+            </div>
+            <ng-template #unsolved>
+                <p class="unsolved-block mt-2">unsolved</p>
+            </ng-template>
         </div>
     </div>
     <div class="row">

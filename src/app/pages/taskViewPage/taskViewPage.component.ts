@@ -38,24 +38,8 @@ export class TaskViewPageComponent {
         value: 1,
         highValue: 5
     };
-    tasks: Array<Task> =[
-        { name: 'Task 1', description: 'Description 1', complexity: 4, solved: true} as Task,        
-        { name: 'Task 2', description: 'Description 2', complexity: 2, solved: true} as Task,
-        { name: 'Task 1', description: 'Description 1', complexity: 4, solved: false} as Task,        
-        { name: 'Task 2', description: 'Description 2', complexity: 2, solved: true} as Task,
-        { name: 'Task 1', description: 'Description 1', complexity: 4, solved: false} as Task,        
-        { name: 'Task 2', description: 'Description 2', complexity: 2, solved: true} as Task,
-        { name: 'Task 3', description: 'Description 3', complexity: 3, solved: false} as Task
-    ];
-    sortedTasks: Array<Task> = [
-        { name: 'Task 1', description: 'Description 1', complexity: 4, solved: true} as Task,        
-        { name: 'Task 2', description: 'Description 2', complexity: 2, solved: true} as Task,
-        { name: 'Task 1', description: 'Description 1', complexity: 4, solved: false} as Task,        
-        { name: 'Task 2', description: 'Description 2', complexity: 2, solved: true} as Task,
-        { name: 'Task 1', description: 'Description 1', complexity: 4, solved: false} as Task,        
-        { name: 'Task 2', description: 'Description 2', complexity: 2, solved: true} as Task,
-        { name: 'Task 3', description: 'Description 3', complexity: 3, solved: false} as Task
-    ];
+    tasks: Array<Task>;
+    sortedTasks: Array<Task>;
     solved: boolean = false;
     isUserAdmin: boolean;
     token: string;
@@ -71,6 +55,9 @@ export class TaskViewPageComponent {
         });
 
     theoretics: Array<Theory>;
+    solvedTasks = new Map()
+
+
     constructor(private httpService: HttpService, private router: Router) {
 
     }
@@ -91,7 +78,8 @@ export class TaskViewPageComponent {
         this.httpService.getTasks().subscribe({
             next: (data: any) => {
                 data = data['data']
-                var tasks = new Array<Task>(data.length)
+                var tasks = new Array<Task>()
+                console.log(data)
                 for(var i = 0; i < data.length; ++i) {
                     var task = new Task()
                     task.task_id = data[i]['id'] as number
@@ -102,19 +90,23 @@ export class TaskViewPageComponent {
                     task.input = data[i]['input']
                     task.output = data[i]['output']
                     task.solution = data[i]['solution']
-                    this.httpService.getSubmission(this.token, task.task_id).subscribe(
-                        (data:any) => {
-                            task.solved = false
+                    task.solved = false
+                    tasks.push(task);
+                }
+                for(var i = 0; i < tasks.length; ++i) {
+                    var task = tasks[i]
+                    this.httpService.getSubmission(this.token, task.task_id).subscribe({
+                        next: (data:any) => {
                             data = data['body']['data']
                             for(var i = 0; i < data.length; ++i) {
                                 if(data[i]['result'] == "Accepted") {
-                                    task.solved = true;
+                                    this.solvedTasks.set(data[i]["task__name"], true);
                                     break;
                                 }
                             }
                         }
+                    }
                     )
-                    tasks[i] = task
                 }
                 this.tasks = tasks;
                 this.sortedTasks = tasks;  
@@ -137,6 +129,13 @@ export class TaskViewPageComponent {
                 }
             }
         });
+    }
+
+    isTaskSolve(name: string): boolean {
+        if (this.solvedTasks.has(name)) {
+            return true;
+        }
+        return false;
     }
 
     onRangeSliderChange(value: any): void {
