@@ -11,6 +11,7 @@ import { formatDate } from '@angular/common';
 import * as bootstrap from 'bootstrap';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AuthorizationService } from 'src/app/services/authorizationService';
+import { data } from 'jquery';
 
 @Component({
     selector: 'profile',
@@ -189,5 +190,19 @@ export class ProfilePageComponent {
             Birthday: new FormControl(this.user.birthday.split("/").reverse().join("-"), [Validators.required, CommonValidators.datePattern]),
             Password: new FormControl('', [Validators.required, CommonValidators.noWhiteSpace, CommonValidators.passwordPattern])
         });
+    }
+
+    onFileChanged(event: any) {
+        var image = event.target.files[0]
+        this.httpService.uploadImage(image).subscribe(
+            (data: any) => {
+                var image_url = data['data']['display_url'];
+                this.httpService.updateUserImage(this.token, image_url).subscribe(
+                    (data: any) => {
+                        this.ngOnInit();
+                    }
+                )
+            }
+        );
     }
 }

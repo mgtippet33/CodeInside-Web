@@ -205,9 +205,19 @@ export class HttpService {
         return this.http.put(profile_url, body, { 'headers': headers, observe: 'response' });
     }
 
-    uploadImage(base64Img: string) {
+    uploadImage(image: string) {
         var body = new FormData();
-        body.append('image', base64Img);
+        body.append('image', image);
         return this.http.post(ApiConstants.img_upload_url, body);
+    }
+
+    
+    updateUserImage(token: string, image_url: string) {
+        const headers = { 'Authorization': 'Bearer ' + token, 'content-type': 'application/json' }
+        var body = {
+            image: image_url
+        };
+        var profile_url = ApiConstants.main_url.toString() + ApiConstants.profile_url.toString()
+        return this.http.put(profile_url, body, { 'headers': headers, observe: 'response' });
     }
 }

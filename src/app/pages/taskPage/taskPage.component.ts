@@ -38,6 +38,7 @@ export class TaskPageComponent implements OnInit {
     messageValueControl: FormControl
     token: string
     username: string
+    user_image: string
     isUserAdmin: boolean
     isPremiumUser: boolean
     comments: Array<Comment>
@@ -99,6 +100,7 @@ export class TaskPageComponent implements OnInit {
             this.username = data['body']['data']['name']
             this.isUserAdmin = data['body']['data']['role'] == 'User' ? false : true
             this.isPremiumUser = data['body']['data']['premium']
+            this.user_image = data['body']['data']['image']
         }, error => { })
         this.route.params.subscribe((params: { [x: string]: string; }) => {
             const taskID = Number.parseInt(params['taskID']);

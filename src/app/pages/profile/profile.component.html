@@ -1,9 +1,11 @@
 <app-header [headerName]="title"></app-header>
+<input type="file" id="changeImage" style="visibility: hidden;" 
+    (change)="onFileChanged($event)" aria-hidden="true"/>
 <div class="page">
     <div class="wrapper">
         <div>
             <div class="user_image" style="margin: 0 auto;" [style.background-image]="'url(' + user.image + ')'"></div>
-            <button class="settings-button" *ngIf="isOwnPage">Change image</button>
+            <label class="settings-button" *ngIf="isOwnPage" for="changeImage">Change image</label>
             <button class="buy-button" (click)="onBuyPremium()" *ngIf="isOwnPage">Buy premium</button>
             <button class="logout-button" (click)="onLogoutClick()" *ngIf="isOwnPage">Log out</button>
             <button class="grey-button" (click)="onSetModeratorClick()" *ngIf="!isCurrentUserAdmin && !isOwnPage && isUserAdmin">Set moderator role</button>

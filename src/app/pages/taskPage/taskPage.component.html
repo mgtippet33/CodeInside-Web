@@ -204,7 +204,7 @@
             </div>
             <p>{{comment.message}}</p>
         </div>
-        <div class="user_image" (click)="onOpenProfile(comment.user_id, comment.username)"></div>
+        <div class="user_image" [style.background-image]="'url(' + user_image + ')'" (click)="onOpenProfile(comment.user_id, comment.username)"></div>
     </div>
 
     <div class="addComment">

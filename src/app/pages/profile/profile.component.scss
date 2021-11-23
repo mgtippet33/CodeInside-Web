@@ -73,6 +73,14 @@ input {
 }
 
 .settings-button {
+  text-align: center;
+  width: 200px;
+  height: 40px;
+  display: block;
+  border: none;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 5px;
   border: 2px solid #50E08A;
   background: rgba(0,0,0,0);
 }
