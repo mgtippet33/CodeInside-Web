@@ -1,0 +1,32 @@
+h1 {
+  font-weight: 25;
+}
+
+.customBackground {
+  background-image: url('./pictures/background.svg');
+  background-repeat: no-repeat;
+  background-size:  90% 100%;
+  background-position: right bottom;
+  height: 99vh;
+}
+
+.closeFaTimes {
+  color: black;
+  font-size: 21px;
+}
+
+
+.closeButtonTimes {
+  background-color: #FFDC97;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  cursor: pointer;
+}

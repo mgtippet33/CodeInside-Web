@@ -1,0 +1,54 @@
+h1 {
+  font-weight: 25;
+}
+
+.wrapper {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.award-image {
+  margin: 0 auto;
+  width: 159px;
+  height: 133px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.unaward-image {
+  margin: 0 auto;
+  width: 159px;
+  height: 133px;
+  border-radius: 15px;
+  filter: brightness(70%);
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.award-image-wrapper {
+  width: 10%;
+  display: inline-block;
+  margin: 2%;
+}
+
+.award-modal-image {
+  width: 159px;
+  height: 133px;
+  border-radius: 15px;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.text-modal-center{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,62 @@
+<app-header [headerName]="title"></app-header>
+<input type="file" id="changeImage" accept="image/*" style="visibility: hidden;" 
+    (change)="onFileChanged($event)" aria-hidden="true"/>
+<div class="page">
+    <div class="wrapper">
+        <div>
+            <div class="user_image" style="margin: 0 auto;" [style.background-image]="'url(' + user.image + ')'"></div>
+            <label class="settings-button" *ngIf="isOwnPage" for="changeImage">Change image</label>
+            <button class="buy-button" (click)="onBuyPremium()" *ngIf="isOwnPage">Buy premium</button>
+            <button class="logout-button" (click)="onLogoutClick()" *ngIf="isOwnPage">Log out</button>
+            <button class="grey-button" (click)="onSetModeratorClick()" *ngIf="!isCurrentUserAdmin && !isOwnPage && isUserAdmin">Set moderator role</button>
+            <button class="grey-button" (click)="onUnSetModeratorClick()" *ngIf="isCurrentUserAdmin && !isOwnPage && isUserAdmin">Unset moderator role</button>
+            <button class="red-button" (click)="onBanClick()" *ngIf="!isOwnPage && isUserAdmin && !isCurrentUserBanned">Ban user</button>
+            <button class="green-button" (click)="onUnBanClick()" *ngIf="!isOwnPage && isUserAdmin && isCurrentUserBanned">Unban user</button>
+        </div>
+        <form [formGroup]="form">
+            <div class="field">
+                <p>User name</p>
+                <input type="text" formControlName="Username" *ngIf="isOwnPage">
+                <input type="text" formControlName="Username" *ngIf="!isOwnPage" readonly>
+            </div>
+            <div class="field">
+                <p>Email</p>
+                <input type="text" formControlName="Email" *ngIf="isOwnPage">
+                <input type="text" formControlName="Email" *ngIf="!isOwnPage" readonly>
+            </div>
+            <div class="field">
+                <p>Date of birth</p>
+                <input type="date" formControlName="Birthday" *ngIf="isOwnPage">
+                <input type="date" formControlName="Birthday" *ngIf="!isOwnPage" readonly>
+            </div>
+            <div class="field" *ngIf="!isOwnPage">
+                <p>Role</p>
+                <input type="text" value={{user.role}} readonly>
+            </div>
+            <div class="field" *ngIf="isOwnPage">
+                <p>Password</p>
+                <input type="password" formControlName="Password" *ngIf="isOwnPage">
+            </div>
+            <button class="apply" (click)="onSendFormClick()" *ngIf="isOwnPage">Apply</button>
+        </form>
+    </div>
+  
+</div>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLongTitle">Notification</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                {{notification}}
+            </div>
+        </div>
+    </div>
+</div>

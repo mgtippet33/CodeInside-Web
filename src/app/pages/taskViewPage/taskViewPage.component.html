@@ -1,0 +1,194 @@
+<app-header [headerName]="title"></app-header>
+<div class="filter" [formGroup]="form">
+    <div class="wrapper">
+        <img class="search-icon"
+            src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU2Ljk2NiA1Ni45NjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDU2Ljk2NiA1Ni45NjY7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4KPHBhdGggZD0iTTU1LjE0Niw1MS44ODdMNDEuNTg4LDM3Ljc4NmMzLjQ4Ni00LjE0NCw1LjM5Ni05LjM1OCw1LjM5Ni0xNC43ODZjMC0xMi42ODItMTAuMzE4LTIzLTIzLTIzcy0yMywxMC4zMTgtMjMsMjMgIHMxMC4zMTgsMjMsMjMsMjNjNC43NjEsMCw5LjI5OC0xLjQzNiwxMy4xNzctNC4xNjJsMTMuNjYxLDE0LjIwOGMwLjU3MSwwLjU5MywxLjMzOSwwLjkyLDIuMTYyLDAuOTIgIGMwLjc3OSwwLDEuNTE4LTAuMjk3LDIuMDc5LTAuODM3QzU2LjI1NSw1NC45ODIsNTYuMjkzLDUzLjA4LDU1LjE0Niw1MS44ODd6IE0yMy45ODQsNmM5LjM3NCwwLDE3LDcuNjI2LDE3LDE3cy03LjYyNiwxNy0xNywxNyAgcy0xNy03LjYyNi0xNy0xN1MxNC42MSw2LDIzLjk4NCw2eiIgZmlsbD0iIzAwMDAwMCIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />
+        <input placeholder="Search" type="text" class="search" [formControl]="searchValueControl"
+            (ngModelChange)="onSearchFieldChange($event)">
+        <img class="clear-icon"
+            src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxLjk3NiA1MS45NzYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxLjk3NiA1MS45NzY7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4KPGc+Cgk8cGF0aCBkPSJNNDQuMzczLDcuNjAzYy0xMC4xMzctMTAuMTM3LTI2LjYzMi0xMC4xMzgtMzYuNzcsMGMtMTAuMTM4LDEwLjEzOC0xMC4xMzcsMjYuNjMyLDAsMzYuNzdzMjYuNjMyLDEwLjEzOCwzNi43NywwICAgQzU0LjUxLDM0LjIzNSw1NC41MSwxNy43NCw0NC4zNzMsNy42MDN6IE0zNi4yNDEsMzYuMjQxYy0wLjc4MSwwLjc4MS0yLjA0NywwLjc4MS0yLjgyOCwwbC03LjQyNS03LjQyNWwtNy43NzgsNy43NzggICBjLTAuNzgxLDAuNzgxLTIuMDQ3LDAuNzgxLTIuODI4LDBjLTAuNzgxLTAuNzgxLTAuNzgxLTIuMDQ3LDAtMi44MjhsNy43NzgtNy43NzhsLTcuNDI1LTcuNDI1Yy0wLjc4MS0wLjc4MS0wLjc4MS0yLjA0OCwwLTIuODI4ICAgYzAuNzgxLTAuNzgxLDIuMDQ3LTAuNzgxLDIuODI4LDBsNy40MjUsNy40MjVsNy4wNzEtNy4wNzFjMC43ODEtMC43ODEsMi4wNDctMC43ODEsMi44MjgsMGMwLjc4MSwwLjc4MSwwLjc4MSwyLjA0NywwLDIuODI4ICAgbC03LjA3MSw3LjA3MWw3LjQyNSw3LjQyNUMzNy4wMjIsMzQuMTk0LDM3LjAyMiwzNS40NiwzNi4yNDEsMzYuMjQxeiIgZmlsbD0iIzAwMDAwMCIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
+        <img class="filter-icon" (click)="filterPanel()"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAACoElEQVRoge2YP2gTYRTAfy+NoXYpDnZp3Vzs2RY7OLh16OQkiFqVikUCKjiWKgilf0xw0VGHiiCd6qII6mBRcKggqaZcI7UgYmoRoSBdapvkObS2MZdc7i6XhMr9luTeve/9uXff+77vICAgIKCeSKGg59Gv44LcB1pBSwwrJi+hKz7Y2JSnQaPT51ue598JWfwh94DWEpbqSZtuPth/sCSw27AmIBoF0rUPxR6FbyHVaKHcMgfyOTI0P6HCwJaBHVOy/a+II6tULV6sWtvXUqijE6mxrkulYrR9hZob914VSNjpVJm5pvDGNTsF2woAdA+ZB3Mi7xWaNyU1q8BqJsvRhVjnJ7v4yk7iRNxYFLS/RLzVQgUdKBc8OOxCszHjKcrdyuNyiMgdc6zrsRNVx210X+OPQYS33qNyzIw0yHWnymXnQD6dgx/bpCGcQNgPVZkDK0pDd2q8/avTmFwtZMnbXWlVzgBZN+MckhOVs26CBw8rcTJuTAuMuR1XFmXEvHX4pdthnrYSHyLtIwgvvIwtjrya/5zy9FC87YWGJZfZwznAVbmLoqQjufU+pk55ei09b+bMYWMF5TSw7tUGsIGE+mZj3T+9GqhoN5qMGe8UHfJuQQbNcaOi1uyqjZai84Y5BZwEN21UnpjjxgmbE48jfDkPZCNcBMou+3ksNmbWLlQaPPhUAYCOm6kOyeZmFG0qvFdQgbVcSI7Njxqzfvj17UQ2N3poTgXLgaMQEbniV/DgYwX+cqDvmSoCIigCbP1uXS9P9vrq8z88E+8yggTqTZBAvQkSqDdBAvUmSMAVwm+/TdY2AdWHfpusUQK6oEr/8mTvZb8th/02mI/AF5D40vfIA173ZKrhowoJyBuFFiC+tLE66fVzSUBAgDP+AA9E1iFhhBpkAAAAAElFTkSuQmCC" />
+    </div>
+
+    <div class="row filterin" id="filter" style="display: none;">
+        <div class="col-4">
+            <div class="row d-flex justify-content-center">
+                <h5 class="form-label mt-4" for="questionType">Level</h5>
+            </div>
+            <div class="row justify-content-center mt-1">
+                <div class="col-8">
+                    <app-range-slider [formControl]="sliderValueControl" [options]="sliderOptions"
+                        (ngModelChange)="onRangeSliderChange($event)"></app-range-slider>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row d-flex justify-content-center">
+                <h5 class="form-label mt-4" for="questionType">Filter</h5>
+            </div>
+            <div class="row d-flex justify-content-center mt-4">
+                <div class="col-6 d-flex justify-content-center">
+                    <button class="btn btn-primary w-50 mb-3" style="background-color:#FFDC97"
+                        (click)="solvedSort()">Solved</button>
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                    <button class="btn btn-primary w-50 mb-3" style="background-color: #FFDC97"
+                        (click)="unsolvedSort()">Unsolved</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row d-flex justify-content-center">
+                <h5 class="form-label mt-4" for="questionType">Sort by</h5>
+            </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary w-50 mb-3" style="background-color: #ffdc97;" 
+                    (click)="nameSortAsc()">name <fa-icon class="faArrow" [icon]="faArrowUp"></fa-icon>
+                    </button>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary w-50 mb-3" style="background-color: #ffdc97;"
+                    (click)="difficultySortAsc()">difficulty <fa-icon class="faArrow" [icon]="faArrowUp"></fa-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary w-50 mb-3" style="background-color: #FFDC97;"
+                    (click)="nameSortDesc()">name <fa-icon class="faArrow" [icon]="faArrowDown"></fa-icon>
+                    </button>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary w-50 mb-3" style="background-color: #FFDC97;"
+                    (click)="difficultySortDesc()">difficulty <fa-icon class="faArrow" [icon]="faArrowDown"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row justify-content-end mt-3" *ngIf="isUserAdmin">
+    <div class="col-1 mr-4" style="text-align: right;">
+        <a class="controlText">
+            <fa-icon [icon]="faPlusSquare" data-toggle="modal" data-target="#createNewTaskModal"></fa-icon>
+        </a>
+    </div>
+</div>
+
+<!-- Create New Task Modal -->
+<div class="modal fade" id="createNewTaskModal" tabindex="-1" role="dialog" aria-labelledby="createNewTaskModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createNewTaskModalLongTitle">Manage Task</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="jumbotron" [formGroup]="taskForm" action="">
+                    <div class="field" [formGroup]="taskForm">
+                        <p>Task Name</p>
+                        <input type="text" formControlName="taskName">
+                    </div>
+                    <div class="field">
+                        <p>Description</p>
+                        <textarea rows="5" formControlName="description"></textarea>
+                    </div>
+                    <div class="field">
+                        <p>Complexity</p>
+                        <input type="number" min="0" max="5" formControlName="complexity">
+                    </div>
+                    <div class="field">
+                        <p>Theory Name</p>
+                        <select class="topic-select" [ngModel]="theoretics" formControlName="theoryName">
+                            <option disabled>Choose theory</option>
+                            <option *ngFor="let theory of theoretics">{{theory.name}}</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <p>Input</p>
+                        <textarea rows="5" formControlName="input"></textarea>
+                    </div>
+                    <div class="field">
+                        <p>Output</p>
+                        <textarea rows="5" formControlName="output"></textarea>
+                    </div>
+                    <div class="field">
+                        <p>Solution</p>
+                        <textarea rows="5" formControlName="solution"></textarea>
+                    </div>
+                </form>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="sendButton" data-dismiss="modal" (click)="onCreateTask()">Create
+                        Task</button>
+                    <button type="button" class="hintButton" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLongTitle">Create Task Error</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <p class="resultText">Something went wrong, please try again</p>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="hintButton" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-block" *ngFor="let task of sortedTasks">
+    <div class="row">
+        <div class="col">
+            <h4 class="text-left ml-3 mt-3">{{task.name}}</h4>
+        </div>
+        <div class="col">
+            <div class="row">
+                <fa-icon [icon]="['fas', 'lightbulb']" *ngIf="1<=task.complexity"></fa-icon>
+                <fa-icon [icon]="['far', 'lightbulb']" *ngIf="1>=task.complexity"></fa-icon>
+
+                <fa-icon [icon]="['fas', 'lightbulb']" *ngIf="2<=task.complexity"></fa-icon>
+                <fa-icon [icon]="['far', 'lightbulb']" *ngIf="2>=task.complexity"></fa-icon>
+
+                <fa-icon [icon]="['fas', 'lightbulb']" *ngIf="3<=task.complexity"></fa-icon>
+                <fa-icon [icon]="['far', 'lightbulb']" *ngIf="3>=task.complexity"></fa-icon>
+
+                <fa-icon [icon]="['fas', 'lightbulb']" *ngIf="4<=task.complexity"></fa-icon>
+                <fa-icon [icon]="['far', 'lightbulb']" *ngIf="4>=task.complexity"></fa-icon>
+
+                <fa-icon [icon]="['fas', 'lightbulb']" *ngIf="5<=task.complexity"></fa-icon>
+                <fa-icon [icon]="['far', 'lightbulb']" *ngIf="5==task.complexity"></fa-icon>
+            </div>
+        </div>
+        <div class="col c3 d-flex justify-content-end mr-4">
+            <p class="solved-block mt-2" *ngIf="task.solved">solved</p>
+            <p class="unsolved-block mt-2" *ngIf="!task.solved">unsolved</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <h6 class="text-justify ml-3 mt-2 mb-3">{{task.description}}</h6>
+        </div>
+        <div class="col-2 d-flex justify-content-end">
+            <button type="button" class="btn btn-primary w-50 mr-3 mb-3"
+                (click)="onSolveTask(task.task_id)">Solve</button>
+        </div>
+    </div>
+</div>

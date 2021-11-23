@@ -1,0 +1,61 @@
+<div class="customBackground">
+    <div class="row">
+        <div class="card shadow rounded light-green p-4 me-5 m-5 col">
+            <form [formGroup]="form" class="form-group">
+                <h2 class="maintFont">Sign in into your account</h2>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input class="form-control" id="email" placeholder="Email" [formControl]="email"
+                      (keydown.enter)="onLoginClick()">
+                    <div class="mt-0 p-0" *ngIf="email.errors">
+                        <small class="text-danger text-left text-nowrap mt-2"
+                            *ngIf="email.errors?.emailRequired">Email is required</small>
+                        <small class="text-danger text-left text-nowrap mt-2"
+                            *ngIf="email.errors?.emailValid">Email is invalid</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password"
+                        [formControl]="password" (keydown.enter)="onLoginClick()">
+                    <div class="mt-0 p-0" *ngIf="password.errors">
+                        <small class="text-danger text-left text-nowrap mt-2"
+                            *ngIf="password.errors?.passwordRequired">Password is required</small>
+                        <small class="text-danger text-left text-nowrap mt-2"
+                            *ngIf="password.errors?.passwordValid">Password is invalid</small>
+                    </div>
+                </div>
+                <div>
+                    <a class="d-flex justify-content-end" (click)="onResetPassword()">Forgot password?</a>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="button" class="btn btn-primary w-25" (click)="onLoginClick()">Login</button>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="button" class="btn btn-secondary w-25" (click)="onRegisterClick()">Register</button>
+                </div>
+            </form>
+        </div>
+        <div class="d-flex justify-content-center mt-5 col">
+            <h1>WELCOME TO CODE INSIDE!</h1>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centred modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLongTitle">Notification</h5>
+                <button class="closeButtonTimes" data-dismiss="modal" aria-label="Close">
+                    <fa-icon class="closeFaTimes" [icon]="faTimes"></fa-icon>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <p class="resultText">{{notification}}</p>
+            </div>
+        </div>
+    </div>
+</div>

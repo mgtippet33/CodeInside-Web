@@ -29,21 +29,17 @@ For help to get started with Angular, see the online [documentation](https://ang
 ## Installation
 1. Clone/download this repository
 ```
-git clone https://github.com/anastasiiachervotochenko/CodeInside-Web.git
+git clone https://github.com/mgtippet33/CodeInside-Web.git
 ```
-2. Open folder
-```
-cd codeInside
-```
-3. Install npm
+2. Install npm
 ```
 npm install -g npm
 ```
-4. Install angular-cli
+3. Install angular-cli
 ```
 npm install -g @angular/cli
 ```
-5. Build project to make sure everything is fine
+4. Build project to make sure everything is fine
 ```
 ng serve
 ```
@@ -52,6 +48,6 @@ ng serve
 If you want to contribute to the project, you have the following options:
 
 * If you find a bug or want a feature, but don't know how to fix/implement it, please fill
-  an [issue](https://github.com/anastasiiachervotochenko/CodeInside-Web/issues).
+  an [issue](https://github.com/mgtippet33/CodeInside-Web/issues).
 * If you fixed a bug or implemented a feature, please send
-  a [pull request](https://github.com/anastasiiachervotochenko/CodeInside-Web/pulls).
+  a [pull request](https://github.com/mgtippet33/CodeInside-Web/pulls).
