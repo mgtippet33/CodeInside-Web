@@ -79,8 +79,8 @@ export class TaskPageComponent implements OnInit {
         });
 
     openCommentTool: boolean = false;
-    theoryID: number;
     user_id: number;
+    userImages = new Map();
 
     constructor(private httpService: HttpService, private router: Router,
         private route: ActivatedRoute) { }
@@ -100,7 +100,6 @@ export class TaskPageComponent implements OnInit {
             this.username = data['body']['data']['name']
             this.isUserAdmin = data['body']['data']['role'] == 'User' ? false : true
             this.isPremiumUser = data['body']['data']['premium']
-            this.user_image = data['body']['data']['image']
         }, error => { })
         this.route.params.subscribe((params: { [x: string]: string; }) => {
             const taskID = Number.parseInt(params['taskID']);
@@ -156,6 +155,19 @@ export class TaskPageComponent implements OnInit {
                                     comment.task_name = this.taskName
                                     comments[i] = comment
                                 }
+                                for (var i = 0; i < comments.length; ++i) {
+                                    var user_id = comments[i].user_id.toString();
+                                    this.httpService.getUserProfileById(this.token, user_id).subscribe(
+                                        {
+                                            next: (data: any) => {
+                                                data = data['body']['data'];
+                                                var user__id = data['id'];
+                                                var image = data['image'];
+                                                this.userImages.set(user__id, image);
+                                            }
+                                        }
+                                    )
+                                }
                                 this.comments = comments
                             },
                             error: (error: any) => {
@@ -175,10 +187,6 @@ export class TaskPageComponent implements OnInit {
                     theory.theory_id = data[i]['id']
                     theory.name = data[i]['name']
                     this.theoretics[i] = theory;
-
-                    if(data[i]['name'] == this.task.topic_name) {
-                        this.theoryID = data[i]['id']
-                    }
                 }
             }
         });
@@ -309,10 +317,23 @@ export class TaskPageComponent implements OnInit {
     }
 
     onReadLecture() {
-        this.router.navigateByUrl(`theory/${this.theoryID}`)  
+        var theoryID;
+        for (var i = 0; i < this.theoretics.length; ++i) {
+            if(this.theoretics[i].name == this.task.topic_name) {
+                theoryID = this.theoretics[i].theory_id;
+                break;
+            }
+        }
+        this.router.navigateByUrl(`theory/${theoryID}`)  
     }
 
     onBuyPremium() {
         window.location.href = ApiConstants.main_url + ApiConstants.payment_url + this.user_id.toString();
+    }
+
+    onGetUserImage(user_id: number) {
+        if (this.userImages.has(user_id)) {
+            return this.userImages.get(user_id);
+        }
     }
 }

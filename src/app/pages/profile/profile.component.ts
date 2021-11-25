@@ -36,6 +36,8 @@ export class ProfilePageComponent {
     isCurrentUserBanned: boolean;
     isOwnPage = false;
     notification: string;
+    backUrl: string = 'task';
+    viewLogo: boolean = true;
 
     constructor(private httpService: HttpService, private router: Router) {
     }
@@ -55,20 +57,10 @@ export class ProfilePageComponent {
         if (this.token == null) {
             return
         }
-        this.httpService.getUserProfile(this.token).subscribe((dataResponse: any) => {
-            var user = new User();
-            var data = dataResponse.body.data;
-            user.user_id = data.id;
-            user.token = this.token;
-            user.email = data.email
-            user.username = data.name;
-            user.birthday = new Date(data.birthday).toLocaleDateString().replace(/\./g, "/");
-            user.image = data.image;
-            this.isUserAdmin = data.role != 'User'
-            this.user = user;
-            this.initializeForm();
-        }, error => {
-        });
+
+        if(this.isOwnPage) {
+            this.getOwnData();
+        }
 
         if(!this.isOwnPage){
             this.httpService.getUserProfileById(this.token, this.router.url.replace('/profile/','')).subscribe((dataResponse: any) => {
@@ -85,13 +77,33 @@ export class ProfilePageComponent {
                     this.isCurrentUserBanned = data.banned
                     this.user = user;
                     this.initializeForm();
+                    this.viewLogo = false;
                 }
                 else{
                     this.isOwnPage = true;
+                    this.getOwnData();
                     this.router.navigateByUrl('/profile');
                 }
             });
         }
+    }
+
+    private getOwnData(): void {
+        this.httpService.getUserProfile(this.token).subscribe((dataResponse: any) => {
+            var user = new User();
+            var data = dataResponse.body.data;
+            user.user_id = data.id;
+            user.token = this.token;
+            user.email = data.email
+            user.username = data.name;
+            user.premium = data.premium;
+            user.birthday = new Date(data.birthday).toLocaleDateString().replace(/\./g, "/");
+            user.image = data.image;
+            this.isUserAdmin = data.role != 'User'
+            this.user = user;
+            this.initializeForm();
+        }, error => {
+        });
     }
 
     onLogoutClick() {
