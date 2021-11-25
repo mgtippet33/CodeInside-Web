@@ -79,7 +79,6 @@ export class TaskViewPageComponent {
             next: (data: any) => {
                 data = data['data']
                 var tasks = new Array<Task>()
-                console.log(data)
                 for(var i = 0; i < data.length; ++i) {
                     var task = new Task()
                     task.task_id = data[i]['id'] as number
