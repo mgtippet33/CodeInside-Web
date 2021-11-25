@@ -72,7 +72,8 @@ export class TheoryViewPageComponent {
                     var theory = new Theory()
                     theory.theory_id = data[i]['id'] as number
                     theory.name = data[i]['name']
-                    theory.description = data[i]['desc'].replace(/<\/?[a-zA-Z]+>/gi, '').replace(/<\/?[^>]+(>|$)/g, "").substring(0, data[i]['desc'].indexOf('.')) + '...'
+                    var desc = data[i]['desc'].replace(/<\/?[a-zA-Z]+>/gi, '').replace(/<\/?[^>]+(>|$)/g, "")
+                    theory.description = desc.substring(0, desc.indexOf('.')) + '...'
                     theoretics[i] = theory
                 }
                 this.theory = theoretics

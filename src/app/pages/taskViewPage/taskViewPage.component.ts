@@ -132,6 +132,7 @@ export class TaskViewPageComponent {
 
     isTaskSolve(name: string): boolean {
         if (this.solvedTasks.has(name)) {
+            this.tasks.find(task => task.name == name).solved = true;
             return true;
         }
         return false;
